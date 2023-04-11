@@ -5,7 +5,7 @@ spring:
     nacos:
       server-addr: 123.249.39.173:8848
       discovery:
-        namespace: cc759844-006c-4cf0-9570-b45ab80b7eec
+        namespace: ${spring.profiles.active}
         group: mushanimg-project
       config:
         namespace: ${spring.profiles.active}

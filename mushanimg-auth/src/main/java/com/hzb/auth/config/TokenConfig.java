@@ -1,5 +1,6 @@
 package com.hzb.auth.config;
 
+import com.hzb.base.constant.TokenConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,6 @@ import java.util.Arrays;
  */
 @Configuration
 public class TokenConfig {
-
-    @Value("token.key")
-    private String SIGNING_KEY;
-
     @Resource
     private TokenStore tokenStore;
 
@@ -30,7 +27,7 @@ public class TokenConfig {
 
     public JwtAccessTokenConverter accessTokenConverter(){
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGNING_KEY);
+        converter.setSigningKey(TokenConstants.SECRET);
         return converter;
     }
 

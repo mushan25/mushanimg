@@ -20,8 +20,6 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    public static final String[] excludeUrls = { "/login", "/logout", "/refresh" };
-
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManagerBean();
@@ -44,8 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(excludeUrls).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin().successForwardUrl("www.baidu.com");
     }

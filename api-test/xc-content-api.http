@@ -1,0 +1,2 @@
+### 密码模式请求AuthParamsDto参数
+POST {{auth_host}}/auth/oauth/token?client_id=MsWebApp&client_secret=MsWebApp&grant_type=password&username={"username":"admin","password":"1","authType":"password"}
