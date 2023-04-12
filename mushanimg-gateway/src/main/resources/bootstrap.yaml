@@ -1,9 +1,11 @@
 spring:
   application:
     name: gateway
+  profiles:
+    active: dev
   cloud:
     nacos:
-      server-addr: 123.249.39.173:8848
+      server-addr: 119.3.171.130:8848
       discovery:
         namespace: ${spring.profiles.active}
         group: mushanimg-project
@@ -13,8 +15,9 @@ spring:
         file-extension: yaml
         refresh-enabled: true
         shared-configs:
-          - data-id: logging-${spring.profiles.active}
+          - data-id: logging-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: mushanimg-common
             refresh: true
-  profiles:
-    active: dev
+          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            group: mushanimg-common
+            refresh: true

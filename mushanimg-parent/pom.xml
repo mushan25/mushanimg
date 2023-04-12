@@ -10,10 +10,11 @@
     <packaging>pom</packaging>
 
     <properties>
+        <mushanimg.version>1.0-SNAPSHOT</mushanimg.version>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEndcoding>UTF-8</project.reporting.outputEndcoding>
-        <spring-boot.version>2.7.7</spring-boot.version>
+        <spring-boot.version>2.7.3</spring-boot.version>
         <spring-cloud-version>2021.0.4</spring-cloud-version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <org.projectlombok.version>1.18.8</org.projectlombok.version>
@@ -26,6 +27,12 @@
         <redis.version>2.7.7</redis.version>
         <xxl-job-core.version>2.3.1</xxl-job-core.version>
         <commons-lang3.version>3.10</commons-lang3.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+        <commons.io.version>2.11.0</commons.io.version>
+        <commons.fileupload.version>1.4</commons.fileupload.version>
+        <pagehelper.boot.version>1.4.5</pagehelper.boot.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
 
     <dependencyManagement>
@@ -135,6 +142,60 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <!-- 线程传递值 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
+            <!-- pagehelper 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
+
+            <!-- 验证码 -->
+            <dependency>
+                <groupId>com.github.penggle</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
+            </dependency>
+
+            <!-- io常用工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
+            <!-- 文件上传工具类 -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons.fileupload.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-base-core</artifactId>
+                <version>${mushanimg.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-base-redis</artifactId>
+                <version>${mushanimg.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
