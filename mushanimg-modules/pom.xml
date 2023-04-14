@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.hzb</groupId>
+        <artifactId>mushanimg-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../mushanimg-parent</relativePath>
+    </parent>
+
+    <artifactId>mushanimg-modules</artifactId>
+    <packaging>pom</packaging>
+
+
+    <description>
+        mushanimg-modules业务模块
+    </description>
+    <modules>
+        <module>mushanimg-module-system</module>
+    </modules>
+
+</project>

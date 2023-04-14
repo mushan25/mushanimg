@@ -62,7 +62,7 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));
             code = capText.substring(capText.lastIndexOf("@") + 1);
-            image = captchaProducer.createImage(capStr);
+            image = captchaProducerMath.createImage(capStr);
         }else if (CAPTCHA_TYPE_CHAR.equals(captchaType)){
             capStr = code = captchaProducer.createText();
             image = captchaProducer.createImage(capStr);
