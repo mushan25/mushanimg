@@ -16,21 +16,43 @@
         mushanimg-modules-system系统模块
     </description>
     <modules>
-        <module>mushanimg-module-system-api</module>
-        <module>mushanimg-module-system-model</module>
-        <module>mushanimg-module-system-service</module>
+        <module>mushanimg-system-adapter</module>
+        <module>mushanimg-system-app</module>
+        <module>mushanimg-system-client</module>
+        <module>mushanimg-system-domain</module>
+        <module>mushanimg-system-infrastructure</module>
+        <module>mushanimg-system-start</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.hzb</groupId>
-                <artifactId>mushanimg-module-system-model</artifactId>
+                <artifactId>mushanimg-system-adapter</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.hzb</groupId>
-                <artifactId>mushanimg-module-system-service</artifactId>
+                <artifactId>mushanimg-system-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-system-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-system-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-system-infrastructure</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,2 +1,2 @@
 ### 请求验证码
-GET {{gateway_host}}/code
+GET localhost:63010/code

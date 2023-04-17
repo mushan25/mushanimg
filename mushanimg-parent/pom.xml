@@ -11,10 +11,10 @@
 
     <properties>
         <mushanimg.version>1.0-SNAPSHOT</mushanimg.version>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEndcoding>UTF-8</project.reporting.outputEndcoding>
-        <spring-boot.version>2.7.3</spring-boot.version>
+        <spring-boot.version>2.7.6</spring-boot.version>
         <spring-cloud-version>2021.0.4</spring-cloud-version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <org.projectlombok.version>1.18.8</org.projectlombok.version>
@@ -33,6 +33,7 @@
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <pagehelper.boot.version>1.4.5</pagehelper.boot.version>
         <kaptcha.version>2.3.2</kaptcha.version>
+        <cola.components.version>4.3.1</cola.components.version>
     </properties>
 
     <dependencyManagement>
@@ -196,6 +197,14 @@
                 <version>${mushanimg.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-components-bom</artifactId>
+                <version>${cola.components.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -225,7 +234,7 @@
                 <version>3.8.1</version>
                 <configuration>
                     <!-- 指定项目源码编译后的jdk版本 -->
-                    <target>1.8</target>
+                    <target>17</target>
                     <!-- 配置注解预编译 -->
                     <annotationProcessorPaths>
                         <path>

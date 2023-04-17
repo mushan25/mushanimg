@@ -7,12 +7,12 @@ spring:
     nacos:
       server-addr: 119.3.171.130:8848
       discovery:
-        namespace: ${spring.profiles.active}
         group: mushanimg-project
+        namespace: ${spring.profiles.active}
       config:
-        namespace: ${spring.profiles.active}
-        group: mushanimg-project
         file-extension: yaml
+        group: mushanimg-project
+        namespace: ${spring.profiles.active}
         refresh-enabled: true
         shared-configs:
           - data-id: logging-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
@@ -21,3 +21,4 @@ spring:
           - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: mushanimg-common
             refresh: true
+
