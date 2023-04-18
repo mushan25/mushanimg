@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.hzb</groupId>
-            <artifactId>mushanimg-system-app</artifactId>
+            <artifactId>mushanimg-system-adapter</artifactId>
         </dependency>
 
         <dependency>

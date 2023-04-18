@@ -1,2 +1,5 @@
 ### 请求验证码
-GET localhost:63010/code
+GET {{gateway_host}}:63010/code
+
+###
+GET localhost:63110/system/user?username=admin
