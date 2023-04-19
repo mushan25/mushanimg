@@ -1,0 +1,13 @@
+grpc:
+  server:
+    port: 9099
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 119.3.171.130:8848
+        username: nacos
+        password: nacos
+        enabled: true
+  application:
+    name: grpc_server

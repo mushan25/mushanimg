@@ -1,14 +1,12 @@
-package com.hzb.system.menu.getawayimpl;
+package com.hzb.system.menu.gatewayimpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.menu.model.entities.Menu;
-import com.hzb.system.domain.menu.model.valueobject.MenuList;
-import com.hzb.system.menu.getawayimpl.database.MenuMapper;
-import com.hzb.system.menu.getawayimpl.database.dataobject.MenuDO;
-import ma.glasnost.orika.MapperFacade;
+import com.hzb.system.menu.gatewayimpl.database.MenuMapper;
+import com.hzb.system.menu.gatewayimpl.database.dataobject.MenuDO;
+import io.github.zhaord.mapstruct.plus.IObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,11 +22,11 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     private final MenuMapper menuMapper;
 
-    private final MapperFacade mapperFacade;
+    private final IObjectMapper mapper;
 
-    public MenuGatewayImpl(MenuMapper menuMapper, MapperFacade mapperFacade) {
+    public MenuGatewayImpl(MenuMapper menuMapper, IObjectMapper mapper) {
         this.menuMapper = menuMapper;
-        this.mapperFacade = mapperFacade;
+        this.mapper = mapper;
     }
 
     @Override
@@ -47,7 +45,7 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
         // 4、拷贝菜单信息
 
-        return mapperFacade.mapAsList(menuDOS, Menu.class);
+        return mapper.map(menuDOS, Menu.class);
     }
 
     @Override

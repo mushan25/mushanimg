@@ -21,6 +21,7 @@
     <modules>
         <module>mushanimg-base-redis</module>
         <module>mushanimg-base-core</module>
+        <module>mushanimg-base-grpc</module>
     </modules>
 
 </project>

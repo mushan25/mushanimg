@@ -15,7 +15,4 @@ public interface UserGateway {
      * @return 用户
      */
     User getByUserName(String userName);
-
-    AuthUser getAuthUserByUserName(String userName);
-
 }

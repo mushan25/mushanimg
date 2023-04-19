@@ -87,12 +87,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
+      return internal_static_user_UserGetRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_fieldAccessorTable
+      return internal_static_user_UserGetRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.UserGetRequest.class, com.hzb.lib.user.proto.UserProto.UserGetRequest.Builder.class);
     }
@@ -288,12 +288,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserGetRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
+        return internal_static_user_UserGetRequest_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_fieldAccessorTable
+        return internal_static_user_UserGetRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.UserGetRequest.class, com.hzb.lib.user.proto.UserProto.UserGetRequest.Builder.class);
       }
@@ -322,11 +322,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
+        return internal_static_user_UserGetRequest_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetRequest getDefaultInstanceForType() {
-        return com.hzb.lib.user.proto.UserProto.UserGetRequest.getDefaultInstance();
+        return getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetRequest build() {
@@ -380,7 +380,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserGetRequest other) {
-        if (other == com.hzb.lib.user.proto.UserProto.UserGetRequest.getDefaultInstance()) return this;
+        if (other == getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
@@ -546,17 +546,17 @@ public final class UserProto {
     com.hzb.lib.user.proto.UserProto.UserOrBuilder getUserOrBuilder();
 
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    boolean hasMenu();
+    boolean hasPermissions();
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    com.hzb.lib.user.proto.UserProto.Menu getMenu();
+    com.hzb.lib.user.proto.UserProto.Permissions getPermissions();
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    com.hzb.lib.user.proto.UserProto.MenuOrBuilder getMenuOrBuilder();
+    com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder getPermissionsOrBuilder();
   }
   /**
    * Protobuf type {@code user.UserGetReply}
@@ -611,14 +611,14 @@ public final class UserProto {
               break;
             }
             case 18: {
-              com.hzb.lib.user.proto.UserProto.Menu.Builder subBuilder = null;
-              if (menu_ != null) {
-                subBuilder = menu_.toBuilder();
+              com.hzb.lib.user.proto.UserProto.Permissions.Builder subBuilder = null;
+              if (permissions_ != null) {
+                subBuilder = permissions_.toBuilder();
               }
-              menu_ = input.readMessage(com.hzb.lib.user.proto.UserProto.Menu.parser(), extensionRegistry);
+              permissions_ = input.readMessage(com.hzb.lib.user.proto.UserProto.Permissions.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom(menu_);
-                menu_ = subBuilder.buildPartial();
+                subBuilder.mergeFrom(permissions_);
+                permissions_ = subBuilder.buildPartial();
               }
 
               break;
@@ -636,12 +636,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
+      return internal_static_user_UserGetReply_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_fieldAccessorTable
+      return internal_static_user_UserGetReply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.UserGetReply.class, com.hzb.lib.user.proto.UserProto.UserGetReply.Builder.class);
     }
@@ -667,25 +667,25 @@ public final class UserProto {
       return getUser();
     }
 
-    public static final int MENU_FIELD_NUMBER = 2;
-    private com.hzb.lib.user.proto.UserProto.Menu menu_;
+    public static final int PERMISSIONS_FIELD_NUMBER = 2;
+    private com.hzb.lib.user.proto.UserProto.Permissions permissions_;
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    public boolean hasMenu() {
-      return menu_ != null;
+    public boolean hasPermissions() {
+      return permissions_ != null;
     }
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    public com.hzb.lib.user.proto.UserProto.Menu getMenu() {
-      return menu_ == null ? com.hzb.lib.user.proto.UserProto.Menu.getDefaultInstance() : menu_;
+    public com.hzb.lib.user.proto.UserProto.Permissions getPermissions() {
+      return permissions_ == null ? com.hzb.lib.user.proto.UserProto.Permissions.getDefaultInstance() : permissions_;
     }
     /**
-     * <code>.user.Menu menu = 2;</code>
+     * <code>.user.Permissions permissions = 2;</code>
      */
-    public com.hzb.lib.user.proto.UserProto.MenuOrBuilder getMenuOrBuilder() {
-      return getMenu();
+    public com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder getPermissionsOrBuilder() {
+      return getPermissions();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -703,8 +703,8 @@ public final class UserProto {
       if (user_ != null) {
         output.writeMessage(1, getUser());
       }
-      if (menu_ != null) {
-        output.writeMessage(2, getMenu());
+      if (permissions_ != null) {
+        output.writeMessage(2, getPermissions());
       }
     }
 
@@ -717,9 +717,9 @@ public final class UserProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getUser());
       }
-      if (menu_ != null) {
+      if (permissions_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getMenu());
+          .computeMessageSize(2, getPermissions());
       }
       memoizedSize = size;
       return size;
@@ -742,10 +742,10 @@ public final class UserProto {
         result = result && getUser()
             .equals(other.getUser());
       }
-      result = result && (hasMenu() == other.hasMenu());
-      if (hasMenu()) {
-        result = result && getMenu()
-            .equals(other.getMenu());
+      result = result && (hasPermissions() == other.hasPermissions());
+      if (hasPermissions()) {
+        result = result && getPermissions()
+            .equals(other.getPermissions());
       }
       return result;
     }
@@ -761,9 +761,9 @@ public final class UserProto {
         hash = (37 * hash) + USER_FIELD_NUMBER;
         hash = (53 * hash) + getUser().hashCode();
       }
-      if (hasMenu()) {
-        hash = (37 * hash) + MENU_FIELD_NUMBER;
-        hash = (53 * hash) + getMenu().hashCode();
+      if (hasPermissions()) {
+        hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getPermissions().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -867,12 +867,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserGetReplyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
+        return internal_static_user_UserGetReply_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_fieldAccessorTable
+        return internal_static_user_UserGetReply_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.UserGetReply.class, com.hzb.lib.user.proto.UserProto.UserGetReply.Builder.class);
       }
@@ -900,22 +900,22 @@ public final class UserProto {
           user_ = null;
           userBuilder_ = null;
         }
-        if (menuBuilder_ == null) {
-          menu_ = null;
+        if (permissionsBuilder_ == null) {
+          permissions_ = null;
         } else {
-          menu_ = null;
-          menuBuilder_ = null;
+          permissions_ = null;
+          permissionsBuilder_ = null;
         }
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
+        return internal_static_user_UserGetReply_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetReply getDefaultInstanceForType() {
-        return com.hzb.lib.user.proto.UserProto.UserGetReply.getDefaultInstance();
+        return getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetReply build() {
@@ -933,10 +933,10 @@ public final class UserProto {
         } else {
           result.user_ = userBuilder_.build();
         }
-        if (menuBuilder_ == null) {
-          result.menu_ = menu_;
+        if (permissionsBuilder_ == null) {
+          result.permissions_ = permissions_;
         } else {
-          result.menu_ = menuBuilder_.build();
+          result.permissions_ = permissionsBuilder_.build();
         }
         onBuilt();
         return result;
@@ -978,12 +978,12 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserGetReply other) {
-        if (other == com.hzb.lib.user.proto.UserProto.UserGetReply.getDefaultInstance()) return this;
+        if (other == getDefaultInstance()) return this;
         if (other.hasUser()) {
           mergeUser(other.getUser());
         }
-        if (other.hasMenu()) {
-          mergeMenu(other.getMenu());
+        if (other.hasPermissions()) {
+          mergePermissions(other.getPermissions());
         }
         onChanged();
         return this;
@@ -1128,121 +1128,121 @@ public final class UserProto {
         return userBuilder_;
       }
 
-      private com.hzb.lib.user.proto.UserProto.Menu menu_ = null;
+      private com.hzb.lib.user.proto.UserProto.Permissions permissions_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.hzb.lib.user.proto.UserProto.Menu, com.hzb.lib.user.proto.UserProto.Menu.Builder, com.hzb.lib.user.proto.UserProto.MenuOrBuilder> menuBuilder_;
+          com.hzb.lib.user.proto.UserProto.Permissions, com.hzb.lib.user.proto.UserProto.Permissions.Builder, com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder> permissionsBuilder_;
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public boolean hasMenu() {
-        return menuBuilder_ != null || menu_ != null;
+      public boolean hasPermissions() {
+        return permissionsBuilder_ != null || permissions_ != null;
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public com.hzb.lib.user.proto.UserProto.Menu getMenu() {
-        if (menuBuilder_ == null) {
-          return menu_ == null ? com.hzb.lib.user.proto.UserProto.Menu.getDefaultInstance() : menu_;
+      public com.hzb.lib.user.proto.UserProto.Permissions getPermissions() {
+        if (permissionsBuilder_ == null) {
+          return permissions_ == null ? com.hzb.lib.user.proto.UserProto.Permissions.getDefaultInstance() : permissions_;
         } else {
-          return menuBuilder_.getMessage();
+          return permissionsBuilder_.getMessage();
         }
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public Builder setMenu(com.hzb.lib.user.proto.UserProto.Menu value) {
-        if (menuBuilder_ == null) {
+      public Builder setPermissions(com.hzb.lib.user.proto.UserProto.Permissions value) {
+        if (permissionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          menu_ = value;
+          permissions_ = value;
           onChanged();
         } else {
-          menuBuilder_.setMessage(value);
+          permissionsBuilder_.setMessage(value);
         }
 
         return this;
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public Builder setMenu(
-          com.hzb.lib.user.proto.UserProto.Menu.Builder builderForValue) {
-        if (menuBuilder_ == null) {
-          menu_ = builderForValue.build();
+      public Builder setPermissions(
+          com.hzb.lib.user.proto.UserProto.Permissions.Builder builderForValue) {
+        if (permissionsBuilder_ == null) {
+          permissions_ = builderForValue.build();
           onChanged();
         } else {
-          menuBuilder_.setMessage(builderForValue.build());
+          permissionsBuilder_.setMessage(builderForValue.build());
         }
 
         return this;
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public Builder mergeMenu(com.hzb.lib.user.proto.UserProto.Menu value) {
-        if (menuBuilder_ == null) {
-          if (menu_ != null) {
-            menu_ =
-              com.hzb.lib.user.proto.UserProto.Menu.newBuilder(menu_).mergeFrom(value).buildPartial();
+      public Builder mergePermissions(com.hzb.lib.user.proto.UserProto.Permissions value) {
+        if (permissionsBuilder_ == null) {
+          if (permissions_ != null) {
+            permissions_ =
+              com.hzb.lib.user.proto.UserProto.Permissions.newBuilder(permissions_).mergeFrom(value).buildPartial();
           } else {
-            menu_ = value;
+            permissions_ = value;
           }
           onChanged();
         } else {
-          menuBuilder_.mergeFrom(value);
+          permissionsBuilder_.mergeFrom(value);
         }
 
         return this;
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public Builder clearMenu() {
-        if (menuBuilder_ == null) {
-          menu_ = null;
+      public Builder clearPermissions() {
+        if (permissionsBuilder_ == null) {
+          permissions_ = null;
           onChanged();
         } else {
-          menu_ = null;
-          menuBuilder_ = null;
+          permissions_ = null;
+          permissionsBuilder_ = null;
         }
 
         return this;
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public com.hzb.lib.user.proto.UserProto.Menu.Builder getMenuBuilder() {
+      public com.hzb.lib.user.proto.UserProto.Permissions.Builder getPermissionsBuilder() {
         
         onChanged();
-        return getMenuFieldBuilder().getBuilder();
+        return getPermissionsFieldBuilder().getBuilder();
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
-      public com.hzb.lib.user.proto.UserProto.MenuOrBuilder getMenuOrBuilder() {
-        if (menuBuilder_ != null) {
-          return menuBuilder_.getMessageOrBuilder();
+      public com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder getPermissionsOrBuilder() {
+        if (permissionsBuilder_ != null) {
+          return permissionsBuilder_.getMessageOrBuilder();
         } else {
-          return menu_ == null ?
-              com.hzb.lib.user.proto.UserProto.Menu.getDefaultInstance() : menu_;
+          return permissions_ == null ?
+              com.hzb.lib.user.proto.UserProto.Permissions.getDefaultInstance() : permissions_;
         }
       }
       /**
-       * <code>.user.Menu menu = 2;</code>
+       * <code>.user.Permissions permissions = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.hzb.lib.user.proto.UserProto.Menu, com.hzb.lib.user.proto.UserProto.Menu.Builder, com.hzb.lib.user.proto.UserProto.MenuOrBuilder> 
-          getMenuFieldBuilder() {
-        if (menuBuilder_ == null) {
-          menuBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.hzb.lib.user.proto.UserProto.Menu, com.hzb.lib.user.proto.UserProto.Menu.Builder, com.hzb.lib.user.proto.UserProto.MenuOrBuilder>(
-                  getMenu(),
+          com.hzb.lib.user.proto.UserProto.Permissions, com.hzb.lib.user.proto.UserProto.Permissions.Builder, com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder> 
+          getPermissionsFieldBuilder() {
+        if (permissionsBuilder_ == null) {
+          permissionsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.hzb.lib.user.proto.UserProto.Permissions, com.hzb.lib.user.proto.UserProto.Permissions.Builder, com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder>(
+                  getPermissions(),
                   getParentForChildren(),
                   isClean());
-          menu_ = null;
+          permissions_ = null;
         }
-        return menuBuilder_;
+        return permissionsBuilder_;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1377,12 +1377,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
+      return internal_static_user_User_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_User_fieldAccessorTable
+      return internal_static_user_User_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.User.class, com.hzb.lib.user.proto.UserProto.User.Builder.class);
     }
@@ -1599,12 +1599,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
+        return internal_static_user_User_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_fieldAccessorTable
+        return internal_static_user_User_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.User.class, com.hzb.lib.user.proto.UserProto.User.Builder.class);
       }
@@ -1635,11 +1635,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
+        return internal_static_user_User_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.User getDefaultInstanceForType() {
-        return com.hzb.lib.user.proto.UserProto.User.getDefaultInstance();
+        return getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.User build() {
@@ -1694,7 +1694,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.User other) {
-        if (other == com.hzb.lib.user.proto.UserProto.User.getDefaultInstance()) return this;
+        if (other == getDefaultInstance()) return this;
         if (other.getUserId() != 0L) {
           setUserId(other.getUserId());
         }
@@ -1871,33 +1871,42 @@ public final class UserProto {
 
   }
 
-  public interface MenuOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:user.Menu)
+  public interface PermissionsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:user.Permissions)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string perms = 1;</code>
+     * <code>repeated string permissions = 1;</code>
      */
-    java.lang.String getPerms();
+    java.util.List<java.lang.String>
+        getPermissionsList();
     /**
-     * <code>string perms = 1;</code>
+     * <code>repeated string permissions = 1;</code>
+     */
+    int getPermissionsCount();
+    /**
+     * <code>repeated string permissions = 1;</code>
+     */
+    java.lang.String getPermissions(int index);
+    /**
+     * <code>repeated string permissions = 1;</code>
      */
     com.google.protobuf.ByteString
-        getPermsBytes();
+        getPermissionsBytes(int index);
   }
   /**
-   * Protobuf type {@code user.Menu}
+   * Protobuf type {@code user.Permissions}
    */
-  public  static final class Menu extends
+  public  static final class Permissions extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:user.Menu)
-      MenuOrBuilder {
-    // Use Menu.newBuilder() to construct.
-    private Menu(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:user.Permissions)
+      PermissionsOrBuilder {
+    // Use Permissions.newBuilder() to construct.
+    private Permissions(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Menu() {
-      perms_ = "";
+    private Permissions() {
+      permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -1905,7 +1914,7 @@ public final class UserProto {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private Menu(
+    private Permissions(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1927,8 +1936,11 @@ public final class UserProto {
             }
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
-
-              perms_ = s;
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                permissions_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              permissions_.add(s);
               break;
             }
           }
@@ -1939,53 +1951,51 @@ public final class UserProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          permissions_ = permissions_.getUnmodifiableView();
+        }
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_Menu_descriptor;
+      return internal_static_user_Permissions_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.hzb.lib.user.proto.UserProto.internal_static_user_Menu_fieldAccessorTable
+      return internal_static_user_Permissions_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.hzb.lib.user.proto.UserProto.Menu.class, com.hzb.lib.user.proto.UserProto.Menu.Builder.class);
+              com.hzb.lib.user.proto.UserProto.Permissions.class, com.hzb.lib.user.proto.UserProto.Permissions.Builder.class);
     }
 
-    public static final int PERMS_FIELD_NUMBER = 1;
-    private volatile java.lang.Object perms_;
+    public static final int PERMISSIONS_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList permissions_;
     /**
-     * <code>string perms = 1;</code>
+     * <code>repeated string permissions = 1;</code>
      */
-    public java.lang.String getPerms() {
-      java.lang.Object ref = perms_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        perms_ = s;
-        return s;
-      }
+    public com.google.protobuf.ProtocolStringList
+        getPermissionsList() {
+      return permissions_;
     }
     /**
-     * <code>string perms = 1;</code>
+     * <code>repeated string permissions = 1;</code>
+     */
+    public int getPermissionsCount() {
+      return permissions_.size();
+    }
+    /**
+     * <code>repeated string permissions = 1;</code>
+     */
+    public java.lang.String getPermissions(int index) {
+      return permissions_.get(index);
+    }
+    /**
+     * <code>repeated string permissions = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getPermsBytes() {
-      java.lang.Object ref = perms_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        perms_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+        getPermissionsBytes(int index) {
+      return permissions_.getByteString(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2000,8 +2010,8 @@ public final class UserProto {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getPermsBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, perms_);
+      for (int i = 0; i < permissions_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, permissions_.getRaw(i));
       }
     }
 
@@ -2010,8 +2020,13 @@ public final class UserProto {
       if (size != -1) return size;
 
       size = 0;
-      if (!getPermsBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, perms_);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < permissions_.size(); i++) {
+          dataSize += computeStringSizeNoTag(permissions_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getPermissionsList().size();
       }
       memoizedSize = size;
       return size;
@@ -2023,14 +2038,14 @@ public final class UserProto {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof com.hzb.lib.user.proto.UserProto.Menu)) {
+      if (!(obj instanceof com.hzb.lib.user.proto.UserProto.Permissions)) {
         return super.equals(obj);
       }
-      com.hzb.lib.user.proto.UserProto.Menu other = (com.hzb.lib.user.proto.UserProto.Menu) obj;
+      com.hzb.lib.user.proto.UserProto.Permissions other = (com.hzb.lib.user.proto.UserProto.Permissions) obj;
 
       boolean result = true;
-      result = result && getPerms()
-          .equals(other.getPerms());
+      result = result && getPermissionsList()
+          .equals(other.getPermissionsList());
       return result;
     }
 
@@ -2041,76 +2056,78 @@ public final class UserProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + PERMS_FIELD_NUMBER;
-      hash = (53 * hash) + getPerms().hashCode();
+      if (getPermissionsCount() > 0) {
+        hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getPermissionsList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(byte[] data)
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(java.io.InputStream input)
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseDelimitedFrom(java.io.InputStream input)
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseDelimitedFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static com.hzb.lib.user.proto.UserProto.Menu parseFrom(
+    public static com.hzb.lib.user.proto.UserProto.Permissions parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2122,7 +2139,7 @@ public final class UserProto {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(com.hzb.lib.user.proto.UserProto.Menu prototype) {
+    public static Builder newBuilder(com.hzb.lib.user.proto.UserProto.Permissions prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2137,25 +2154,25 @@ public final class UserProto {
       return builder;
     }
     /**
-     * Protobuf type {@code user.Menu}
+     * Protobuf type {@code user.Permissions}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:user.Menu)
-        com.hzb.lib.user.proto.UserProto.MenuOrBuilder {
+        // @@protoc_insertion_point(builder_implements:user.Permissions)
+        com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_Menu_descriptor;
+        return internal_static_user_Permissions_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_Menu_fieldAccessorTable
+        return internal_static_user_Permissions_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                com.hzb.lib.user.proto.UserProto.Menu.class, com.hzb.lib.user.proto.UserProto.Menu.Builder.class);
+                com.hzb.lib.user.proto.UserProto.Permissions.class, com.hzb.lib.user.proto.UserProto.Permissions.Builder.class);
       }
 
-      // Construct using com.hzb.lib.user.proto.UserProto.Menu.newBuilder()
+      // Construct using com.hzb.lib.user.proto.UserProto.Permissions.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2172,31 +2189,36 @@ public final class UserProto {
       }
       public Builder clear() {
         super.clear();
-        perms_ = "";
-
+        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return com.hzb.lib.user.proto.UserProto.internal_static_user_Menu_descriptor;
+        return internal_static_user_Permissions_descriptor;
       }
 
-      public com.hzb.lib.user.proto.UserProto.Menu getDefaultInstanceForType() {
-        return com.hzb.lib.user.proto.UserProto.Menu.getDefaultInstance();
+      public com.hzb.lib.user.proto.UserProto.Permissions getDefaultInstanceForType() {
+        return getDefaultInstance();
       }
 
-      public com.hzb.lib.user.proto.UserProto.Menu build() {
-        com.hzb.lib.user.proto.UserProto.Menu result = buildPartial();
+      public com.hzb.lib.user.proto.UserProto.Permissions build() {
+        com.hzb.lib.user.proto.UserProto.Permissions result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public com.hzb.lib.user.proto.UserProto.Menu buildPartial() {
-        com.hzb.lib.user.proto.UserProto.Menu result = new com.hzb.lib.user.proto.UserProto.Menu(this);
-        result.perms_ = perms_;
+      public com.hzb.lib.user.proto.UserProto.Permissions buildPartial() {
+        com.hzb.lib.user.proto.UserProto.Permissions result = new com.hzb.lib.user.proto.UserProto.Permissions(this);
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          permissions_ = permissions_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.permissions_ = permissions_;
         onBuilt();
         return result;
       }
@@ -2228,18 +2250,24 @@ public final class UserProto {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.hzb.lib.user.proto.UserProto.Menu) {
-          return mergeFrom((com.hzb.lib.user.proto.UserProto.Menu)other);
+        if (other instanceof com.hzb.lib.user.proto.UserProto.Permissions) {
+          return mergeFrom((com.hzb.lib.user.proto.UserProto.Permissions)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.Menu other) {
-        if (other == com.hzb.lib.user.proto.UserProto.Menu.getDefaultInstance()) return this;
-        if (!other.getPerms().isEmpty()) {
-          perms_ = other.perms_;
+      public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.Permissions other) {
+        if (other == getDefaultInstance()) return this;
+        if (!other.permissions_.isEmpty()) {
+          if (permissions_.isEmpty()) {
+            permissions_ = other.permissions_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensurePermissionsIsMutable();
+            permissions_.addAll(other.permissions_);
+          }
           onChanged();
         }
         onChanged();
@@ -2254,11 +2282,11 @@ public final class UserProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.hzb.lib.user.proto.UserProto.Menu parsedMessage = null;
+        com.hzb.lib.user.proto.UserProto.Permissions parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.hzb.lib.user.proto.UserProto.Menu) e.getUnfinishedMessage();
+          parsedMessage = (com.hzb.lib.user.proto.UserProto.Permissions) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2267,72 +2295,98 @@ public final class UserProto {
         }
         return this;
       }
+      private int bitField0_;
 
-      private java.lang.Object perms_ = "";
-      /**
-       * <code>string perms = 1;</code>
-       */
-      public java.lang.String getPerms() {
-        java.lang.Object ref = perms_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          perms_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      private com.google.protobuf.LazyStringList permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensurePermissionsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          permissions_ = new com.google.protobuf.LazyStringArrayList(permissions_);
+          bitField0_ |= 0x00000001;
+         }
       }
       /**
-       * <code>string perms = 1;</code>
+       * <code>repeated string permissions = 1;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getPermissionsList() {
+        return permissions_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string permissions = 1;</code>
+       */
+      public int getPermissionsCount() {
+        return permissions_.size();
+      }
+      /**
+       * <code>repeated string permissions = 1;</code>
+       */
+      public java.lang.String getPermissions(int index) {
+        return permissions_.get(index);
+      }
+      /**
+       * <code>repeated string permissions = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getPermsBytes() {
-        java.lang.Object ref = perms_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          perms_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
+          getPermissionsBytes(int index) {
+        return permissions_.getByteString(index);
       }
       /**
-       * <code>string perms = 1;</code>
+       * <code>repeated string permissions = 1;</code>
        */
-      public Builder setPerms(
+      public Builder setPermissions(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePermissionsIsMutable();
+        permissions_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 1;</code>
+       */
+      public Builder addPermissions(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
-        perms_ = value;
+  ensurePermissionsIsMutable();
+        permissions_.add(value);
         onChanged();
         return this;
       }
       /**
-       * <code>string perms = 1;</code>
+       * <code>repeated string permissions = 1;</code>
        */
-      public Builder clearPerms() {
-        
-        perms_ = getDefaultInstance().getPerms();
+      public Builder addAllPermissions(
+          java.lang.Iterable<java.lang.String> values) {
+        ensurePermissionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, permissions_);
         onChanged();
         return this;
       }
       /**
-       * <code>string perms = 1;</code>
+       * <code>repeated string permissions = 1;</code>
        */
-      public Builder setPermsBytes(
+      public Builder clearPermissions() {
+        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 1;</code>
+       */
+      public Builder addPermissionsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
-        perms_ = value;
+        ensurePermissionsIsMutable();
+        permissions_.add(value);
         onChanged();
         return this;
       }
@@ -2347,39 +2401,39 @@ public final class UserProto {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:user.Menu)
+      // @@protoc_insertion_point(builder_scope:user.Permissions)
     }
 
-    // @@protoc_insertion_point(class_scope:user.Menu)
-    private static final com.hzb.lib.user.proto.UserProto.Menu DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:user.Permissions)
+    private static final com.hzb.lib.user.proto.UserProto.Permissions DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new com.hzb.lib.user.proto.UserProto.Menu();
+      DEFAULT_INSTANCE = new com.hzb.lib.user.proto.UserProto.Permissions();
     }
 
-    public static com.hzb.lib.user.proto.UserProto.Menu getDefaultInstance() {
+    public static com.hzb.lib.user.proto.UserProto.Permissions getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Menu>
-        PARSER = new com.google.protobuf.AbstractParser<Menu>() {
-      public Menu parsePartialFrom(
+    private static final com.google.protobuf.Parser<Permissions>
+        PARSER = new com.google.protobuf.AbstractParser<Permissions>() {
+      public Permissions parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Menu(input, extensionRegistry);
+          return new Permissions(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Menu> parser() {
+    public static com.google.protobuf.Parser<Permissions> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Menu> getParserForType() {
+    public com.google.protobuf.Parser<Permissions> getParserForType() {
       return PARSER;
     }
 
-    public com.hzb.lib.user.proto.UserProto.Menu getDefaultInstanceForType() {
+    public com.hzb.lib.user.proto.UserProto.Permissions getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2401,10 +2455,10 @@ public final class UserProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_user_User_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_user_Menu_descriptor;
+    internal_static_user_Permissions_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_user_Menu_fieldAccessorTable;
+      internal_static_user_Permissions_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -2415,13 +2469,14 @@ public final class UserProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021userservice.proto\022\004user\"\036\n\016UserGetRequ" +
-      "est\022\014\n\004name\030\001 \001(\t\"B\n\014UserGetReply\022\030\n\004use" +
-      "r\030\001 \001(\0132\n.user.User\022\030\n\004menu\030\002 \001(\0132\n.user" +
-      ".Menu\"(\n\004User\022\016\n\006userId\030\001 \001(\022\022\020\n\010passwor" +
-      "d\030\002 \001(\t\"\025\n\004Menu\022\r\n\005perms\030\001 \001(\t2M\n\013UserSe" +
-      "rvice\022>\n\020getUserInfoPerms\022\024.user.UserGet" +
-      "Request\032\022.user.UserGetReply\"\000B%\n\026com.hzb" +
-      ".lib.user.protoB\tUserProtoP\000b\006proto3"
+      "est\022\014\n\004name\030\001 \001(\t\"P\n\014UserGetReply\022\030\n\004use" +
+      "r\030\001 \001(\0132\n.user.User\022&\n\013permissions\030\002 \001(\013" +
+      "2\021.user.Permissions\"(\n\004User\022\016\n\006userId\030\001 " +
+      "\001(\022\022\020\n\010password\030\002 \001(\t\"\"\n\013Permissions\022\023\n\013" +
+      "permissions\030\001 \003(\t2M\n\013UserService\022>\n\020getU" +
+      "serInfoPerms\022\024.user.UserGetRequest\032\022.use" +
+      "r.UserGetReply\"\000B%\n\026com.hzb.lib.user.pro" +
+      "toB\tUserProtoP\000b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2446,19 +2501,19 @@ public final class UserProto {
     internal_static_user_UserGetReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_UserGetReply_descriptor,
-        new java.lang.String[] { "User", "Menu", });
+        new java.lang.String[] { "User", "Permissions", });
     internal_static_user_User_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_user_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_User_descriptor,
         new java.lang.String[] { "UserId", "Password", });
-    internal_static_user_Menu_descriptor =
+    internal_static_user_Permissions_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_user_Menu_fieldAccessorTable = new
+    internal_static_user_Permissions_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_user_Menu_descriptor,
-        new java.lang.String[] { "Perms", });
+        internal_static_user_Permissions_descriptor,
+        new java.lang.String[] { "Permissions", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

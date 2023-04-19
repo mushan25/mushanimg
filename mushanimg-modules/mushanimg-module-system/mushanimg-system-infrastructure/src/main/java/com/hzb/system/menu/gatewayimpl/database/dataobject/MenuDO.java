@@ -1,4 +1,4 @@
-package com.hzb.system.menu.getawayimpl.database.dataobject;
+package com.hzb.system.menu.gatewayimpl.database.dataobject;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.hzb.system.domain.menu.model.entities.Menu;
+import io.github.zhaord.mapstruct.plus.annotations.AutoMap;
 import lombok.Data;
 
 /**
@@ -15,6 +18,7 @@ import lombok.Data;
  */
 @TableName(value ="ms_menu")
 @Data
+@AutoMap(targetType = Menu.class)
 public class MenuDO implements Serializable {
     /**
      * 菜单ID

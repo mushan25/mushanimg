@@ -38,7 +38,9 @@
         <protobuf.version>3.21.7</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <grpc-starter.version>2.13.0.RELEASE</grpc-starter.version>
-        <orika.version>1.9.0</orika.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+        <mapstruct-plus.version>1.0.1.RELEASE</mapstruct-plus.version>
+        <grpc-java.version>3.21.7</grpc-java.version>
     </properties>
 
     <dependencyManagement>
@@ -204,6 +206,12 @@
 
             <dependency>
                 <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-base-grpc</artifactId>
+                <version>${mushanimg.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.hzb</groupId>
                 <artifactId>mushanimg-lib</artifactId>
                 <version>${mushanimg.version}</version>
             </dependency>
@@ -239,11 +247,26 @@
                 <artifactId>grpc-client-spring-boot-starter</artifactId>
                 <version>${grpc-starter.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.zhaord</groupId>
+                <artifactId>mapstruct-spring-plus-boot-starter</artifactId>
+                <version>${mapstruct-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${grpc-java.version}</version>
+            </dependency>
 
             <dependency>
-                <groupId>net.rakugakibox.spring.boot</groupId>
-                <artifactId>orika-spring-boot-starter</artifactId>
-                <version>${orika.version}</version>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-all</artifactId>
+                <version>${grpc.version}</version>
             </dependency>
 
         </dependencies>

@@ -44,11 +44,6 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
         return user;
     }
-
-    @Override
-    public AuthUser getAuthUserByUserName(String userName) {
-        return null;
-    }
 }
 
 

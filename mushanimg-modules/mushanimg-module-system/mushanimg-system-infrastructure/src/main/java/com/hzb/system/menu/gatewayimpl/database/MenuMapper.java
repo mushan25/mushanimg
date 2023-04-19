@@ -1,7 +1,7 @@
-package com.hzb.system.menu.getawayimpl.database;
+package com.hzb.system.menu.gatewayimpl.database;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hzb.system.menu.getawayimpl.database.dataobject.MenuDO;
+import com.hzb.system.menu.gatewayimpl.database.dataobject.MenuDO;
 
 import java.util.List;
 

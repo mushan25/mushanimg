@@ -16,7 +16,7 @@ message UserGetRequest{
 
 message UserGetReply {
   User user = 1;
-  Menu menu = 2;
+  Permissions permissions = 2;
 }
 
 message User {
@@ -24,6 +24,6 @@ message User {
   string password = 2;
 }
 
-message Menu {
-  string perms = 1;
+message Permissions {
+  repeated string permissions = 1;
 }
