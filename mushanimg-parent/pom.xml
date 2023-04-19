@@ -25,7 +25,7 @@
         <mybatis-plus-boot-starter.version>3.4.1</mybatis-plus-boot-starter.version>
         <minio.version>8.4.3</minio.version>
         <redis.version>2.7.7</redis.version>
-        <xxl-job-core.version>2.3.1</xxl-job-core.version>
+        <xxl-job-core.version>2.4.0</xxl-job-core.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <jjwt.version>0.9.1</jjwt.version>
         <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
@@ -37,6 +37,8 @@
         <grpc.version>1.53.0</grpc.version>
         <protobuf.version>3.21.7</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
+        <grpc-starter.version>2.13.0.RELEASE</grpc-starter.version>
+        <orika.version>1.9.0</orika.version>
     </properties>
 
     <dependencyManagement>
@@ -79,10 +81,6 @@
                 <optional>true</optional>
             </dependency>
 
-            作者：江南一点雨
-            链接：https://juejin.cn/post/7218743537495490620
-            来源：稀土掘金
-            著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
@@ -205,6 +203,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-lib</artifactId>
+                <version>${mushanimg.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-components-bom</artifactId>
                 <version>${cola.components.version}</version>
@@ -222,6 +226,24 @@
                 <groupId>io.grpc</groupId>
                 <artifactId>grpc-protobuf</artifactId>
                 <version>${grpc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${grpc-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-client-spring-boot-starter</artifactId>
+                <version>${grpc-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.rakugakibox.spring.boot</groupId>
+                <artifactId>orika-spring-boot-starter</artifactId>
+                <version>${orika.version}</version>
             </dependency>
 
         </dependencies>
@@ -275,26 +297,6 @@
                     <useDefaultDelimiters>true</useDefaultDelimiters>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>${protobuf-plugin.version}</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
-                    <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 

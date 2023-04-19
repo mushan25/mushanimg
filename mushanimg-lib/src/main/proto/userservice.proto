@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "com.hzb.lib.user.proto";
+option java_outer_classname = "UserProto";
+
+package user;
+
+service UserService {
+  rpc getUserInfoPerms (UserGetRequest) returns (UserGetReply) {}
+}
+
+message UserGetRequest{
+  string name = 1;
+}
+
+message UserGetReply {
+  User user = 1;
+  Menu menu = 2;
+}
+
+message User {
+  sint64 userId = 1;
+  string password = 2;
+}
+
+message Menu {
+  string perms = 1;
+}
