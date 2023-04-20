@@ -1,7 +1,7 @@
 package com.hzb.service;
 
-import com.hzb.api.GreeterGrpc;
-import com.hzb.proto.ProtoDemo;
+import com.hzb.proto.GreeterGrpc;
+import com.hzb.proto.ProtoDemo.*;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -17,12 +17,12 @@ import java.util.logging.Level;
 @Service
 @Slf4j
 public class GrpcClientService {
-    @GrpcClient("grpc_server")
+    @GrpcClient("system-service")
     GreeterGrpc.GreeterBlockingStub greeterBlockingStub;
 
     public void greeter(){
-        ProtoDemo.HelloRequest request = ProtoDemo.HelloRequest.newBuilder().setName("hzb").build();
-        ProtoDemo.HelloReply response = null;
+        HelloRequest request = HelloRequest.newBuilder().setName("hzb").build();
+        HelloReply response = null;
         try {
             response = greeterBlockingStub.sayHello(request);
         } catch (StatusRuntimeException e) {

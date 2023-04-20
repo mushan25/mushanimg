@@ -1,4 +1,4 @@
-package com.hzb.system.user.gatewayimpl.rpc;
+package com.hzb.system.user.gatewayimpl.rpc.grpc;
 
 import com.alibaba.cola.exception.SysException;
 import com.hzb.base.grpc.utils.ProtobufBeanUtil;
@@ -36,7 +36,11 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
             throw new SysException("pojo转换异常");
         }
 
-        responseObserver.onNext(builder.build());
+        UserGetReply.Builder hello = UserGetReply.newBuilder()
+                .setPermissions(Permissions.newBuilder().addPermissions("hello"));
+
+
+        responseObserver.onNext(hello.build());
         responseObserver.onCompleted();
     }
 }

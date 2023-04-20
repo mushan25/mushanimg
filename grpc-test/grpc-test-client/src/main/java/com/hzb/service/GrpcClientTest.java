@@ -1,7 +1,5 @@
-package com.hzb.auth.service;
+package com.hzb.service;
 
-import com.hzb.lib.user.proto.UserProto.*;
-import com.hzb.lib.user.proto.UserServiceGrpc;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -30,8 +28,7 @@ public class GrpcClientTest {
             User user = response.getUser();
             Permissions permissions = response.getPermissions();
         }
-        System.out.println("test: " + response.getPermissions());
-
+        log.info("test: " + response.getPermissions());
     }
 
 }

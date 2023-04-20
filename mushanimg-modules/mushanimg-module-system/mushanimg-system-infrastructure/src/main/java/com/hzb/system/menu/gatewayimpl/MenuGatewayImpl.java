@@ -1,12 +1,13 @@
 package com.hzb.system.menu.gatewayimpl;
 
+import com.alibaba.fastjson2.util.BeanUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.menu.model.entities.Menu;
 import com.hzb.system.menu.gatewayimpl.database.MenuMapper;
 import com.hzb.system.menu.gatewayimpl.database.dataobject.MenuDO;
-import io.github.zhaord.mapstruct.plus.IObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +23,8 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     private final MenuMapper menuMapper;
 
-    private final IObjectMapper mapper;
-
-    public MenuGatewayImpl(MenuMapper menuMapper, IObjectMapper mapper) {
+    public MenuGatewayImpl(MenuMapper menuMapper) {
         this.menuMapper = menuMapper;
-        this.mapper = mapper;
     }
 
     @Override
@@ -45,7 +43,7 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
         // 4、拷贝菜单信息
 
-        return mapper.map(menuDOS, Menu.class);
+        return BeanCopyUtil.copyListProperties(menuDOS, Menu::new);
     }
 
     @Override

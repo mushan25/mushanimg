@@ -1,13 +1,12 @@
 grpc:
   server:
-    port: 9099
+    port: 9098
 spring:
   cloud:
     nacos:
+      server-addr: 119.3.171.130:8848
       discovery:
-        server-addr: 119.3.171.130:8848
-        username: nacos
-        password: nacos
-        enabled: true
+        group: mushanimg-project
+        namespace: dev
   application:
-    name: grpc_server
+    name: system-service

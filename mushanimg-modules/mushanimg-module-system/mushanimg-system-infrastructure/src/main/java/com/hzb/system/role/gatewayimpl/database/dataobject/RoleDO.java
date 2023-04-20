@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-
-import com.hzb.system.domain.role.model.entities.Role;
-import io.github.zhaord.mapstruct.plus.annotations.AutoMap;
-import lombok.Data;
 
 /**
  * 角色信息表
@@ -17,7 +15,6 @@ import lombok.Data;
  */
 @TableName(value ="ms_role")
 @Data
-@AutoMap(targetType = Role.class)
 public class RoleDO implements Serializable {
     /**
      * 角色ID

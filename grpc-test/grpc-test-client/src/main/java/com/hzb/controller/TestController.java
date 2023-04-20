@@ -1,6 +1,6 @@
-package com.hzb.auth.controller;
+package com.hzb.controller;
 
-import com.hzb.auth.service.GrpcClientTest;
+import com.hzb.service.GrpcClientTest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

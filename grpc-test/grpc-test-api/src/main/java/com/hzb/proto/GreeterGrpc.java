@@ -1,19 +1,12 @@
-package com.hzb.api;
+package com.hzb.proto;
 
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ClientCalls.blockingUnaryCall;
 import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
 import static io.grpc.stub.ClientCalls.futureUnaryCall;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ServerCalls.asyncUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncClientStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
 /**
  */
@@ -93,7 +86,7 @@ public final class GreeterGrpc {
       asyncUnimplementedUnaryCall(METHOD_SAY_HELLO_AGAIN, responseObserver);
     }
 
-    @Override public final io.grpc.ServerServiceDefinition bindService() {
+    @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             METHOD_SAY_HELLO,
@@ -125,7 +118,7 @@ public final class GreeterGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected GreeterStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new GreeterStub(channel, callOptions);
@@ -160,7 +153,7 @@ public final class GreeterGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected GreeterBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new GreeterBlockingStub(channel, callOptions);
@@ -193,7 +186,7 @@ public final class GreeterGrpc {
       super(channel, callOptions);
     }
 
-    @Override
+    @java.lang.Override
     protected GreeterFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new GreeterFutureStub(channel, callOptions);
@@ -232,8 +225,8 @@ public final class GreeterGrpc {
       this.methodId = methodId;
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_SAY_HELLO:
@@ -249,8 +242,8 @@ public final class GreeterGrpc {
       }
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
+    @java.lang.Override
+    @java.lang.SuppressWarnings("unchecked")
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
@@ -261,7 +254,7 @@ public final class GreeterGrpc {
   }
 
   private static final class GreeterDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier {
-    @Override
+    @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
       return com.hzb.proto.ProtoDemo.getDescriptor();
     }

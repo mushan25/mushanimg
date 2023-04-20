@@ -28,7 +28,7 @@
         </encoder>
     </appender>
 
-    <root level="DBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="APPLICATION" />
     </root>

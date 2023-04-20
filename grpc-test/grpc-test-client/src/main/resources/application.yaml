@@ -3,14 +3,13 @@ server:
 spring:
   cloud:
     nacos:
+      server-addr: 119.3.171.130:8848
       discovery:
-        enabled: true
-        server-addr: 119.3.171.130:8848
-        username: nacos
-        password: nacos
+        group: mushanimg-project
+        namespace: dev
   application:
-    name: grpc_client
+    name: grpc-client
 grpc:
   client:
-    grpc_server:
+    system-service:
       negotiation-type: plaintext
