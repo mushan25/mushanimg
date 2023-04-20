@@ -1,7 +1,7 @@
 package com.hzb.service;
 
-import com.hzb.api.GreeterGrpc;
-import com.hzb.proto.ProtoDemo;
+import com.hzb.proto.GreeterGrpc;
+import com.hzb.proto.ProtoDemo.*;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -13,8 +13,8 @@ import net.devh.boot.grpc.server.service.GrpcService;
 public class GreeterImpl extends GreeterGrpc.GreeterImplBase {
 
     @Override
-    public void sayHello(ProtoDemo.HelloRequest request, StreamObserver<ProtoDemo.HelloReply> responseObserver) {
-        ProtoDemo.HelloReply reply = ProtoDemo.HelloReply.newBuilder().setMessage("hello again" + request.getName()).build();
+    public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+        HelloReply reply = HelloReply.newBuilder().setMessage("hello again" + request.getName()).build();
         responseObserver.onNext(reply);
         responseObserver.onCompleted();
     }

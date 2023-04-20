@@ -10,6 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ClientApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ClientApplication.class, args);
+        try {
+            SpringApplication.run(ClientApplication.class, args);
+        }catch (Throwable e){
+            e.printStackTrace();
+        }
+
     }
 }
