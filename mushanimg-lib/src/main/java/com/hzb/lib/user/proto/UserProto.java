@@ -87,12 +87,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return internal_static_user_UserGetRequest_descriptor;
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return internal_static_user_UserGetRequest_fieldAccessorTable
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.UserGetRequest.class, com.hzb.lib.user.proto.UserProto.UserGetRequest.Builder.class);
     }
@@ -288,12 +288,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserGetRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return internal_static_user_UserGetRequest_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return internal_static_user_UserGetRequest_fieldAccessorTable
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.UserGetRequest.class, com.hzb.lib.user.proto.UserProto.UserGetRequest.Builder.class);
       }
@@ -322,11 +322,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return internal_static_user_UserGetRequest_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetRequest_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetRequest getDefaultInstanceForType() {
-        return getDefaultInstance();
+        return com.hzb.lib.user.proto.UserProto.UserGetRequest.getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetRequest build() {
@@ -380,7 +380,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserGetRequest other) {
-        if (other == getDefaultInstance()) return this;
+        if (other == com.hzb.lib.user.proto.UserProto.UserGetRequest.getDefaultInstance()) return this;
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
@@ -636,12 +636,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return internal_static_user_UserGetReply_descriptor;
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return internal_static_user_UserGetReply_fieldAccessorTable
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.UserGetReply.class, com.hzb.lib.user.proto.UserProto.UserGetReply.Builder.class);
     }
@@ -867,12 +867,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserGetReplyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return internal_static_user_UserGetReply_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return internal_static_user_UserGetReply_fieldAccessorTable
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.UserGetReply.class, com.hzb.lib.user.proto.UserProto.UserGetReply.Builder.class);
       }
@@ -911,11 +911,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return internal_static_user_UserGetReply_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserGetReply_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetReply getDefaultInstanceForType() {
-        return getDefaultInstance();
+        return com.hzb.lib.user.proto.UserProto.UserGetReply.getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.UserGetReply build() {
@@ -978,7 +978,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserGetReply other) {
-        if (other == getDefaultInstance()) return this;
+        if (other == com.hzb.lib.user.proto.UserProto.UserGetReply.getDefaultInstance()) return this;
         if (other.hasUser()) {
           mergeUser(other.getUser());
         }
@@ -1377,12 +1377,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return internal_static_user_User_descriptor;
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return internal_static_user_User_fieldAccessorTable
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_User_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.User.class, com.hzb.lib.user.proto.UserProto.User.Builder.class);
     }
@@ -1599,12 +1599,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.UserOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return internal_static_user_User_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return internal_static_user_User_fieldAccessorTable
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.User.class, com.hzb.lib.user.proto.UserProto.User.Builder.class);
       }
@@ -1635,11 +1635,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return internal_static_user_User_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_User_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.User getDefaultInstanceForType() {
-        return getDefaultInstance();
+        return com.hzb.lib.user.proto.UserProto.User.getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.User build() {
@@ -1694,7 +1694,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.User other) {
-        if (other == getDefaultInstance()) return this;
+        if (other == com.hzb.lib.user.proto.UserProto.User.getDefaultInstance()) return this;
         if (other.getUserId() != 0L) {
           setUserId(other.getUserId());
         }
@@ -1959,12 +1959,12 @@ public final class UserProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return internal_static_user_Permissions_descriptor;
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_Permissions_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return internal_static_user_Permissions_fieldAccessorTable
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_Permissions_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.hzb.lib.user.proto.UserProto.Permissions.class, com.hzb.lib.user.proto.UserProto.Permissions.Builder.class);
     }
@@ -2162,12 +2162,12 @@ public final class UserProto {
         com.hzb.lib.user.proto.UserProto.PermissionsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return internal_static_user_Permissions_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_Permissions_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return internal_static_user_Permissions_fieldAccessorTable
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_Permissions_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 com.hzb.lib.user.proto.UserProto.Permissions.class, com.hzb.lib.user.proto.UserProto.Permissions.Builder.class);
       }
@@ -2196,11 +2196,11 @@ public final class UserProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return internal_static_user_Permissions_descriptor;
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_Permissions_descriptor;
       }
 
       public com.hzb.lib.user.proto.UserProto.Permissions getDefaultInstanceForType() {
-        return getDefaultInstance();
+        return com.hzb.lib.user.proto.UserProto.Permissions.getDefaultInstance();
       }
 
       public com.hzb.lib.user.proto.UserProto.Permissions build() {
@@ -2259,7 +2259,7 @@ public final class UserProto {
       }
 
       public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.Permissions other) {
-        if (other == getDefaultInstance()) return this;
+        if (other == com.hzb.lib.user.proto.UserProto.Permissions.getDefaultInstance()) return this;
         if (!other.permissions_.isEmpty()) {
           if (permissions_.isEmpty()) {
             permissions_ = other.permissions_;
