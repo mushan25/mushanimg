@@ -21,7 +21,10 @@ message UserGetReply {
 
 message User {
   sint64 userId = 1;
-  string password = 2;
+}
+
+message Password {
+  string password = 1;
 }
 
 message Permissions {

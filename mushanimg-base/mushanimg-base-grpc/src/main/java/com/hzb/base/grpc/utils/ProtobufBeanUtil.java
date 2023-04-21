@@ -1,11 +1,17 @@
 package com.hzb.base.grpc.utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
+import com.hzb.base.grpc.config.LocalDateAdapter;
+import com.hzb.base.grpc.config.LocalDateTimeAdapter;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author hzb
@@ -23,8 +29,11 @@ public class ProtobufBeanUtil {
      */
     public static <PojoType> PojoType toPojoBean(@NotNull Class<PojoType> destPojoClass, @NotNull Message sourceMessage)
             throws IOException {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String json = JsonFormat.printer().print(sourceMessage);
-        return new Gson().fromJson(json, destPojoClass);
+        return gson.fromJson(json, destPojoClass);
     }
 
     /**
@@ -36,7 +45,10 @@ public class ProtobufBeanUtil {
      * @throws IOException
      */
     public static void toProtoBean(@NotNull Message.Builder destBuilder, @NotNull Object sourcePojoBean) throws IOException {
-        String json = new Gson().toJson(sourcePojoBean);
-        JsonFormat.parser().merge(json, destBuilder);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        String json = gson.toJson(sourcePojoBean);
+        JsonFormat.parser().ignoringUnknownFields().merge(json, destBuilder);
     }
 }

@@ -20,7 +20,7 @@ public class AuthUser {
 
     public AuthUser(User user, List<String> permissions){
         this.user = user;
-        this.permissions.setPermissions(permissions);
+        this.permissions = new Permissions(permissions);
     }
 
 }
