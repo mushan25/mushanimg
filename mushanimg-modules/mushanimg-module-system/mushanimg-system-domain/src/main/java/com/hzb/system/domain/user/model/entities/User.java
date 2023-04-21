@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Slf4j
 public class User {
     private Long userId;
@@ -62,5 +61,8 @@ public class User {
 
     public void setPassword(String password){
         this.password.setPassword(password);
+    }
+    public User(){
+        this.password = new Password();
     }
 }

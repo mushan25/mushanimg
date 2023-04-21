@@ -14,4 +14,8 @@ import java.util.stream.Collectors;
 public class Permissions {
 
     private List<String> permissions;
+
+    public Permissions(List<String> permissions) {
+        this.permissions = permissions;
+    }
 }
