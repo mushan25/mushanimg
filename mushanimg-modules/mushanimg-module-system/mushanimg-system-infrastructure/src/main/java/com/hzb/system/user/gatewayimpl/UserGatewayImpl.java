@@ -1,5 +1,6 @@
 package com.hzb.system.user.gatewayimpl;
 
+import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.system.domain.DomainFactory;
@@ -33,7 +34,7 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
         // 2、判断是否成功获取
         if (userDO == null){
-            return null;
+            throw new BizException("用户不存在");
         }
 
         // 3、获取返回User
