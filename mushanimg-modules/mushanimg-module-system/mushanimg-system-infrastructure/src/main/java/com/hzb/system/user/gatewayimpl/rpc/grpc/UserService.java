@@ -2,9 +2,7 @@ package com.hzb.system.user.gatewayimpl.rpc.grpc;
 
 import com.alibaba.cola.exception.SysException;
 import com.hzb.base.grpc.utils.ProtobufBeanUtil;
-import com.hzb.lib.user.proto.UserProto.Permissions;
-import com.hzb.lib.user.proto.UserProto.UserGetReply;
-import com.hzb.lib.user.proto.UserProto.UserGetRequest;
+import com.hzb.lib.user.proto.UserProto.*;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import com.hzb.system.domain.ability.DomainService;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
@@ -27,7 +25,7 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void getUserInfoPerms(UserGetRequest request, StreamObserver<UserGetReply> responseObserver) {
-        String userName = request.getName();
+        String userName = request.getUserName();
 
         AuthUser authUser = domainService.getAuthUserInfoByName(userName);
 

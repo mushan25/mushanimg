@@ -11,7 +11,7 @@ service UserService {
 }
 
 message UserGetRequest{
-  string name = 1;
+  string userName = 1;
 }
 
 message UserGetReply {
@@ -21,6 +21,22 @@ message UserGetReply {
 
 message User {
   sint64 userId = 1;
+  string userName = 2;
+  string nickName = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  string sex = 6;
+  string avatar = 7;
+  Password password = 8;
+  string status = 9;
+  string delFlag = 10;
+  string loginIp = 11;
+  string loginDate = 12;
+  string createBy = 13;
+  string createTime = 14;
+  string updateBy = 15;
+  string updateTime = 16;
+  string remark = 17;
 }
 
 message Password {
