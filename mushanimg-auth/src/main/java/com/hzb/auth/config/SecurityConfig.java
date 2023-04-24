@@ -38,14 +38,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        return http.authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .anyRequest().permitAll()
-                .and()
+        return http
+                .cors().disable()
+                .csrf().disable()
+                .authorizeRequests(
+                    authorize -> authorize
+                            .antMatchers("/auth/login").permitAll()
+                            .anyRequest().permitAll()
+                )
                 .formLogin().loginPage("/auth/login")
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 }

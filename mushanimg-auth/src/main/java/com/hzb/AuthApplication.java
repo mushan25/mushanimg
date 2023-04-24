@@ -3,6 +3,7 @@ package com.hzb;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author: hzb
@@ -16,6 +17,5 @@ public class AuthApplication {
         }catch (Throwable e){
             e.printStackTrace();
         }
-
     }
 }

@@ -1,11 +1,13 @@
 package com.hzb.auth.service;
 
 import com.hzb.auth.form.LoginUser;
+import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.exception.ServiceException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,7 +28,7 @@ public class LoginService {
         Authentication authentication = null;
         try {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-            new ThreadLocal<Authentication>().set(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             authentication = authenticationManager.authenticate(authenticationToken);
         } catch (Exception e){
             if (e instanceof BadCredentialsException){
@@ -34,8 +36,6 @@ public class LoginService {
             }else {
                 throw new ServiceException(e.getMessage());
             }
-        } finally {
-            new ThreadLocal<Authentication>().remove();
         }
 
         return (LoginUser) authentication.getPrincipal();
