@@ -1,7 +1,12 @@
 package com.hzb.system.domain.user.gateway;
 
+import com.hzb.base.core.web.page.PageParam;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
+import reactor.util.function.Tuple2;
+
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author Administrator
@@ -15,4 +20,27 @@ public interface UserGateway {
      * @return 用户
      */
     User getByUserName(String userName);
+
+    /**
+     * 获取用户列表
+     * @param pageParam 分页参数
+     * @param user 用户信息
+     * @return 用户列表
+     */
+    List<User> getUserList(PageParam pageParam, User user);
+
+    /**
+     * 注册用户
+     * @param user 用户信息
+     * @return 注册结果
+     */
+    Tuple2<Boolean, String> registerUser(User user);
+
+    /**
+     * 校验用户名称是否唯一
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    boolean checkUserNameUnique(User user);
 }

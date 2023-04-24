@@ -3,14 +3,26 @@ package com.hzb.system.user.gatewayimpl;
 import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.hzb.base.core.constant.Constants;
+import com.hzb.base.core.utils.BeanCopyUtil;
+import com.hzb.base.core.web.page.PageParam;
+import com.hzb.system.convertor.UserConvertor;
 import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.domain.user.gateway.UserGateway;
 import com.hzb.system.user.gatewayimpl.database.UserMapper;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
 * @author Administrator
@@ -24,6 +36,20 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     public UserGatewayImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+
+    @Override
+    public List<User> getUserList(PageParam pageParam, User user) {
+        UserDO userDO = UserConvertor.toDataObject(user);
+        PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize(), pageParam.getOrderBy()).setReasonable(true);
+        LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(null != userDO.getUserId() && 0 != userDO.getUserId(), UserDO::getUserId, userDO.getUserId())
+                .eq(StringUtils.isNotEmpty(userDO.getUserName()), UserDO::getUserName, userDO.getUserName())
+                .eq(StringUtils.isNotEmpty(userDO.getStatus()), UserDO::getStatus, userDO.getStatus());
+        List<UserDO> userDOS = userMapper.selectList(wrapper);
+
+        return BeanCopyUtil.copyListProperties(userDOS, User::new);
     }
 
     @Override
@@ -44,6 +70,29 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
         user.setPassword(userDO.getPassword());
 
         return user;
+    }
+
+    @Override
+    public Tuple2<Boolean, String> registerUser(User user) {
+        // 1、转换成UserDO
+        UserDO userDO = UserConvertor.toDataObjectForCreate(user);
+        // 2、判断用户名是否唯一
+        if (!checkUserNameUnique(user)){
+            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
+        }
+        // 3、增加用户
+        if (userMapper.insert(userDO) > 0){
+            return Tuples.of(true, "注册成功");
+        }
+        return Tuples.of(false, "注册失败");
+
+    }
+
+    @Override
+    public boolean checkUserNameUnique(User user) {
+        long userId = null == user.getUserId() ? -1L : user.getUserId();
+        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUserName, user.getUserName()));
+        return null == userDO || userDO.getUserId() == userId;
     }
 }
 

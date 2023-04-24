@@ -1,14 +1,18 @@
 package com.hzb.auth.service;
 
 import com.hzb.auth.form.LoginUser;
-import com.hzb.base.core.constant.SecurityConstants;
+import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.exception.ServiceException;
+import com.hzb.base.core.utils.SecurityUtils;
+import com.hzb.lib.user.proto.UserProto.Password;
+import com.hzb.lib.user.proto.UserProto.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import reactor.util.function.Tuple2;
 
 /**
  * @author: hzb
@@ -19,8 +23,11 @@ public class LoginService {
 
     private final AuthenticationManager authenticationManager;
 
-    public LoginService(AuthenticationManager authenticationManager) {
+    private final UserClient userClient;
+
+    public LoginService(AuthenticationManager authenticationManager, UserClient userClient) {
         this.authenticationManager = authenticationManager;
+        this.userClient = userClient;
     }
 
     public LoginUser login(String username, String password){
@@ -39,5 +46,22 @@ public class LoginService {
         }
 
         return (LoginUser) authentication.getPrincipal();
+    }
+
+    /**
+     * 注册
+     */
+    public String register(String username, String password){
+        User.Builder builder = User.newBuilder();
+        builder.setUserName(username)
+                .setNickName(username)
+                .setPassword(Password.newBuilder().setPassword(SecurityUtils.encryptPassword(password)));
+
+        User user = builder.build();
+        Tuple2<Boolean, String> tuple = userClient.addUser(user);
+        if (!tuple.getT1()) {
+            throw new ServiceException(tuple.getT2());
+        }
+        return tuple.getT2();
     }
 }

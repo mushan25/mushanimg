@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     /**
      * 业务异常
      */
-    @ExceptionHandler(ServiceConfigurationError.class)
+    @ExceptionHandler(ServiceException.class)
     public AjaxResult handlerServiceException(ServiceException e){
         log.error(e.getMessage(), e);
         Integer code = e.getCode();

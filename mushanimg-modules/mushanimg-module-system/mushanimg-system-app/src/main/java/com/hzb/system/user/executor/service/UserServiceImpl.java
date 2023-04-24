@@ -1,10 +1,10 @@
 package com.hzb.system.user.executor.service;
 
-import com.alibaba.cola.dto.SingleResponse;
+import com.alibaba.cola.dto.PageResponse;
 import com.hzb.system.user.api.UserServiceI;
-import com.hzb.system.user.dto.UserGetQry;
+import com.hzb.system.user.dto.UserListQry;
 import com.hzb.system.user.dto.clientobject.UserCO;
-import com.hzb.system.user.executor.command.query.UserGetQryExe;
+import com.hzb.system.user.executor.command.query.UserListQryExe;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,14 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserServiceI {
 
-    private final UserGetQryExe userGetQryExe;
+    private final UserListQryExe userListQryExe;
 
-    public UserServiceImpl(UserGetQryExe userGetQryExe) {
-        this.userGetQryExe = userGetQryExe;
+    public UserServiceImpl(UserListQryExe userListQryExe) {
+        this.userListQryExe = userListQryExe;
     }
 
+
     @Override
-    public SingleResponse<UserCO> getUserByUserName(UserGetQry userGetQry) {
-        return userGetQryExe.execute(userGetQry);
+    public PageResponse<UserCO> getUserList(UserListQry userListQry) {
+        return userListQryExe.execute(userListQry);
     }
 }
