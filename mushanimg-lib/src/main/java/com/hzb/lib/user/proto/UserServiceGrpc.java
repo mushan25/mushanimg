@@ -39,6 +39,18 @@ public final class UserServiceGrpc {
           .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
               com.hzb.lib.user.proto.UserProto.UserGetReply.getDefaultInstance()))
           .build();
+  @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
+  public static final io.grpc.MethodDescriptor<com.hzb.lib.user.proto.UserProto.UserAddRequest,
+      com.hzb.lib.user.proto.UserProto.UserAddReply> METHOD_ADD_USER =
+      io.grpc.MethodDescriptor.<com.hzb.lib.user.proto.UserProto.UserAddRequest, com.hzb.lib.user.proto.UserProto.UserAddReply>newBuilder()
+          .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+          .setFullMethodName(generateFullMethodName(
+              "user.UserService", "addUser"))
+          .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.hzb.lib.user.proto.UserProto.UserAddRequest.getDefaultInstance()))
+          .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+              com.hzb.lib.user.proto.UserProto.UserAddReply.getDefaultInstance()))
+          .build();
 
   /**
    * Creates a new async stub that supports all call types for the service
@@ -74,6 +86,13 @@ public final class UserServiceGrpc {
       asyncUnimplementedUnaryCall(METHOD_GET_USER_INFO_PERMS, responseObserver);
     }
 
+    /**
+     */
+    public void addUser(com.hzb.lib.user.proto.UserProto.UserAddRequest request,
+        io.grpc.stub.StreamObserver<com.hzb.lib.user.proto.UserProto.UserAddReply> responseObserver) {
+      asyncUnimplementedUnaryCall(METHOD_ADD_USER, responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -83,6 +102,13 @@ public final class UserServiceGrpc {
                 com.hzb.lib.user.proto.UserProto.UserGetRequest,
                 com.hzb.lib.user.proto.UserProto.UserGetReply>(
                   this, METHODID_GET_USER_INFO_PERMS)))
+          .addMethod(
+            METHOD_ADD_USER,
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.hzb.lib.user.proto.UserProto.UserAddRequest,
+                com.hzb.lib.user.proto.UserProto.UserAddReply>(
+                  this, METHODID_ADD_USER)))
           .build();
     }
   }
@@ -112,6 +138,14 @@ public final class UserServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_GET_USER_INFO_PERMS, getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void addUser(com.hzb.lib.user.proto.UserProto.UserAddRequest request,
+        io.grpc.stub.StreamObserver<com.hzb.lib.user.proto.UserProto.UserAddReply> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_USER, getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -137,6 +171,13 @@ public final class UserServiceGrpc {
     public com.hzb.lib.user.proto.UserProto.UserGetReply getUserInfoPerms(com.hzb.lib.user.proto.UserProto.UserGetRequest request) {
       return blockingUnaryCall(
           getChannel(), METHOD_GET_USER_INFO_PERMS, getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.hzb.lib.user.proto.UserProto.UserAddReply addUser(com.hzb.lib.user.proto.UserProto.UserAddRequest request) {
+      return blockingUnaryCall(
+          getChannel(), METHOD_ADD_USER, getCallOptions(), request);
     }
   }
 
@@ -165,9 +206,18 @@ public final class UserServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_GET_USER_INFO_PERMS, getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.hzb.lib.user.proto.UserProto.UserAddReply> addUser(
+        com.hzb.lib.user.proto.UserProto.UserAddRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_USER, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_USER_INFO_PERMS = 0;
+  private static final int METHODID_ADD_USER = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -189,6 +239,10 @@ public final class UserServiceGrpc {
         case METHODID_GET_USER_INFO_PERMS:
           serviceImpl.getUserInfoPerms((com.hzb.lib.user.proto.UserProto.UserGetRequest) request,
               (io.grpc.stub.StreamObserver<com.hzb.lib.user.proto.UserProto.UserGetReply>) responseObserver);
+          break;
+        case METHODID_ADD_USER:
+          serviceImpl.addUser((com.hzb.lib.user.proto.UserProto.UserAddRequest) request,
+              (io.grpc.stub.StreamObserver<com.hzb.lib.user.proto.UserProto.UserAddReply>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -224,6 +278,7 @@ public final class UserServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserServiceDescriptorSupplier())
               .addMethod(METHOD_GET_USER_INFO_PERMS)
+              .addMethod(METHOD_ADD_USER)
               .build();
         }
       }

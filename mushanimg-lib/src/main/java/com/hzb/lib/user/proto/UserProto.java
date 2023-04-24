@@ -1293,6 +1293,1155 @@ public final class UserProto {
 
   }
 
+  public interface UserAddRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:user.UserAddRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    boolean hasUser();
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    com.hzb.lib.user.proto.UserProto.User getUser();
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    com.hzb.lib.user.proto.UserProto.UserOrBuilder getUserOrBuilder();
+  }
+  /**
+   * Protobuf type {@code user.UserAddRequest}
+   */
+  public  static final class UserAddRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:user.UserAddRequest)
+      UserAddRequestOrBuilder {
+    // Use UserAddRequest.newBuilder() to construct.
+    private UserAddRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserAddRequest() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserAddRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.hzb.lib.user.proto.UserProto.User.Builder subBuilder = null;
+              if (user_ != null) {
+                subBuilder = user_.toBuilder();
+              }
+              user_ = input.readMessage(com.hzb.lib.user.proto.UserProto.User.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(user_);
+                user_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.hzb.lib.user.proto.UserProto.UserAddRequest.class, com.hzb.lib.user.proto.UserProto.UserAddRequest.Builder.class);
+    }
+
+    public static final int USER_FIELD_NUMBER = 1;
+    private com.hzb.lib.user.proto.UserProto.User user_;
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    public boolean hasUser() {
+      return user_ != null;
+    }
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    public com.hzb.lib.user.proto.UserProto.User getUser() {
+      return user_ == null ? com.hzb.lib.user.proto.UserProto.User.getDefaultInstance() : user_;
+    }
+    /**
+     * <code>.user.User user = 1;</code>
+     */
+    public com.hzb.lib.user.proto.UserProto.UserOrBuilder getUserOrBuilder() {
+      return getUser();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (user_ != null) {
+        output.writeMessage(1, getUser());
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (user_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getUser());
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.hzb.lib.user.proto.UserProto.UserAddRequest)) {
+        return super.equals(obj);
+      }
+      com.hzb.lib.user.proto.UserProto.UserAddRequest other = (com.hzb.lib.user.proto.UserProto.UserAddRequest) obj;
+
+      boolean result = true;
+      result = result && (hasUser() == other.hasUser());
+      if (hasUser()) {
+        result = result && getUser()
+            .equals(other.getUser());
+      }
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasUser()) {
+        hash = (37 * hash) + USER_FIELD_NUMBER;
+        hash = (53 * hash) + getUser().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.hzb.lib.user.proto.UserProto.UserAddRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code user.UserAddRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:user.UserAddRequest)
+        com.hzb.lib.user.proto.UserProto.UserAddRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.hzb.lib.user.proto.UserProto.UserAddRequest.class, com.hzb.lib.user.proto.UserProto.UserAddRequest.Builder.class);
+      }
+
+      // Construct using com.hzb.lib.user.proto.UserProto.UserAddRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        if (userBuilder_ == null) {
+          user_ = null;
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddRequest_descriptor;
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddRequest getDefaultInstanceForType() {
+        return com.hzb.lib.user.proto.UserProto.UserAddRequest.getDefaultInstance();
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddRequest build() {
+        com.hzb.lib.user.proto.UserProto.UserAddRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddRequest buildPartial() {
+        com.hzb.lib.user.proto.UserProto.UserAddRequest result = new com.hzb.lib.user.proto.UserProto.UserAddRequest(this);
+        if (userBuilder_ == null) {
+          result.user_ = user_;
+        } else {
+          result.user_ = userBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.hzb.lib.user.proto.UserProto.UserAddRequest) {
+          return mergeFrom((com.hzb.lib.user.proto.UserProto.UserAddRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserAddRequest other) {
+        if (other == com.hzb.lib.user.proto.UserProto.UserAddRequest.getDefaultInstance()) return this;
+        if (other.hasUser()) {
+          mergeUser(other.getUser());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.hzb.lib.user.proto.UserProto.UserAddRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.hzb.lib.user.proto.UserProto.UserAddRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.hzb.lib.user.proto.UserProto.User user_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.hzb.lib.user.proto.UserProto.User, com.hzb.lib.user.proto.UserProto.User.Builder, com.hzb.lib.user.proto.UserProto.UserOrBuilder> userBuilder_;
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public boolean hasUser() {
+        return userBuilder_ != null || user_ != null;
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public com.hzb.lib.user.proto.UserProto.User getUser() {
+        if (userBuilder_ == null) {
+          return user_ == null ? com.hzb.lib.user.proto.UserProto.User.getDefaultInstance() : user_;
+        } else {
+          return userBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public Builder setUser(com.hzb.lib.user.proto.UserProto.User value) {
+        if (userBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          user_ = value;
+          onChanged();
+        } else {
+          userBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public Builder setUser(
+          com.hzb.lib.user.proto.UserProto.User.Builder builderForValue) {
+        if (userBuilder_ == null) {
+          user_ = builderForValue.build();
+          onChanged();
+        } else {
+          userBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public Builder mergeUser(com.hzb.lib.user.proto.UserProto.User value) {
+        if (userBuilder_ == null) {
+          if (user_ != null) {
+            user_ =
+              com.hzb.lib.user.proto.UserProto.User.newBuilder(user_).mergeFrom(value).buildPartial();
+          } else {
+            user_ = value;
+          }
+          onChanged();
+        } else {
+          userBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public Builder clearUser() {
+        if (userBuilder_ == null) {
+          user_ = null;
+          onChanged();
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public com.hzb.lib.user.proto.UserProto.User.Builder getUserBuilder() {
+        
+        onChanged();
+        return getUserFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      public com.hzb.lib.user.proto.UserProto.UserOrBuilder getUserOrBuilder() {
+        if (userBuilder_ != null) {
+          return userBuilder_.getMessageOrBuilder();
+        } else {
+          return user_ == null ?
+              com.hzb.lib.user.proto.UserProto.User.getDefaultInstance() : user_;
+        }
+      }
+      /**
+       * <code>.user.User user = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.hzb.lib.user.proto.UserProto.User, com.hzb.lib.user.proto.UserProto.User.Builder, com.hzb.lib.user.proto.UserProto.UserOrBuilder> 
+          getUserFieldBuilder() {
+        if (userBuilder_ == null) {
+          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.hzb.lib.user.proto.UserProto.User, com.hzb.lib.user.proto.UserProto.User.Builder, com.hzb.lib.user.proto.UserProto.UserOrBuilder>(
+                  getUser(),
+                  getParentForChildren(),
+                  isClean());
+          user_ = null;
+        }
+        return userBuilder_;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:user.UserAddRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:user.UserAddRequest)
+    private static final com.hzb.lib.user.proto.UserProto.UserAddRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.hzb.lib.user.proto.UserProto.UserAddRequest();
+    }
+
+    public static com.hzb.lib.user.proto.UserProto.UserAddRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserAddRequest>
+        PARSER = new com.google.protobuf.AbstractParser<UserAddRequest>() {
+      public UserAddRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UserAddRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserAddRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserAddRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public com.hzb.lib.user.proto.UserProto.UserAddRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UserAddReplyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:user.UserAddReply)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool addResult = 1;</code>
+     */
+    boolean getAddResult();
+
+    /**
+     * <code>string msg = 2;</code>
+     */
+    java.lang.String getMsg();
+    /**
+     * <code>string msg = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgBytes();
+  }
+  /**
+   * Protobuf type {@code user.UserAddReply}
+   */
+  public  static final class UserAddReply extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:user.UserAddReply)
+      UserAddReplyOrBuilder {
+    // Use UserAddReply.newBuilder() to construct.
+    private UserAddReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserAddReply() {
+      addResult_ = false;
+      msg_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserAddReply(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+
+              addResult_ = input.readBool();
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              msg_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddReply_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddReply_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.hzb.lib.user.proto.UserProto.UserAddReply.class, com.hzb.lib.user.proto.UserProto.UserAddReply.Builder.class);
+    }
+
+    public static final int ADDRESULT_FIELD_NUMBER = 1;
+    private boolean addResult_;
+    /**
+     * <code>bool addResult = 1;</code>
+     */
+    public boolean getAddResult() {
+      return addResult_;
+    }
+
+    public static final int MSG_FIELD_NUMBER = 2;
+    private volatile java.lang.Object msg_;
+    /**
+     * <code>string msg = 2;</code>
+     */
+    public java.lang.String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        msg_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string msg = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (addResult_ != false) {
+        output.writeBool(1, addResult_);
+      }
+      if (!getMsgBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (addResult_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, addResult_);
+      }
+      if (!getMsgBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.hzb.lib.user.proto.UserProto.UserAddReply)) {
+        return super.equals(obj);
+      }
+      com.hzb.lib.user.proto.UserProto.UserAddReply other = (com.hzb.lib.user.proto.UserProto.UserAddReply) obj;
+
+      boolean result = true;
+      result = result && (getAddResult()
+          == other.getAddResult());
+      result = result && getMsg()
+          .equals(other.getMsg());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ADDRESULT_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getAddResult());
+      hash = (37 * hash) + MSG_FIELD_NUMBER;
+      hash = (53 * hash) + getMsg().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.hzb.lib.user.proto.UserProto.UserAddReply prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code user.UserAddReply}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:user.UserAddReply)
+        com.hzb.lib.user.proto.UserProto.UserAddReplyOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddReply_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddReply_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.hzb.lib.user.proto.UserProto.UserAddReply.class, com.hzb.lib.user.proto.UserProto.UserAddReply.Builder.class);
+      }
+
+      // Construct using com.hzb.lib.user.proto.UserProto.UserAddReply.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        addResult_ = false;
+
+        msg_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.hzb.lib.user.proto.UserProto.internal_static_user_UserAddReply_descriptor;
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddReply getDefaultInstanceForType() {
+        return com.hzb.lib.user.proto.UserProto.UserAddReply.getDefaultInstance();
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddReply build() {
+        com.hzb.lib.user.proto.UserProto.UserAddReply result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.hzb.lib.user.proto.UserProto.UserAddReply buildPartial() {
+        com.hzb.lib.user.proto.UserProto.UserAddReply result = new com.hzb.lib.user.proto.UserProto.UserAddReply(this);
+        result.addResult_ = addResult_;
+        result.msg_ = msg_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.hzb.lib.user.proto.UserProto.UserAddReply) {
+          return mergeFrom((com.hzb.lib.user.proto.UserProto.UserAddReply)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.hzb.lib.user.proto.UserProto.UserAddReply other) {
+        if (other == com.hzb.lib.user.proto.UserProto.UserAddReply.getDefaultInstance()) return this;
+        if (other.getAddResult() != false) {
+          setAddResult(other.getAddResult());
+        }
+        if (!other.getMsg().isEmpty()) {
+          msg_ = other.msg_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.hzb.lib.user.proto.UserProto.UserAddReply parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.hzb.lib.user.proto.UserProto.UserAddReply) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private boolean addResult_ ;
+      /**
+       * <code>bool addResult = 1;</code>
+       */
+      public boolean getAddResult() {
+        return addResult_;
+      }
+      /**
+       * <code>bool addResult = 1;</code>
+       */
+      public Builder setAddResult(boolean value) {
+        
+        addResult_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool addResult = 1;</code>
+       */
+      public Builder clearAddResult() {
+        
+        addResult_ = false;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object msg_ = "";
+      /**
+       * <code>string msg = 2;</code>
+       */
+      public java.lang.String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          msg_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string msg = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMsgBytes() {
+        java.lang.Object ref = msg_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msg_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string msg = 2;</code>
+       */
+      public Builder setMsg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string msg = 2;</code>
+       */
+      public Builder clearMsg() {
+        
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string msg = 2;</code>
+       */
+      public Builder setMsgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:user.UserAddReply)
+    }
+
+    // @@protoc_insertion_point(class_scope:user.UserAddReply)
+    private static final com.hzb.lib.user.proto.UserProto.UserAddReply DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.hzb.lib.user.proto.UserProto.UserAddReply();
+    }
+
+    public static com.hzb.lib.user.proto.UserProto.UserAddReply getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserAddReply>
+        PARSER = new com.google.protobuf.AbstractParser<UserAddReply>() {
+      public UserAddReply parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UserAddReply(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserAddReply> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserAddReply> getParserForType() {
+      return PARSER;
+    }
+
+    public com.hzb.lib.user.proto.UserProto.UserAddReply getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface UserOrBuilder extends
       // @@protoc_insertion_point(interface_extends:user.User)
       com.google.protobuf.MessageOrBuilder {
@@ -5076,6 +6225,16 @@ public final class UserProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_user_UserGetReply_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_UserAddRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_UserAddRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_UserAddReply_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_UserAddReply_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_user_User_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -5102,20 +6261,24 @@ public final class UserProto {
       "\n\021userservice.proto\022\004user\"\"\n\016UserGetRequ" +
       "est\022\020\n\010userName\030\001 \001(\t\"P\n\014UserGetReply\022\030\n" +
       "\004user\030\001 \001(\0132\n.user.User\022&\n\013permissions\030\002" +
-      " \001(\0132\021.user.Permissions\"\276\002\n\004User\022\016\n\006user" +
-      "Id\030\001 \001(\022\022\020\n\010userName\030\002 \001(\t\022\020\n\010nickName\030\003" +
-      " \001(\t\022\r\n\005email\030\004 \001(\t\022\023\n\013phoneNumber\030\005 \001(\t" +
-      "\022\013\n\003sex\030\006 \001(\t\022\016\n\006avatar\030\007 \001(\t\022 \n\010passwor" +
-      "d\030\010 \001(\0132\016.user.Password\022\016\n\006status\030\t \001(\t\022" +
-      "\017\n\007delFlag\030\n \001(\t\022\017\n\007loginIp\030\013 \001(\t\022\021\n\tlog" +
-      "inDate\030\014 \001(\t\022\020\n\010createBy\030\r \001(\t\022\022\n\ncreate",
-      "Time\030\016 \001(\t\022\020\n\010updateBy\030\017 \001(\t\022\022\n\nupdateTi" +
-      "me\030\020 \001(\t\022\016\n\006remark\030\021 \001(\t\"\034\n\010Password\022\020\n\010" +
-      "password\030\001 \001(\t\"\"\n\013Permissions\022\023\n\013permiss" +
-      "ions\030\001 \003(\t2M\n\013UserService\022>\n\020getUserInfo" +
-      "Perms\022\024.user.UserGetRequest\032\022.user.UserG" +
-      "etReply\"\000B%\n\026com.hzb.lib.user.protoB\tUse" +
-      "rProtoP\000b\006proto3"
+      " \001(\0132\021.user.Permissions\"*\n\016UserAddReques" +
+      "t\022\030\n\004user\030\001 \001(\0132\n.user.User\".\n\014UserAddRe" +
+      "ply\022\021\n\taddResult\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"\276\002\n\004" +
+      "User\022\016\n\006userId\030\001 \001(\022\022\020\n\010userName\030\002 \001(\t\022\020" +
+      "\n\010nickName\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\023\n\013phone" +
+      "Number\030\005 \001(\t\022\013\n\003sex\030\006 \001(\t\022\016\n\006avatar\030\007 \001(" +
+      "\t\022 \n\010password\030\010 \001(\0132\016.user.Password\022\016\n\006s",
+      "tatus\030\t \001(\t\022\017\n\007delFlag\030\n \001(\t\022\017\n\007loginIp\030" +
+      "\013 \001(\t\022\021\n\tloginDate\030\014 \001(\t\022\020\n\010createBy\030\r \001" +
+      "(\t\022\022\n\ncreateTime\030\016 \001(\t\022\020\n\010updateBy\030\017 \001(\t" +
+      "\022\022\n\nupdateTime\030\020 \001(\t\022\016\n\006remark\030\021 \001(\t\"\034\n\010" +
+      "Password\022\020\n\010password\030\001 \001(\t\"\"\n\013Permission" +
+      "s\022\023\n\013permissions\030\001 \003(\t2\204\001\n\013UserService\022>" +
+      "\n\020getUserInfoPerms\022\024.user.UserGetRequest" +
+      "\032\022.user.UserGetReply\"\000\0225\n\007addUser\022\024.user" +
+      ".UserAddRequest\032\022.user.UserAddReply\"\000B%\n" +
+      "\026com.hzb.lib.user.protoB\tUserProtoP\000b\006pr",
+      "oto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5141,20 +6304,32 @@ public final class UserProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_UserGetReply_descriptor,
         new java.lang.String[] { "User", "Permissions", });
-    internal_static_user_User_descriptor =
+    internal_static_user_UserAddRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
+    internal_static_user_UserAddRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_UserAddRequest_descriptor,
+        new java.lang.String[] { "User", });
+    internal_static_user_UserAddReply_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_user_UserAddReply_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_UserAddReply_descriptor,
+        new java.lang.String[] { "AddResult", "Msg", });
+    internal_static_user_User_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_user_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_User_descriptor,
         new java.lang.String[] { "UserId", "UserName", "NickName", "Email", "PhoneNumber", "Sex", "Avatar", "Password", "Status", "DelFlag", "LoginIp", "LoginDate", "CreateBy", "CreateTime", "UpdateBy", "UpdateTime", "Remark", });
     internal_static_user_Password_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_user_Password_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_Password_descriptor,
         new java.lang.String[] { "Password", });
     internal_static_user_Permissions_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_user_Permissions_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_Permissions_descriptor,

@@ -7,6 +7,8 @@ import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +33,25 @@ public class UserClient {
             log.info("-------- RPC failed: {}", e.getStatus());
         }
 
-        if (response != null){
+        if (null != response){
             return setLoginUser(response);
         }
         return null;
+    }
+
+    public Tuple2<Boolean, String> addUser(User user){
+        UserAddRequest build = UserAddRequest.newBuilder().setUser(user).build();
+        UserAddReply response = null;
+        try {
+            response = stub.addUser(build);
+        }catch (StatusRuntimeException e){
+            log.info("-------- RPC failed: {}", e.getStatus());
+        }
+
+        if (null != response){
+            return Tuples.of(response.getAddResult(), response.getMsg());
+        }
+        return Tuples.of(false, "注册失败");
     }
 
     private LoginUser setLoginUser(UserGetReply response){

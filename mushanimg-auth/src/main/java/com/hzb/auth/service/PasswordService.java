@@ -4,6 +4,7 @@ import com.hzb.auth.form.LoginUser;
 import com.hzb.base.core.constant.CacheConstants;
 import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.exception.ServiceException;
+import com.hzb.base.core.utils.SecurityUtils;
 import com.hzb.base.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -69,7 +70,6 @@ public class PasswordService {
      */
     public boolean matches(LoginUser loginUser, String rawPassword)
     {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder.matches(rawPassword, loginUser.getPassword());
+        return SecurityUtils.matchesPassword(rawPassword, loginUser.getPassword());
     }
 }

@@ -5,11 +5,15 @@ import com.hzb.base.grpc.utils.ProtobufBeanUtil;
 import com.hzb.lib.user.proto.UserProto.*;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import com.hzb.system.domain.ability.DomainService;
+import com.hzb.system.domain.user.gateway.UserGateway;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
+import com.hzb.system.domain.user.model.entities.User;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+import reactor.util.function.Tuple2;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author hzb
@@ -19,8 +23,27 @@ import java.io.IOException;
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
     private final DomainService domainService;
 
-    public UserService(DomainService domainService) {
+    private final UserGateway userGateway;
+
+    public UserService(DomainService domainService, UserGateway userGateway) {
         this.domainService = domainService;
+        this.userGateway = userGateway;
+    }
+
+    @Override
+    public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {
+
+        UserAddReply.Builder replyBuilder = UserAddReply.newBuilder();
+        try {
+            User user = ProtobufBeanUtil.toPojoBean(User.class, request.getUser());
+            Tuple2<Boolean, String> tuple = userGateway.registerUser(user);
+            replyBuilder.setAddResult(tuple.getT1())
+                    .setMsg(tuple.getT2());
+        }catch (IOException e){
+            throw new SysException("pojo转换异常");
+        }
+        responseObserver.onNext(replyBuilder.build());
+        responseObserver.onCompleted();
     }
 
     @Override
@@ -40,4 +63,6 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
         responseObserver.onNext(builder.build());
         responseObserver.onCompleted();
     }
+
+
 }

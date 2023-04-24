@@ -28,6 +28,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.hzb</groupId>
+            <artifactId>mushanimg-base-core</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 </project>

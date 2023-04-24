@@ -12,16 +12,15 @@ public class UserConvertor {
     public static UserDO toDataObject(User user){
         UserDO userDO = new UserDO();
         BeanUtils.copyProperties(user, userDO);
+        userDO.setPassword(user.getPassword().getPassword());
         return userDO;
     }
 
     public static UserDO toDataObjectForCreate(User user){
-        UserDO userDO = toDataObject(user);
-        return userDO;
+        return toDataObject(user);
     }
 
     public static UserDO toDataObjectForUpdate(User user){
-        UserDO userDO = toDataObject(user);
-        return userDO;
+        return toDataObject(user);
     }
 }

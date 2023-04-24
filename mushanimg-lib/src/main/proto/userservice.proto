@@ -8,6 +8,7 @@ package user;
 
 service UserService {
   rpc getUserInfoPerms (UserGetRequest) returns (UserGetReply) {}
+  rpc addUser (UserAddRequest) returns (UserAddReply) {}
 }
 
 message UserGetRequest{
@@ -17,6 +18,15 @@ message UserGetRequest{
 message UserGetReply {
   User user = 1;
   Permissions permissions = 2;
+}
+
+message UserAddRequest{
+  User user = 1;
+}
+
+message UserAddReply{
+  bool addResult = 1;
+  string msg = 2;
 }
 
 message User {

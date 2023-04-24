@@ -31,7 +31,7 @@
         <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
         <commons.io.version>2.11.0</commons.io.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
-        <pagehelper.boot.version>1.4.5</pagehelper.boot.version>
+        <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <cola.components.version>4.3.1</cola.components.version>
         <grpc.version>1.53.0</grpc.version>
