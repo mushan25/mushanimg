@@ -44,6 +44,7 @@ public class TokenService {
         Long userId = loginUser.getUserId();
         String userName = loginUser.getUser().getUserName();
         loginUser.setToken(token);
+        refreshToken(loginUser);
 
         // Jwt存储信息
         Map<String, Object> claimsMap = new HashMap<>(3);
@@ -78,10 +79,6 @@ public class TokenService {
         return null;
     }
 
-    /**
-     * 刷新令牌有效期
-     * @param loginUser
-     */
     public void verifyToken(LoginUser loginUser){
         long expireTime1 = loginUser.getExpireTime();
         long currentTime = System.currentTimeMillis();
@@ -90,6 +87,10 @@ public class TokenService {
         }
     }
 
+    /**
+     * 刷新令牌有效期
+     * @param loginUser
+     */
     public void refreshToken(LoginUser loginUser){
         loginUser.setLoginTime(System.currentTimeMillis());
         loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
