@@ -1,7 +1,6 @@
 package com.hzb.system.domain.role.gateway;
 
 import com.hzb.system.domain.role.model.entities.Role;
-import com.hzb.system.domain.role.model.valueobject.RoleList;
 
 import java.util.List;
 

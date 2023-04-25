@@ -17,4 +17,6 @@ public interface UserServiceI {
      * @return 用户名称
      */
     PageResponse<UserCO> getUserList(UserListQry userListQry);
+
+
 }

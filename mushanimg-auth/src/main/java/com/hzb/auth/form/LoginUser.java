@@ -43,16 +43,10 @@ public class LoginUser implements UserDetails {
 
     private UserProto.User user;
 
-    public LoginUser(Long userId, UserProto.User user, Set<String> permissions){
+    public LoginUser(Long userId, UserProto.User user){
         this.userId = userId;
         this.user = user;
-        this.permissions = permissions;
     }
-
-    /**
-     * 权限列表
-     */
-    private Set<String> permissions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

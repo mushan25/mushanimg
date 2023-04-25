@@ -1,13 +1,19 @@
 package com.hzb.base.core.web.page;
 
+import com.hzb.base.core.utils.PageUtils;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author: hzb
  * @Date: 2023/4/24
  */
 @Data
+@Accessors(chain = true)
 public class PageParam {
     /** 当前记录起始索引 */
     private Integer pageNum;
@@ -27,7 +33,12 @@ public class PageParam {
         {
             return "";
         }
-        return orderByColumn + " " + isAsc;
+        return PageUtils.camelToSnake(orderByColumn) + " " + isAsc;
     }
 
+    public void setIsAsc(String isAsc) {
+        if (StringUtils.isNotEmpty(isAsc)){
+            this.isAsc = isAsc;
+        }
+    }
 }

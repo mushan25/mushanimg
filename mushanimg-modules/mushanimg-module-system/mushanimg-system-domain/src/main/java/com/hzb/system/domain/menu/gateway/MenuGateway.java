@@ -2,9 +2,9 @@ package com.hzb.system.domain.menu.gateway;
 
 
 import com.hzb.system.domain.menu.model.entities.Menu;
-import com.hzb.system.domain.menu.model.valueobject.MenuList;
 
 import java.util.List;
+import java.util.Set;
 
 /**
 * @author Administrator
@@ -17,19 +17,19 @@ public interface MenuGateway {
      * @param menuIds 菜单id list
      * @return menuList
      */
-    List<Menu>  getMenuByIds(List<Long> menuIds);
+    List<Menu> getMenuByIds(List<Long> menuIds);
 
     /**
      * 根据角色id list获取menuIds
      * @param roleIds 角色id list
      * @return menuId list
      */
-    List<Long> getMenuIdsByRoleIds(List<Long> roleIds);
+    Set<Long> getMenuIdsByRoleIds(List<Long> roleIds);
 
     /**
      * 根据角色id list获取权限字符
      * @param menuIds 菜单id list
      * @return permissions
      */
-    List<String> getPermissions(List<Long> menuIds);
+    Set<String> getPermissions(Set<Long> menuIds);
 }

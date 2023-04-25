@@ -3,15 +3,11 @@ package com.hzb.system.user.gatewayimpl;
 import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
-import com.hzb.base.core.constant.Constants;
 import com.hzb.base.core.utils.BeanCopyUtil;
-import com.hzb.base.core.web.page.PageParam;
 import com.hzb.system.convertor.UserConvertor;
 import com.hzb.system.domain.DomainFactory;
-import com.hzb.system.domain.user.model.aggregates.AuthUser;
-import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.domain.user.gateway.UserGateway;
+import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.UserMapper;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
 import org.apache.commons.lang3.StringUtils;
@@ -20,9 +16,7 @@ import org.springframework.stereotype.Service;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author Administrator
@@ -40,9 +34,8 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
 
     @Override
-    public List<User> getUserList(PageParam pageParam, User user) {
+    public List<User> getUserList(User user) {
         UserDO userDO = UserConvertor.toDataObject(user);
-        PageHelper.startPage(pageParam.getPageNum(), pageParam.getPageSize(), pageParam.getOrderBy()).setReasonable(true);
         LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(null != userDO.getUserId() && 0 != userDO.getUserId(), UserDO::getUserId, userDO.getUserId())
                 .eq(StringUtils.isNotEmpty(userDO.getUserName()), UserDO::getUserName, userDO.getUserName())
