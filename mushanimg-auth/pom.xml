@@ -60,6 +60,12 @@
         <dependency>
             <groupId>com.hzb</groupId>
             <artifactId>mushanimg-base-redis</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.pagehelper</groupId>
+                    <artifactId>pagehelper-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

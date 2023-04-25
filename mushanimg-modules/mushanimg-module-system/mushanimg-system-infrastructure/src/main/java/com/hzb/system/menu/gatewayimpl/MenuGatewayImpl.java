@@ -1,6 +1,5 @@
 package com.hzb.system.menu.gatewayimpl;
 
-import com.alibaba.fastjson2.util.BeanUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.base.core.utils.BeanCopyUtil;
@@ -10,7 +9,9 @@ import com.hzb.system.menu.gatewayimpl.database.MenuMapper;
 import com.hzb.system.menu.gatewayimpl.database.dataobject.MenuDO;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -47,17 +48,17 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     }
 
     @Override
-    public List<Long> getMenuIdsByRoleIds(List<Long> roleIds) {
+    public Set<Long> getMenuIdsByRoleIds(List<Long> roleIds) {
         // 1、判断传入参数是否合法
         if (roleIds == null || roleIds.isEmpty()) {
             return null;
         }
         // 2、查询menuIds
-        return menuMapper.selectMenuIdsByRoleIds(roleIds);
+        return new HashSet<>(menuMapper.selectMenuIdsByRoleIds(roleIds));
     }
 
     @Override
-    public List<String> getPermissions(List<Long> menuIds) {
+    public Set<String> getPermissions(Set<Long> menuIds) {
         // 1、判断传入参数是否合法
         if (menuIds == null || menuIds.isEmpty()){
             return null;
@@ -66,7 +67,7 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
         // 2、查询拥有的权限
         LambdaQueryWrapper<MenuDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.select(MenuDO::getPerms).in(MenuDO::getMenuId, menuIds);
-        return menuMapper.selectList(wrapper).stream().map(MenuDO::getPerms).collect(Collectors.toList());
+        return menuMapper.selectList(wrapper).stream().map(MenuDO::getPerms).collect(Collectors.toSet());
     }
 }
 

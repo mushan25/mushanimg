@@ -56,7 +56,6 @@ public class UserClient {
 
     private LoginUser setLoginUser(UserGetReply response){
         User user = response.getUser();
-        Set<String> permissions = new HashSet<>(response.getPermissions().getPermissionsList());
-        return new LoginUser(user.getUserId(), user, permissions);
+        return new LoginUser(user.getUserId(), user);
     }
 }

@@ -10,7 +10,6 @@ import lombok.Data;
  */
 @Data
 public class UserListQry {
-    private PageParam pageParam;
     private UserCO userCO;
 
 }

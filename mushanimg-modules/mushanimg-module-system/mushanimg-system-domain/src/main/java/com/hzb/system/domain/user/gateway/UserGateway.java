@@ -1,12 +1,9 @@
 package com.hzb.system.domain.user.gateway;
 
-import com.hzb.base.core.web.page.PageParam;
-import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import reactor.util.function.Tuple2;
 
 import java.util.List;
-import java.util.Map;
 
 /**
 * @author Administrator
@@ -23,11 +20,10 @@ public interface UserGateway {
 
     /**
      * 获取用户列表
-     * @param pageParam 分页参数
      * @param user 用户信息
      * @return 用户列表
      */
-    List<User> getUserList(PageParam pageParam, User user);
+    List<User> getUserList(User user);
 
     /**
      * 注册用户
