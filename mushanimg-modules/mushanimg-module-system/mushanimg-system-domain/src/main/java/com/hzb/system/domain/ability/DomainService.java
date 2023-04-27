@@ -1,5 +1,6 @@
 package com.hzb.system.domain.ability;
 
+import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.role.gateway.RoleGateway;
 import com.hzb.system.domain.role.model.entities.Role;
@@ -8,7 +9,9 @@ import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,16 +34,24 @@ public class DomainService {
     }
 
     public AuthUser getAuthUserInfoByName(String userName) {
+        Set<String> roleKeySet = new HashSet<>();
+        Set<String> permissions = new HashSet<>();
         // 1、获取用户信息
         User user = userGateway.getByUserName(userName);
-        // 2、根据用户id获取用户拥有的角色
-        List<Role> roleList = roleGateway.getRoleByUserId(user.getUserId());
-        Set<String> roleKeySet = roleList.stream().map(Role::getRoleKey).collect(Collectors.toSet());
-        // 4、根据角色id list查询用户拥有的menu id list
-        Set<Long> menuIds = menuGateway.getMenuIdsByRoleIds(roleList.stream().map(Role::getRoleId).collect(Collectors.toList()));
-        // 5、根据menuIds查询用户拥有的权限
-        Set<String> permissions = menuGateway.getPermissions(menuIds);
-        // 6、返回AuthUser
+        if (null != user){
+            // 2、根据用户id获取用户拥有的角色
+            List<Role> roleList = roleGateway.getRoleByUserId(user.getUserId());
+            if (null != roleList && !roleList.isEmpty()){
+                roleKeySet = roleList.stream().map(Role::getRoleKey).collect(Collectors.toSet());
+                // 3、根据角色id list查询用户拥有的menu id list
+                Set<Long> menuIds = menuGateway.getMenuIdsByRoleIds(roleList.stream().map(Role::getRoleId).collect(Collectors.toList()));
+                if (null != menuIds && !menuIds.isEmpty()){
+                    // 4、根据menuIds查询用户拥有的权限
+                    permissions = menuGateway.getPermissions(menuIds);
+                }
+            }
+        }
+        // 5、返回AuthUser
         return new AuthUser(user, roleKeySet, permissions);
     }
 

@@ -219,6 +219,12 @@
             </dependency>
 
             <dependency>
+                <groupId>com.hzb</groupId>
+                <artifactId>mushanimg-base-security</artifactId>
+                <version>${mushanimg.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-components-bom</artifactId>
                 <version>${cola.components.version}</version>

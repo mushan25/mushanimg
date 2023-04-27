@@ -1,11 +1,11 @@
-package com.hzb.auth.service;
+package com.hzb.base.security.service;
 
-import com.hzb.auth.form.LoginUser;
 import com.hzb.base.core.constant.CacheConstants;
 import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.constant.TokenConstants;
 import com.hzb.base.core.utils.JwtUtils;
 import com.hzb.base.redis.service.RedisService;
+import com.hzb.base.security.form.LoginUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -70,7 +70,7 @@ public class TokenService {
         try {
             if (StringUtils.isNotEmpty(token)){
                 String userKey = JwtUtils.getUserKey(token);
-                user = redisService.getCacheObject(userKey);
+                user = redisService.getCacheObject(getTokenKey(userKey));
                 return user;
             }
         }catch (Exception e){

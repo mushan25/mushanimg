@@ -1,5 +1,6 @@
 package com.hzb.system.role.gatewayimpl;
 
+import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.system.domain.role.gateway.RoleGateway;
@@ -9,6 +10,7 @@ import com.hzb.system.role.gatewayimpl.database.dataobject.RoleDO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
 * @author Administrator
@@ -26,15 +28,15 @@ public class RoleGatewayImpl extends ServiceImpl<RoleMapper, RoleDO>
 
     @Override
     public List<Role> getRoleByUserId(Long userId) {
-
-        // 1、根据userId获取RoleList信息
-        List<RoleDO> roleDOS = roleMapper.selectBatchIds(getRoleIdsByUserId(userId));
-        // 2、判断是否查询成功
-        if (roleDOS == null){
-            return null;
+        if (null != userId){
+            // 1、根据userId获取RoleList信息
+            List<Long> roleIds = getRoleIdsByUserId(userId);
+            if (null != roleIds && !roleIds.isEmpty()){
+                List<RoleDO> roleDOS = roleMapper.selectBatchIds(roleIds);
+                return BeanCopyUtil.copyListProperties(roleDOS, Role::new);
+            }
         }
-        // 3、拷贝角色信息
-        return BeanCopyUtil.copyListProperties(roleDOS, Role::new);
+        return null;
     }
 
     @Override

@@ -4,9 +4,13 @@ import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.base.core.utils.BeanCopyUtil;
+import com.hzb.base.core.utils.JwtUtils;
+import com.hzb.base.redis.service.RedisService;
+import com.hzb.base.security.form.LoginUser;
 import com.hzb.system.convertor.UserConvertor;
 import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.user.gateway.UserGateway;
+import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.UserMapper;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
@@ -27,9 +31,11 @@ import java.util.List;
 public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements UserGateway {
 
     private final UserMapper userMapper;
+    private final RedisService redisService;
 
-    public UserGatewayImpl(UserMapper userMapper) {
+    public UserGatewayImpl(UserMapper userMapper, RedisService redisService) {
         this.userMapper = userMapper;
+        this.redisService = redisService;
     }
 
 
@@ -86,6 +92,13 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
         long userId = null == user.getUserId() ? -1L : user.getUserId();
         UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUserName, user.getUserName()));
         return null == userDO || userDO.getUserId() == userId;
+    }
+
+    @Override
+    public AuthUser getUserInfoInCache(String token) {
+        String userKey = JwtUtils.getUserKey(token);
+        LoginUser loginUser = redisService.getCacheObject(userKey);
+        return null;
     }
 }
 

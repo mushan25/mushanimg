@@ -20,6 +20,7 @@
     </description>
     <modules>
         <module>mushanimg-module-system</module>
+        <module>mushanimg-module-file</module>
     </modules>
 
 </project>

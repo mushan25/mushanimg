@@ -61,12 +61,17 @@
         </dependency>
 
         <dependency>
-            <groupId>com.hzb</groupId>
-            <artifactId>mushanimg-base-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.hzb</groupId>
+            <artifactId>mushanimg-base-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hzb</groupId>
+            <artifactId>mushanimg-base-security</artifactId>
         </dependency>
     </dependencies>
 

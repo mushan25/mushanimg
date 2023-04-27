@@ -1,15 +1,12 @@
-package com.hzb.auth.service;
+package com.hzb.base.security.service;
 
-import com.hzb.auth.form.LoginUser;
 import com.hzb.base.core.constant.CacheConstants;
-import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.SecurityUtils;
 import com.hzb.base.redis.service.RedisService;
-import org.springframework.beans.factory.annotation.Value;
+import com.hzb.base.security.form.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;

@@ -17,6 +17,8 @@ message UserGetRequest{
 
 message UserGetReply {
   User user = 1;
+  repeated string roleKeys = 2;
+  repeated string permissions = 3;
 }
 
 message UserAddRequest{
@@ -46,8 +48,6 @@ message User {
   string updateBy = 15;
   string updateTime = 16;
   string remark = 17;
-  repeated string roleKeys = 18;
-  repeated string permissions = 19;
 }
 
 message Password {

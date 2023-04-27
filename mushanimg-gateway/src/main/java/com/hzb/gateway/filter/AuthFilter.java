@@ -72,7 +72,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         String userKey = JwtUtils.getUserKey(token);
 
-        Boolean isLogin = redisService.hasKey(getTokenKey(token));
+        Boolean isLogin = redisService.hasKey(getTokenKey(userKey));
         if (!isLogin){
             return unauthorizedResponse(exchange, "登录状态已过期");
         }

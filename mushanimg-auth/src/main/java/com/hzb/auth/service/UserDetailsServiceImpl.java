@@ -1,9 +1,10 @@
 package com.hzb.auth.service;
 
-import com.hzb.auth.form.LoginUser;
 import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.enums.UserStatus;
 import com.hzb.base.core.exception.ServiceException;
+import com.hzb.base.security.form.LoginUser;
+import com.hzb.base.security.service.PasswordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

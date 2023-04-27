@@ -1,6 +1,6 @@
 package com.hzb.auth.grpc;
 
-import com.hzb.auth.form.LoginUser;
+import com.hzb.base.security.form.LoginUser;
 import com.hzb.lib.user.proto.UserProto.*;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import io.grpc.StatusRuntimeException;
@@ -12,6 +12,7 @@ import reactor.util.function.Tuples;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author: hzb
@@ -56,6 +57,8 @@ public class UserClient {
 
     private LoginUser setLoginUser(UserGetReply response){
         User user = response.getUser();
-        return new LoginUser(user.getUserId(), user);
+        Set<String> permissions = new HashSet<>(response.getPermissionsList());
+        Set<String> roleKeys = new HashSet<>(response.getRoleKeysList());
+        return new LoginUser(user.getUserId(), user, permissions, roleKeys);
     }
 }

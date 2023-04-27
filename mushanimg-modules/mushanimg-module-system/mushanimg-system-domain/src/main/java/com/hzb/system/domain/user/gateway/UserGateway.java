@@ -1,5 +1,6 @@
 package com.hzb.system.domain.user.gateway;
 
+import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import reactor.util.function.Tuple2;
 
@@ -39,4 +40,11 @@ public interface UserGateway {
      * @return 结果
      */
     boolean checkUserNameUnique(User user);
+
+    /**
+     * 从缓存获取登录用户信息
+     * @param token 登录用户token
+     * @return 登录用户信息
+     */
+    AuthUser getUserInfoInCache(String token);
 }

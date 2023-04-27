@@ -1,11 +1,11 @@
 package com.hzb.auth.controller;
 
 import com.hzb.auth.form.LoginBody;
-import com.hzb.auth.form.LoginUser;
 import com.hzb.auth.form.RegisterBody;
 import com.hzb.auth.service.LoginService;
-import com.hzb.auth.service.TokenService;
 import com.hzb.base.core.domain.ResultBody;
+import com.hzb.base.security.form.LoginUser;
+import com.hzb.base.security.service.TokenService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
