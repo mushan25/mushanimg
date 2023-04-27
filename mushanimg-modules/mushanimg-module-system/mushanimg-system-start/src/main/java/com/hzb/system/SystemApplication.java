@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @author: hzb
  * @Date: 2023/4/17
  */
-@SpringBootApplication(scanBasePackages = {"com.hzb.system","com.alibaba.cola","com.hzb.base.core"})
+@SpringBootApplication(scanBasePackages = {"com.hzb.system","com.alibaba.cola","com.hzb.base.core","com.hzb.base.security"})
 @EnableAspectJAutoProxy(exposeProxy = true)
 @Slf4j
 public class SystemApplication {

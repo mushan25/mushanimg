@@ -1,9 +1,9 @@
 package com.hzb.auth.service;
 
-import com.hzb.auth.form.LoginUser;
 import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.SecurityUtils;
+import com.hzb.base.security.form.LoginUser;
 import com.hzb.lib.user.proto.UserProto.Password;
 import com.hzb.lib.user.proto.UserProto.User;
 import org.springframework.security.authentication.AuthenticationManager;

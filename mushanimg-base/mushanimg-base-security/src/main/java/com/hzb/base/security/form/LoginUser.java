@@ -1,14 +1,17 @@
-package com.hzb.auth.form;
+package com.hzb.base.security.form;
 
 import com.alibaba.fastjson2.annotation.JSONField;
+import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.lib.user.proto.UserProto;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -43,14 +46,23 @@ public class LoginUser implements UserDetails {
 
     private UserProto.User user;
 
-    public LoginUser(Long userId, UserProto.User user){
+    private Set<String> roleKeys;
+    private Set<String> permissions;
+
+    public LoginUser(Long userId, UserProto.User user, Set<String> roleKeys, Set<String> permissions) {
         this.userId = userId;
         this.user = user;
+        this.roleKeys = roleKeys;
+        this.permissions = permissions;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        for (String permission : permissions) {
+            authorities.add(new SimpleGrantedAuthority(permission));
+        }
+        return authorities;
     }
 
     @JSONField(serialize = false)

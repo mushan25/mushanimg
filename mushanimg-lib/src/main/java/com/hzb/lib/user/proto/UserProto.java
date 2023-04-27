@@ -544,6 +544,44 @@ public final class UserProto {
      * <code>.user.User user = 1;</code>
      */
     com.hzb.lib.user.proto.UserProto.UserOrBuilder getUserOrBuilder();
+
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    java.util.List<java.lang.String>
+        getRoleKeysList();
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    int getRoleKeysCount();
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    java.lang.String getRoleKeys(int index);
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getRoleKeysBytes(int index);
+
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    java.util.List<java.lang.String>
+        getPermissionsList();
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    int getPermissionsCount();
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    java.lang.String getPermissions(int index);
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getPermissionsBytes(int index);
   }
   /**
    * Protobuf type {@code user.UserGetReply}
@@ -557,6 +595,8 @@ public final class UserProto {
       super(builder);
     }
     private UserGetReply() {
+      roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -597,6 +637,24 @@ public final class UserProto {
 
               break;
             }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                roleKeys_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              roleKeys_.add(s);
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                permissions_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              permissions_.add(s);
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -605,6 +663,12 @@ public final class UserProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          roleKeys_ = roleKeys_.getUnmodifiableView();
+        }
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          permissions_ = permissions_.getUnmodifiableView();
+        }
         makeExtensionsImmutable();
       }
     }
@@ -620,6 +684,7 @@ public final class UserProto {
               com.hzb.lib.user.proto.UserProto.UserGetReply.class, com.hzb.lib.user.proto.UserProto.UserGetReply.Builder.class);
     }
 
+    private int bitField0_;
     public static final int USER_FIELD_NUMBER = 1;
     private com.hzb.lib.user.proto.UserProto.User user_;
     /**
@@ -641,6 +706,64 @@ public final class UserProto {
       return getUser();
     }
 
+    public static final int ROLEKEYS_FIELD_NUMBER = 2;
+    private com.google.protobuf.LazyStringList roleKeys_;
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getRoleKeysList() {
+      return roleKeys_;
+    }
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    public int getRoleKeysCount() {
+      return roleKeys_.size();
+    }
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    public java.lang.String getRoleKeys(int index) {
+      return roleKeys_.get(index);
+    }
+    /**
+     * <code>repeated string roleKeys = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getRoleKeysBytes(int index) {
+      return roleKeys_.getByteString(index);
+    }
+
+    public static final int PERMISSIONS_FIELD_NUMBER = 3;
+    private com.google.protobuf.LazyStringList permissions_;
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    public com.google.protobuf.ProtocolStringList
+        getPermissionsList() {
+      return permissions_;
+    }
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    public int getPermissionsCount() {
+      return permissions_.size();
+    }
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    public java.lang.String getPermissions(int index) {
+      return permissions_.get(index);
+    }
+    /**
+     * <code>repeated string permissions = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPermissionsBytes(int index) {
+      return permissions_.getByteString(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -656,6 +779,12 @@ public final class UserProto {
       if (user_ != null) {
         output.writeMessage(1, getUser());
       }
+      for (int i = 0; i < roleKeys_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, roleKeys_.getRaw(i));
+      }
+      for (int i = 0; i < permissions_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, permissions_.getRaw(i));
+      }
     }
 
     public int getSerializedSize() {
@@ -666,6 +795,22 @@ public final class UserProto {
       if (user_ != null) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getUser());
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < roleKeys_.size(); i++) {
+          dataSize += computeStringSizeNoTag(roleKeys_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getRoleKeysList().size();
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < permissions_.size(); i++) {
+          dataSize += computeStringSizeNoTag(permissions_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getPermissionsList().size();
       }
       memoizedSize = size;
       return size;
@@ -688,6 +833,10 @@ public final class UserProto {
         result = result && getUser()
             .equals(other.getUser());
       }
+      result = result && getRoleKeysList()
+          .equals(other.getRoleKeysList());
+      result = result && getPermissionsList()
+          .equals(other.getPermissionsList());
       return result;
     }
 
@@ -701,6 +850,14 @@ public final class UserProto {
       if (hasUser()) {
         hash = (37 * hash) + USER_FIELD_NUMBER;
         hash = (53 * hash) + getUser().hashCode();
+      }
+      if (getRoleKeysCount() > 0) {
+        hash = (37 * hash) + ROLEKEYS_FIELD_NUMBER;
+        hash = (53 * hash) + getRoleKeysList().hashCode();
+      }
+      if (getPermissionsCount() > 0) {
+        hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
+        hash = (53 * hash) + getPermissionsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -837,6 +994,10 @@ public final class UserProto {
           user_ = null;
           userBuilder_ = null;
         }
+        roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -859,11 +1020,24 @@ public final class UserProto {
 
       public com.hzb.lib.user.proto.UserProto.UserGetReply buildPartial() {
         com.hzb.lib.user.proto.UserProto.UserGetReply result = new com.hzb.lib.user.proto.UserProto.UserGetReply(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (userBuilder_ == null) {
           result.user_ = user_;
         } else {
           result.user_ = userBuilder_.build();
         }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          roleKeys_ = roleKeys_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        }
+        result.roleKeys_ = roleKeys_;
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          permissions_ = permissions_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        }
+        result.permissions_ = permissions_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -908,6 +1082,26 @@ public final class UserProto {
         if (other.hasUser()) {
           mergeUser(other.getUser());
         }
+        if (!other.roleKeys_.isEmpty()) {
+          if (roleKeys_.isEmpty()) {
+            roleKeys_ = other.roleKeys_;
+            bitField0_ = (bitField0_ & ~0x00000002);
+          } else {
+            ensureRoleKeysIsMutable();
+            roleKeys_.addAll(other.roleKeys_);
+          }
+          onChanged();
+        }
+        if (!other.permissions_.isEmpty()) {
+          if (permissions_.isEmpty()) {
+            permissions_ = other.permissions_;
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            ensurePermissionsIsMutable();
+            permissions_.addAll(other.permissions_);
+          }
+          onChanged();
+        }
         onChanged();
         return this;
       }
@@ -933,6 +1127,7 @@ public final class UserProto {
         }
         return this;
       }
+      private int bitField0_;
 
       private com.hzb.lib.user.proto.UserProto.User user_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1049,6 +1244,194 @@ public final class UserProto {
           user_ = null;
         }
         return userBuilder_;
+      }
+
+      private com.google.protobuf.LazyStringList roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureRoleKeysIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          roleKeys_ = new com.google.protobuf.LazyStringArrayList(roleKeys_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getRoleKeysList() {
+        return roleKeys_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public int getRoleKeysCount() {
+        return roleKeys_.size();
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public java.lang.String getRoleKeys(int index) {
+        return roleKeys_.get(index);
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getRoleKeysBytes(int index) {
+        return roleKeys_.getByteString(index);
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public Builder setRoleKeys(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRoleKeysIsMutable();
+        roleKeys_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public Builder addRoleKeys(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureRoleKeysIsMutable();
+        roleKeys_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public Builder addAllRoleKeys(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureRoleKeysIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, roleKeys_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public Builder clearRoleKeys() {
+        roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string roleKeys = 2;</code>
+       */
+      public Builder addRoleKeysBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureRoleKeysIsMutable();
+        roleKeys_.add(value);
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.LazyStringList permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensurePermissionsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          permissions_ = new com.google.protobuf.LazyStringArrayList(permissions_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public com.google.protobuf.ProtocolStringList
+          getPermissionsList() {
+        return permissions_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public int getPermissionsCount() {
+        return permissions_.size();
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public java.lang.String getPermissions(int index) {
+        return permissions_.get(index);
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPermissionsBytes(int index) {
+        return permissions_.getByteString(index);
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public Builder setPermissions(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePermissionsIsMutable();
+        permissions_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public Builder addPermissions(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensurePermissionsIsMutable();
+        permissions_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public Builder addAllPermissions(
+          java.lang.Iterable<java.lang.String> values) {
+        ensurePermissionsIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, permissions_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public Builder clearPermissions() {
+        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string permissions = 3;</code>
+       */
+      public Builder addPermissionsBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensurePermissionsIsMutable();
+        permissions_.add(value);
+        onChanged();
+        return this;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2419,44 +2802,6 @@ public final class UserProto {
      */
     com.google.protobuf.ByteString
         getRemarkBytes();
-
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    java.util.List<java.lang.String>
-        getRoleKeysList();
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    int getRoleKeysCount();
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    java.lang.String getRoleKeys(int index);
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    com.google.protobuf.ByteString
-        getRoleKeysBytes(int index);
-
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    java.util.List<java.lang.String>
-        getPermissionsList();
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    int getPermissionsCount();
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    java.lang.String getPermissions(int index);
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    com.google.protobuf.ByteString
-        getPermissionsBytes(int index);
   }
   /**
    * Protobuf type {@code user.User}
@@ -2486,8 +2831,6 @@ public final class UserProto {
       updateBy_ = "";
       updateTime_ = "";
       remark_ = "";
-      roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -2623,24 +2966,6 @@ public final class UserProto {
               remark_ = s;
               break;
             }
-            case 146: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
-                roleKeys_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00020000;
-              }
-              roleKeys_.add(s);
-              break;
-            }
-            case 154: {
-              java.lang.String s = input.readStringRequireUtf8();
-              if (!((mutable_bitField0_ & 0x00040000) == 0x00040000)) {
-                permissions_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00040000;
-              }
-              permissions_.add(s);
-              break;
-            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2649,12 +2974,6 @@ public final class UserProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00020000) == 0x00020000)) {
-          roleKeys_ = roleKeys_.getUnmodifiableView();
-        }
-        if (((mutable_bitField0_ & 0x00040000) == 0x00040000)) {
-          permissions_ = permissions_.getUnmodifiableView();
-        }
         makeExtensionsImmutable();
       }
     }
@@ -2670,7 +2989,6 @@ public final class UserProto {
               com.hzb.lib.user.proto.UserProto.User.class, com.hzb.lib.user.proto.UserProto.User.Builder.class);
     }
 
-    private int bitField0_;
     public static final int USERID_FIELD_NUMBER = 1;
     private long userId_;
     /**
@@ -3211,64 +3529,6 @@ public final class UserProto {
       }
     }
 
-    public static final int ROLEKEYS_FIELD_NUMBER = 18;
-    private com.google.protobuf.LazyStringList roleKeys_;
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    public com.google.protobuf.ProtocolStringList
-        getRoleKeysList() {
-      return roleKeys_;
-    }
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    public int getRoleKeysCount() {
-      return roleKeys_.size();
-    }
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    public java.lang.String getRoleKeys(int index) {
-      return roleKeys_.get(index);
-    }
-    /**
-     * <code>repeated string roleKeys = 18;</code>
-     */
-    public com.google.protobuf.ByteString
-        getRoleKeysBytes(int index) {
-      return roleKeys_.getByteString(index);
-    }
-
-    public static final int PERMISSIONS_FIELD_NUMBER = 19;
-    private com.google.protobuf.LazyStringList permissions_;
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    public com.google.protobuf.ProtocolStringList
-        getPermissionsList() {
-      return permissions_;
-    }
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    public int getPermissionsCount() {
-      return permissions_.size();
-    }
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    public java.lang.String getPermissions(int index) {
-      return permissions_.get(index);
-    }
-    /**
-     * <code>repeated string permissions = 19;</code>
-     */
-    public com.google.protobuf.ByteString
-        getPermissionsBytes(int index) {
-      return permissions_.getByteString(index);
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3332,12 +3592,6 @@ public final class UserProto {
       if (!getRemarkBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 17, remark_);
       }
-      for (int i = 0; i < roleKeys_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, roleKeys_.getRaw(i));
-      }
-      for (int i = 0; i < permissions_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 19, permissions_.getRaw(i));
-      }
     }
 
     public int getSerializedSize() {
@@ -3398,22 +3652,6 @@ public final class UserProto {
       if (!getRemarkBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, remark_);
       }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < roleKeys_.size(); i++) {
-          dataSize += computeStringSizeNoTag(roleKeys_.getRaw(i));
-        }
-        size += dataSize;
-        size += 2 * getRoleKeysList().size();
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < permissions_.size(); i++) {
-          dataSize += computeStringSizeNoTag(permissions_.getRaw(i));
-        }
-        size += dataSize;
-        size += 2 * getPermissionsList().size();
-      }
       memoizedSize = size;
       return size;
     }
@@ -3467,10 +3705,6 @@ public final class UserProto {
           .equals(other.getUpdateTime());
       result = result && getRemark()
           .equals(other.getRemark());
-      result = result && getRoleKeysList()
-          .equals(other.getRoleKeysList());
-      result = result && getPermissionsList()
-          .equals(other.getPermissionsList());
       return result;
     }
 
@@ -3518,14 +3752,6 @@ public final class UserProto {
       hash = (53 * hash) + getUpdateTime().hashCode();
       hash = (37 * hash) + REMARK_FIELD_NUMBER;
       hash = (53 * hash) + getRemark().hashCode();
-      if (getRoleKeysCount() > 0) {
-        hash = (37 * hash) + ROLEKEYS_FIELD_NUMBER;
-        hash = (53 * hash) + getRoleKeysList().hashCode();
-      }
-      if (getPermissionsCount() > 0) {
-        hash = (37 * hash) + PERMISSIONS_FIELD_NUMBER;
-        hash = (53 * hash) + getPermissionsList().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3693,10 +3919,6 @@ public final class UserProto {
 
         remark_ = "";
 
-        roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00020000);
-        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00040000);
         return this;
       }
 
@@ -3719,8 +3941,6 @@ public final class UserProto {
 
       public com.hzb.lib.user.proto.UserProto.User buildPartial() {
         com.hzb.lib.user.proto.UserProto.User result = new com.hzb.lib.user.proto.UserProto.User(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         result.userId_ = userId_;
         result.userName_ = userName_;
         result.nickName_ = nickName_;
@@ -3742,17 +3962,6 @@ public final class UserProto {
         result.updateBy_ = updateBy_;
         result.updateTime_ = updateTime_;
         result.remark_ = remark_;
-        if (((bitField0_ & 0x00020000) == 0x00020000)) {
-          roleKeys_ = roleKeys_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00020000);
-        }
-        result.roleKeys_ = roleKeys_;
-        if (((bitField0_ & 0x00040000) == 0x00040000)) {
-          permissions_ = permissions_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00040000);
-        }
-        result.permissions_ = permissions_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -3860,26 +4069,6 @@ public final class UserProto {
           remark_ = other.remark_;
           onChanged();
         }
-        if (!other.roleKeys_.isEmpty()) {
-          if (roleKeys_.isEmpty()) {
-            roleKeys_ = other.roleKeys_;
-            bitField0_ = (bitField0_ & ~0x00020000);
-          } else {
-            ensureRoleKeysIsMutable();
-            roleKeys_.addAll(other.roleKeys_);
-          }
-          onChanged();
-        }
-        if (!other.permissions_.isEmpty()) {
-          if (permissions_.isEmpty()) {
-            permissions_ = other.permissions_;
-            bitField0_ = (bitField0_ & ~0x00040000);
-          } else {
-            ensurePermissionsIsMutable();
-            permissions_.addAll(other.permissions_);
-          }
-          onChanged();
-        }
         onChanged();
         return this;
       }
@@ -3905,7 +4094,6 @@ public final class UserProto {
         }
         return this;
       }
-      private int bitField0_;
 
       private long userId_ ;
       /**
@@ -5084,194 +5272,6 @@ public final class UserProto {
         onChanged();
         return this;
       }
-
-      private com.google.protobuf.LazyStringList roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensureRoleKeysIsMutable() {
-        if (!((bitField0_ & 0x00020000) == 0x00020000)) {
-          roleKeys_ = new com.google.protobuf.LazyStringArrayList(roleKeys_);
-          bitField0_ |= 0x00020000;
-         }
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public com.google.protobuf.ProtocolStringList
-          getRoleKeysList() {
-        return roleKeys_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public int getRoleKeysCount() {
-        return roleKeys_.size();
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public java.lang.String getRoleKeys(int index) {
-        return roleKeys_.get(index);
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public com.google.protobuf.ByteString
-          getRoleKeysBytes(int index) {
-        return roleKeys_.getByteString(index);
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public Builder setRoleKeys(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureRoleKeysIsMutable();
-        roleKeys_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public Builder addRoleKeys(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensureRoleKeysIsMutable();
-        roleKeys_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public Builder addAllRoleKeys(
-          java.lang.Iterable<java.lang.String> values) {
-        ensureRoleKeysIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, roleKeys_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public Builder clearRoleKeys() {
-        roleKeys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00020000);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string roleKeys = 18;</code>
-       */
-      public Builder addRoleKeysBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensureRoleKeysIsMutable();
-        roleKeys_.add(value);
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.LazyStringList permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-      private void ensurePermissionsIsMutable() {
-        if (!((bitField0_ & 0x00040000) == 0x00040000)) {
-          permissions_ = new com.google.protobuf.LazyStringArrayList(permissions_);
-          bitField0_ |= 0x00040000;
-         }
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public com.google.protobuf.ProtocolStringList
-          getPermissionsList() {
-        return permissions_.getUnmodifiableView();
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public int getPermissionsCount() {
-        return permissions_.size();
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public java.lang.String getPermissions(int index) {
-        return permissions_.get(index);
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public com.google.protobuf.ByteString
-          getPermissionsBytes(int index) {
-        return permissions_.getByteString(index);
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public Builder setPermissions(
-          int index, java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensurePermissionsIsMutable();
-        permissions_.set(index, value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public Builder addPermissions(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  ensurePermissionsIsMutable();
-        permissions_.add(value);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public Builder addAllPermissions(
-          java.lang.Iterable<java.lang.String> values) {
-        ensurePermissionsIsMutable();
-        com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, permissions_);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public Builder clearPermissions() {
-        permissions_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00040000);
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>repeated string permissions = 19;</code>
-       */
-      public Builder addPermissionsBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        ensurePermissionsIsMutable();
-        permissions_.add(value);
-        onChanged();
-        return this;
-      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -5875,19 +5875,19 @@ public final class UserProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\021userservice.proto\022\004user\"\"\n\016UserGetRequ" +
-      "est\022\020\n\010userName\030\001 \001(\t\"(\n\014UserGetReply\022\030\n" +
-      "\004user\030\001 \001(\0132\n.user.User\"*\n\016UserAddReques" +
-      "t\022\030\n\004user\030\001 \001(\0132\n.user.User\".\n\014UserAddRe" +
-      "ply\022\021\n\taddResult\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"\345\002\n\004" +
-      "User\022\016\n\006userId\030\001 \001(\022\022\020\n\010userName\030\002 \001(\t\022\020" +
-      "\n\010nickName\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\023\n\013phone" +
-      "Number\030\005 \001(\t\022\013\n\003sex\030\006 \001(\t\022\016\n\006avatar\030\007 \001(" +
-      "\t\022 \n\010password\030\010 \001(\0132\016.user.Password\022\016\n\006s" +
-      "tatus\030\t \001(\t\022\017\n\007delFlag\030\n \001(\t\022\017\n\007loginIp\030",
-      "\013 \001(\t\022\021\n\tloginDate\030\014 \001(\t\022\020\n\010createBy\030\r \001" +
-      "(\t\022\022\n\ncreateTime\030\016 \001(\t\022\020\n\010updateBy\030\017 \001(\t" +
-      "\022\022\n\nupdateTime\030\020 \001(\t\022\016\n\006remark\030\021 \001(\t\022\020\n\010" +
-      "roleKeys\030\022 \003(\t\022\023\n\013permissions\030\023 \003(\t\"\034\n\010P" +
+      "est\022\020\n\010userName\030\001 \001(\t\"O\n\014UserGetReply\022\030\n" +
+      "\004user\030\001 \001(\0132\n.user.User\022\020\n\010roleKeys\030\002 \003(" +
+      "\t\022\023\n\013permissions\030\003 \003(\t\"*\n\016UserAddRequest" +
+      "\022\030\n\004user\030\001 \001(\0132\n.user.User\".\n\014UserAddRep" +
+      "ly\022\021\n\taddResult\030\001 \001(\010\022\013\n\003msg\030\002 \001(\t\"\276\002\n\004U" +
+      "ser\022\016\n\006userId\030\001 \001(\022\022\020\n\010userName\030\002 \001(\t\022\020\n" +
+      "\010nickName\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\022\023\n\013phoneN" +
+      "umber\030\005 \001(\t\022\013\n\003sex\030\006 \001(\t\022\016\n\006avatar\030\007 \001(\t" +
+      "\022 \n\010password\030\010 \001(\0132\016.user.Password\022\016\n\006st",
+      "atus\030\t \001(\t\022\017\n\007delFlag\030\n \001(\t\022\017\n\007loginIp\030\013" +
+      " \001(\t\022\021\n\tloginDate\030\014 \001(\t\022\020\n\010createBy\030\r \001(" +
+      "\t\022\022\n\ncreateTime\030\016 \001(\t\022\020\n\010updateBy\030\017 \001(\t\022" +
+      "\022\n\nupdateTime\030\020 \001(\t\022\016\n\006remark\030\021 \001(\t\"\034\n\010P" +
       "assword\022\020\n\010password\030\001 \001(\t2\204\001\n\013UserServic" +
       "e\022>\n\020getUserInfoPerms\022\024.user.UserGetRequ" +
       "est\032\022.user.UserGetReply\"\000\0225\n\007addUser\022\024.u" +
@@ -5918,7 +5918,7 @@ public final class UserProto {
     internal_static_user_UserGetReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_UserGetReply_descriptor,
-        new java.lang.String[] { "User", });
+        new java.lang.String[] { "User", "RoleKeys", "Permissions", });
     internal_static_user_UserAddRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_user_UserAddRequest_fieldAccessorTable = new
@@ -5936,7 +5936,7 @@ public final class UserProto {
     internal_static_user_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_User_descriptor,
-        new java.lang.String[] { "UserId", "UserName", "NickName", "Email", "PhoneNumber", "Sex", "Avatar", "Password", "Status", "DelFlag", "LoginIp", "LoginDate", "CreateBy", "CreateTime", "UpdateBy", "UpdateTime", "Remark", "RoleKeys", "Permissions", });
+        new java.lang.String[] { "UserId", "UserName", "NickName", "Email", "PhoneNumber", "Sex", "Avatar", "Password", "Status", "DelFlag", "LoginIp", "LoginDate", "CreateBy", "CreateTime", "UpdateBy", "UpdateTime", "Remark", });
     internal_static_user_Password_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_user_Password_fieldAccessorTable = new

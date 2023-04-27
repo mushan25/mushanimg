@@ -18,5 +18,4 @@ public interface UserServiceI {
      */
     PageResponse<UserCO> getUserList(UserListQry userListQry);
 
-
 }
