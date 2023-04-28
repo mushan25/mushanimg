@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: file-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 119.3.171.130:8848
+      discovery:
+        group: mushanimg-project
+        namespace: ${spring.profiles.active}
+      config:
+        file-extension: yaml
+        group: mushanimg-project
+        namespace: ${spring.profiles.active}
+        refresh-enabled: true
+        shared-configs:
+          - data-id: logging-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            group: mushanimg-common
+            refresh: true
+          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            group: mushanimg-common
+            refresh: true
+
+
