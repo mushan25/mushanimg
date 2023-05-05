@@ -51,6 +51,10 @@
             <groupId>com.hzb</groupId>
             <artifactId>mushanimg-base-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
