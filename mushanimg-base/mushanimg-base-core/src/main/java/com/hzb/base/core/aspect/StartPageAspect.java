@@ -8,8 +8,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author: hzb
@@ -42,7 +40,7 @@ public class StartPageAspect {
             String orderBy = pageParam.getOrderBy();
             PageHelper.startPage(null == pageNum ? defaultPageNum : pageNum, null == pageSize ? defaultPageSize : pageSize, orderBy).setReasonable(true);
         }else {
-            PageHelper.startPage(defaultPageNum, defaultPageSize).setReasonable(true);
+            PageHelper.startPage(defaultPageNum, defaultPageSize, isAsc).setReasonable(true);
         }
     }
 }

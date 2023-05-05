@@ -25,6 +25,11 @@
             <artifactId>mushanimg-base-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.j256.simplemagic</groupId>
+            <artifactId>simplemagic</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
