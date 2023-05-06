@@ -27,6 +27,6 @@ public interface ImageGateway {
      * @param imgMd5Key 图片md5值
      * @return 查询结果
      */
-    boolean selectImg(String imgMd5Key);
+    boolean selectImgByMd5(String imgMd5Key);
 
 }

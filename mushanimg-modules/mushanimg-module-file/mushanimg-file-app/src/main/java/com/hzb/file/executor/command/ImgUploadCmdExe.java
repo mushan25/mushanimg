@@ -22,15 +22,16 @@ public class ImgUploadCmdExe {
         this.imageGateway = imageGateway;
     }
 
-    @Transactional(rollbackFor = SysException.class)
     public AjaxResult execute(ImgUploadCmd imgUploadCmd){
         Image image = DomainFactory.getImage();
         BeanUtils.copyProperties(imgUploadCmd, image);
         image.setImgType();
         image.setMimeType();
         image.setMd5Key();
-        image.setImgurl("123");
-        if (imageGateway.addImg2Db(image) && imageGateway.upload2Minio(image)){
+        if (imageGateway.selectImgByMd5(image.getMd5Key())){
+            return AjaxResult.success();
+        }
+        if (imageGateway.upload2Minio(image) && imageGateway.addImg2Db(image)){
             return AjaxResult.success();
         }
         return AjaxResult.error();
