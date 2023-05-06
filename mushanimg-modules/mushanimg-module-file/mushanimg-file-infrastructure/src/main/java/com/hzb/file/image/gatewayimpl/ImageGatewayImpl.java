@@ -8,14 +8,18 @@ import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.image.gatewayimpl.database.ImageMapper;
 import com.hzb.file.image.gatewayimpl.database.dataobject.ImageDO;
 import com.hzb.file.domain.image.model.entities.Image;
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.UploadObjectArgs;
+import io.minio.*;
+import io.minio.errors.*;
+import io.minio.http.Method;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 
 /**
 * @author Administrator
@@ -39,7 +43,6 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
 
     @Override
     public boolean upload2Minio(Image image) {
-        String objectName = image.getDefaultFolderPath() + image.getMd5Key() + image.getExtension();
         try {
             // 1.判断bucket是否存在
             boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucket_img).build());
@@ -48,32 +51,44 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
             }else {
                 log.debug("Bucket :{} already exists.", bucket_img);
             }
+            image.setObjectName();
             UploadObjectArgs bucket = UploadObjectArgs.builder()
                     .bucket(bucket_img)
                     .filename(image.getLocalFilePath())
-                    .object(objectName)
+                    .object(image.getObjectName())
                     .contentType(image.getMimeType())
                     .build();
             minioClient.uploadObject(bucket);
-            log.debug("上传文件到minio成功,bucket:{} object:{}", bucket, objectName);
+            log.debug("上传文件到minio成功,bucket:{} object:{}", bucket, image.getObjectName());
             return true;
         } catch (Exception e) {
-            log.error("上传文件出错,bucket:{},objectName:{}", bucket_img, objectName);
+            log.error("上传文件出错,bucket:{},objectName:{}", bucket_img, image.getObjectName());
             throw new SysException("上传文件出错");
         }
     }
 
     @Override
     public boolean addImg2Db(Image image) {
-        ImageDO imageDO = ImageConvertor.toDataObjectCreate(image);
-        return imageMapper.insert(imageDO) > 0;
+        try {
+            String url = minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                    .bucket(bucket_img)
+                    .object(image.getObjectName())
+                    .expiry(1, TimeUnit.MINUTES)
+                    .method(Method.GET)
+                    .build());
+            ImageDO imageDO = ImageConvertor.toDataObjectCreate(image);
+            imageDO.setImgurl(url);
+            return imageMapper.insert(imageDO) > 0;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public boolean selectImg(String imgMd5Key) {
-
-
-        return false;
+    public boolean selectImgByMd5(String imgMd5Key) {
+        LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StringUtils.isNotEmpty(imgMd5Key), ImageDO::getMd5Key, imgMd5Key);
+        return imageMapper.selectCount(wrapper) > 0;
     }
 }
 

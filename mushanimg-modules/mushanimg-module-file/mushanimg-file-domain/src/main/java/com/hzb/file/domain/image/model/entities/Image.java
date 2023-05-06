@@ -72,6 +72,11 @@ public class Image {
     private String localFilePath;
 
     /**
+     * objectName
+     */
+    private String objectName;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -98,7 +103,7 @@ public class Image {
     }
 
     public void setImgType() {
-        imgType = imgName.substring(imgName.lastIndexOf("."));
+        imgType = imgName.substring(imgName.lastIndexOf(".") + 1);
     }
 
     public String getExtension(){
@@ -110,4 +115,7 @@ public class Image {
         return sdf.format(new Date()).replace("-", "/") + "/";
     }
 
+    public void setObjectName() {
+        objectName = getDefaultFolderPath() + md5Key + getExtension();
+    }
 }
