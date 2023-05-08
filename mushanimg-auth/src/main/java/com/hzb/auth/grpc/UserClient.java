@@ -1,6 +1,8 @@
 package com.hzb.auth.grpc;
 
+import com.hzb.base.grpc.utils.ProtobufBeanUtil;
 import com.hzb.base.security.form.LoginUser;
+import com.hzb.base.security.form.UserInfo;
 import com.hzb.lib.user.proto.UserProto.*;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import io.grpc.StatusRuntimeException;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Service;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author: hzb
@@ -25,7 +27,7 @@ public class UserClient {
     @GrpcClient("system-service")
     UserServiceGrpc.UserServiceBlockingStub stub;
 
-    public LoginUser getLoginUser(String username){
+    public LoginUser getLoginUser(String username) throws IOException {
         UserGetRequest request = UserGetRequest.newBuilder().setUserName(username).build();
         UserGetReply response = null;
         try {
@@ -55,10 +57,9 @@ public class UserClient {
         return Tuples.of(false, "注册失败");
     }
 
-    private LoginUser setLoginUser(UserGetReply response){
-        User user = response.getUser();
-        Set<String> permissions = new HashSet<>(response.getPermissionsList());
-        Set<String> roleKeys = new HashSet<>(response.getRoleKeysList());
-        return new LoginUser(user.getUserId(), user, permissions, roleKeys);
+    private LoginUser setLoginUser(UserGetReply response) throws IOException {
+        LoginUser loginUser = ProtobufBeanUtil.toPojoBean(LoginUser.class, response);
+        loginUser.setUserId(loginUser.getUser().getUserId());
+        return loginUser;
     }
 }

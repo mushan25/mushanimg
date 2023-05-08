@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+
 /**
  * @author: hzb
  * @Date: 2023/4/23
@@ -30,7 +32,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        LoginUser loginUser = userClient.getLoginUser(username);
+        LoginUser loginUser = null;
+        try {
+            loginUser = userClient.getLoginUser(username);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (loginUser == null){
             log.info("登录用户: {} 不存在", username);

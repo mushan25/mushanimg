@@ -1,6 +1,7 @@
 package com.hzb.file.domain.image.model.entities;
 
 import com.alibaba.cola.domain.Entity;
+import com.hzb.base.core.constant.Constants;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
 import lombok.Data;
@@ -117,5 +118,9 @@ public class Image {
 
     public void setObjectName() {
         objectName = getDefaultFolderPath() + md5Key + getExtension();
+    }
+
+    public void setImgurl2(String bucketName) {
+        imgurl = Constants.MINIO_URL + bucketName + "/" + getObjectName();
     }
 }
