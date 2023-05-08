@@ -2,6 +2,8 @@ package com.hzb.file.domain.image.gateway;
 
 import com.hzb.file.domain.image.model.entities.Image;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【ms_imgdata】的数据库操作Service
@@ -28,5 +30,12 @@ public interface ImageGateway {
      * @return 查询结果
      */
     boolean selectImgByMd5(String imgMd5Key);
+
+    /**
+     * 获取指定用户的图片
+     * @param image image
+     * @return img list
+     */
+    List<Image> getImgList(Image image);
 
 }

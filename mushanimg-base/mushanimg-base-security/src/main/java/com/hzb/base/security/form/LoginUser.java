@@ -1,8 +1,6 @@
 package com.hzb.base.security.form;
 
-import com.alibaba.fastjson2.annotation.JSONField;
-import com.hzb.base.core.utils.BeanCopyUtil;
-import com.hzb.lib.user.proto.UserProto;
+import com.alibaba.fastjson2.annotation.*;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,12 +42,12 @@ public class LoginUser implements UserDetails {
      */
     private Long expireTime;
 
-    private UserProto.User user;
+    private UserInfo user;
 
     private Set<String> roleKeys;
     private Set<String> permissions;
 
-    public LoginUser(Long userId, UserProto.User user, Set<String> roleKeys, Set<String> permissions) {
+    public LoginUser(Long userId, UserInfo user, Set<String> roleKeys, Set<String> permissions) {
         this.userId = userId;
         this.user = user;
         this.roleKeys = roleKeys;

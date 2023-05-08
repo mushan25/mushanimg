@@ -67,9 +67,4 @@ public class User {
     public User(){
         this.password = new Password();
     }
-
-    public Tuple3<Integer, Integer, Integer> getPageInfo(List<?> list){
-        PageInfo<?> pageInfo = new PageInfo<>(list);
-        return Tuples.of((int) pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
-    }
 }

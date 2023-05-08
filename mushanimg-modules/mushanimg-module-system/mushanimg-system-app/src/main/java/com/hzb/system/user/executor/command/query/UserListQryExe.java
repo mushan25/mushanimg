@@ -2,6 +2,7 @@ package com.hzb.system.user.executor.command.query;
 
 import com.alibaba.cola.dto.PageResponse;
 import com.hzb.base.core.utils.BeanCopyUtil;
+import com.hzb.base.core.utils.PageUtils;
 import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.user.gateway.UserGateway;
 import com.hzb.system.domain.user.model.entities.User;
@@ -33,7 +34,7 @@ public class UserListQryExe {
         }
         List<User> userList = userGateway.getUserList(user);
         List<UserCO> userCOS = BeanCopyUtil.copyListProperties(userList, UserCO::new);
-        Tuple3<Integer, Integer, Integer> pageInfo = user.getPageInfo(userCOS);
+        Tuple3<Integer, Integer, Integer> pageInfo = PageUtils.getPageInfo(userCOS);
         return PageResponse.of(userCOS, pageInfo.getT1(), pageInfo.getT2(), pageInfo.getT3());
     }
 }

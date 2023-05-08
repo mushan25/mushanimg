@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -14,7 +16,10 @@ import java.util.Set;
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor
-public class AuthUser {
+public class AuthUser implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 4124066294343073186L;
     private User user;
     private Set<String> roleKeys;
     private Set<String> permissions;

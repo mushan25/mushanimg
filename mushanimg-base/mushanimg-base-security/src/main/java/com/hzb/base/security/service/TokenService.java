@@ -3,6 +3,7 @@ package com.hzb.base.security.service;
 import com.hzb.base.core.constant.CacheConstants;
 import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.constant.TokenConstants;
+import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.JwtUtils;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.base.security.form.LoginUser;
@@ -25,7 +26,7 @@ public class TokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
     private final static Long MILLIS_MINUTE_TEN = CacheConstants.REFRESH_TIME * MILLIS_MINUTE;
-    private final static long expireTime = CacheConstants.EXPIRATION;
+    private final static long EXPIRE_TIME = CacheConstants.EXPIRATION;
     private final static String ACCESS_TOKEN = CacheConstants.LOGIN_TOKEN_KEY;
 
     private final RedisService redisService;
@@ -55,7 +56,7 @@ public class TokenService {
         //接口返回信息
         Map<String, Object> rspMap = new HashMap<>();
         rspMap.put("access_token", JwtUtils.createToken(claimsMap));
-        rspMap.put("expires_in", expireTime);
+        rspMap.put("expires_in", EXPIRE_TIME);
         return rspMap;
     }
 
@@ -70,11 +71,12 @@ public class TokenService {
         try {
             if (StringUtils.isNotEmpty(token)){
                 String userKey = JwtUtils.getUserKey(token);
-                user = redisService.getCacheObject(getTokenKey(userKey));
+                String tokenKey = getTokenKey(userKey);
+                user = redisService.getCacheObject(tokenKey);
                 return user;
             }
         }catch (Exception e){
-
+            throw new ServiceException(e.getMessage());
         }
         return null;
     }
@@ -93,10 +95,10 @@ public class TokenService {
      */
     public void refreshToken(LoginUser loginUser){
         loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
+        loginUser.setExpireTime(loginUser.getLoginTime() + EXPIRE_TIME * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        redisService.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        redisService.setCacheObject(userKey, loginUser, EXPIRE_TIME, TimeUnit.MINUTES);
     }
     private String getTokenKey(String token)
     {

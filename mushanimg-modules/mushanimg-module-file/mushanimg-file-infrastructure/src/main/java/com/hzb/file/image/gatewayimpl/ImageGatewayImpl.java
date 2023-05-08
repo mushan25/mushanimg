@@ -3,6 +3,7 @@ package com.hzb.file.image.gatewayimpl;
 import com.alibaba.cola.exception.SysException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.file.convertor.ImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.image.gatewayimpl.database.ImageMapper;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -69,19 +71,9 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
 
     @Override
     public boolean addImg2Db(Image image) {
-        try {
-            String url = minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucket_img)
-                    .object(image.getObjectName())
-                    .expiry(1, TimeUnit.MINUTES)
-                    .method(Method.GET)
-                    .build());
-            ImageDO imageDO = ImageConvertor.toDataObjectCreate(image);
-            imageDO.setImgurl(url);
-            return imageMapper.insert(imageDO) > 0;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        image.setImgurl2(bucket_img);
+        ImageDO imageDO = ImageConvertor.toDataObjectCreate(image);
+        return imageMapper.insert(imageDO) > 0;
     }
 
     @Override
@@ -89,6 +81,16 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StringUtils.isNotEmpty(imgMd5Key), ImageDO::getMd5Key, imgMd5Key);
         return imageMapper.selectCount(wrapper) > 0;
+    }
+
+    @Override
+    public List<Image> getImgList(Image image) {
+        LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.select(ImageDO::getId, ImageDO::getImgName, ImageDO::getImgurl, ImageDO::getSize, ImageDO::getImgType, ImageDO::getRemark, ImageDO::getCreateTime, ImageDO::getUpdateTime)
+                .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
+                .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
+                .eq(StringUtils.isNotEmpty(image.getImgName()), ImageDO::getImgName, image.getImgName());
+        return BeanCopyUtil.copyListProperties(imageMapper.selectList(wrapper), Image::new);
     }
 }
 
