@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>mushanimg-gateway</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
 

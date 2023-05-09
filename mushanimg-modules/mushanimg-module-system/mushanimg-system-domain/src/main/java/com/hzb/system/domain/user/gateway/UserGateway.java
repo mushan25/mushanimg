@@ -2,7 +2,6 @@ package com.hzb.system.domain.user.gateway;
 
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
-import reactor.util.function.Tuple2;
 
 import java.util.List;
 
@@ -31,7 +30,7 @@ public interface UserGateway {
      * @param user 用户信息
      * @return 注册结果
      */
-    Tuple2<Boolean, String> registerUser(User user);
+//    Tuple2<Boolean, String> registerUser(User user);
 
     /**
      * 校验用户名称是否唯一

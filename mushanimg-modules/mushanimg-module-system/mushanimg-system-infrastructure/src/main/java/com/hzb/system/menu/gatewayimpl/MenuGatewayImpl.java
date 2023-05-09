@@ -1,6 +1,5 @@
 package com.hzb.system.menu.gatewayimpl;
 
-import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.base.core.utils.BeanCopyUtil;

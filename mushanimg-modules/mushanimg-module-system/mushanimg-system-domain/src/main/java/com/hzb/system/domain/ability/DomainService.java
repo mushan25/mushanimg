@@ -1,6 +1,5 @@
 package com.hzb.system.domain.ability;
 
-import com.hzb.system.domain.DomainFactory;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.role.gateway.RoleGateway;
 import com.hzb.system.domain.role.model.entities.Role;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
