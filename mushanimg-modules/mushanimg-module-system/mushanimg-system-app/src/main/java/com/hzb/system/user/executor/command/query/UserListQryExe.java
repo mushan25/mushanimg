@@ -1,6 +1,7 @@
 package com.hzb.system.user.executor.command.query;
 
 import com.alibaba.cola.dto.PageResponse;
+import com.hzb.base.core.domain.CustomPageInfo;
 import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.base.core.utils.PageUtils;
 import com.hzb.system.domain.DomainFactory;
@@ -10,7 +11,6 @@ import com.hzb.system.user.dto.UserListQry;
 import com.hzb.system.user.dto.clientobject.UserCO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-import reactor.util.function.Tuple3;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class UserListQryExe {
         }
         List<User> userList = userGateway.getUserList(user);
         List<UserCO> userCOS = BeanCopyUtil.copyListProperties(userList, UserCO::new);
-        Tuple3<Integer, Integer, Integer> pageInfo = PageUtils.getPageInfo(userCOS);
-        return PageResponse.of(userCOS, pageInfo.getT1(), pageInfo.getT2(), pageInfo.getT3());
+        CustomPageInfo pageInfo = PageUtils.getPageInfo(userCOS);
+        return PageResponse.of(userCOS, pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
     }
 }

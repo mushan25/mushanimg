@@ -1,6 +1,5 @@
 package com.hzb.system.user.dto;
 
-import com.hzb.base.core.web.page.PageParam;
 import com.hzb.system.user.dto.clientobject.UserCO;
 import lombok.Data;
 

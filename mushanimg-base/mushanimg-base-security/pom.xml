@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>mushanimg-base-security</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -35,21 +36,6 @@
                     <artifactId>pagehelper-spring-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.hzb</groupId>
-            <artifactId>mushanimg-lib</artifactId>
         </dependency>
     </dependencies>
 

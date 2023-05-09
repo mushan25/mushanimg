@@ -1,11 +1,6 @@
 package com.hzb.file.dto;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hzb.file.dto.clientobject.ImageCO;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
-import java.util.Date;
 
 /**
  * @author: hzb

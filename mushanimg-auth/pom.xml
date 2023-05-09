@@ -12,6 +12,7 @@
     </parent>
 
     <artifactId>mushanimg-auth</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

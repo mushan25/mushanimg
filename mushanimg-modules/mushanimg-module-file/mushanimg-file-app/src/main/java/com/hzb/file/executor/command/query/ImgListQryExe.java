@@ -1,6 +1,7 @@
 package com.hzb.file.executor.command.query;
 
 import com.alibaba.cola.dto.PageResponse;
+import com.hzb.base.core.domain.CustomPageInfo;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.base.core.utils.PageUtils;
@@ -11,7 +12,6 @@ import com.hzb.file.dto.ImgListQry;
 import com.hzb.file.dto.clientobject.ImageCO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
-import reactor.util.function.Tuple3;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class ImgListQryExe {
         BeanUtils.copyProperties(imgListQry, image);
         List<Image> imgList = imageGateway.getImgList(image);
         List<ImageCO> imageCOS = BeanCopyUtil.copyListProperties(imgList, ImageCO::new);
-        Tuple3<Integer, Integer, Integer> pageInfo = PageUtils.getPageInfo(imageCOS);
-        return PageResponse.of(imageCOS, pageInfo.getT1(), pageInfo.getT2(), pageInfo.getT3());
+        CustomPageInfo pageInfo = PageUtils.getPageInfo(imageCOS);
+        return PageResponse.of(imageCOS, pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
     }
 }

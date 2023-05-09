@@ -1,11 +1,10 @@
 package com.hzb.base.core.utils;
 
 import com.github.pagehelper.PageInfo;
+import com.hzb.base.core.domain.CustomPageInfo;
 import com.hzb.base.core.web.page.PageParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import reactor.util.function.Tuple3;
-import reactor.util.function.Tuples;
 
 import java.util.List;
 
@@ -56,8 +55,8 @@ public class PageUtils {
         return str.replaceAll("([A-Z]+)", "_$1").toLowerCase();
     }
 
-    public static Tuple3<Integer, Integer, Integer> getPageInfo(List<?> list){
+    public static CustomPageInfo getPageInfo(List<?> list){
         PageInfo<?> pageInfo = new PageInfo<>(list);
-        return Tuples.of((int) pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
+        return new CustomPageInfo((int) pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
     }
 }

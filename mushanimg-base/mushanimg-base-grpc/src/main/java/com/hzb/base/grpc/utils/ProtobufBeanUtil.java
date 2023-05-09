@@ -6,7 +6,6 @@ import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
 import com.hzb.base.grpc.config.LocalDateAdapter;
 import com.hzb.base.grpc.config.LocalDateTimeAdapter;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;

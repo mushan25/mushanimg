@@ -41,7 +41,7 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public List<User> getUserList(User user) {
-        UserDO userDO = UserConvertor.toDataObject(user);
+        UserDO userDO = UserConvertor.INSTANCT.user2DO(user);
         LambdaQueryWrapper<UserDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(null != userDO.getUserId() && 0 != userDO.getUserId(), UserDO::getUserId, userDO.getUserId())
                 .eq(StringUtils.isNotEmpty(userDO.getUserName()), UserDO::getUserName, userDO.getUserName())
@@ -71,21 +71,21 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
         return user;
     }
 
-    @Override
-    public Tuple2<Boolean, String> registerUser(User user) {
-        // 1、转换成UserDO
-        UserDO userDO = UserConvertor.toDataObjectForCreate(user);
-        // 2、判断用户名是否唯一
-        if (!checkUserNameUnique(user)){
-            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
-        }
-        // 3、增加用户
-        if (userMapper.insert(userDO) > 0){
-            return Tuples.of(true, "注册成功");
-        }
-        return Tuples.of(false, "注册失败");
-
-    }
+//    @Override
+//    public Tuple2<Boolean, String> registerUser(User user) {
+//        // 1、转换成UserDO
+//        UserDO userDO = UserConvertor.INSTANCT.user2DO(user);
+//        // 2、判断用户名是否唯一
+//        if (!checkUserNameUnique(user)){
+//            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
+//        }
+//        // 3、增加用户
+//        if (userMapper.insert(userDO) > 0){
+//            return Tuples.of(true, "注册成功");
+//        }
+//        return Tuples.of(false, "注册失败");
+//
+//    }
 
     @Override
     public boolean checkUserNameUnique(User user) {
