@@ -2,7 +2,6 @@ package com.hzb.auth.grpc;
 
 import com.hzb.base.grpc.utils.ProtobufBeanUtil;
 import com.hzb.base.security.form.LoginUser;
-import com.hzb.base.security.form.UserInfo;
 import com.hzb.lib.user.proto.UserProto.*;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import io.grpc.StatusRuntimeException;
@@ -13,8 +12,6 @@ import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author: hzb

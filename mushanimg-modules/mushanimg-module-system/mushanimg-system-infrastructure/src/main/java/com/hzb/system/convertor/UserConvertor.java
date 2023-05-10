@@ -1,24 +1,25 @@
 package com.hzb.system.convertor;
 
-import com.alibaba.cola.exception.SysException;
-import com.hzb.base.grpc.utils.ProtobufBeanUtil;
-import com.hzb.lib.user.proto.UserProto.*;
+import com.google.protobuf.ByteString;
+import com.hzb.lib.user.proto.UserProto.UserAddRequest;
+import com.hzb.lib.user.proto.UserProto.UserGetReply;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
+import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.BeanUtils;
-import reactor.util.function.Tuple2;
 
-import java.io.IOException;
+import java.util.Collection;
 
 /**
  * @author: hzb
  * @Date: 2023/4/17
  */
-@Mapper
+@Mapper(uses = BaseConvertor.class ,nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
 public interface UserConvertor {
 
     UserConvertor INSTANCT = Mappers.getMapper(UserConvertor.class);
@@ -36,6 +37,8 @@ public interface UserConvertor {
      * @param authUser AuthUser
      * @return Grpc
      */
+    @Mapping(source = "roleKeys", target = "roleKeysList")
+    @Mapping(source = "permissions", target = "permissionsList")
     UserGetReply authUser2Grpc(AuthUser authUser);
 
     /**
