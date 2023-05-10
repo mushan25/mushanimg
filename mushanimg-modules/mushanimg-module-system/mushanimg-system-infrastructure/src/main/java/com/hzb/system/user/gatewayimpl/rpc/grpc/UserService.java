@@ -1,20 +1,16 @@
 package com.hzb.system.user.gatewayimpl.rpc.grpc;
 
-import com.alibaba.cola.exception.SysException;
-import com.hzb.base.grpc.utils.ProtobufBeanUtil;
-import com.hzb.lib.user.proto.UserProto.*;
+import com.google.protobuf.ProtocolStringList;
+import com.hzb.lib.user.proto.UserProto.UserGetReply;
+import com.hzb.lib.user.proto.UserProto.UserGetRequest;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import com.hzb.system.convertor.UserConvertor;
 import com.hzb.system.domain.ability.DomainService;
 import com.hzb.system.domain.user.gateway.UserGateway;
-import com.hzb.system.domain.user.model.aggregates.AuthUser;
-import com.hzb.system.domain.user.model.entities.User;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-import reactor.util.function.Tuple2;
 
-import java.io.IOException;
-import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * @author hzb
