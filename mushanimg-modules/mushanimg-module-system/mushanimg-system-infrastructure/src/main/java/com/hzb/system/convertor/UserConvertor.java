@@ -1,25 +1,24 @@
 package com.hzb.system.convertor;
 
-import com.google.protobuf.ByteString;
+import com.google.protobuf.ProtocolStringList;
+import com.hzb.lib.user.proto.UserProto;
 import com.hzb.lib.user.proto.UserProto.UserAddRequest;
 import com.hzb.lib.user.proto.UserProto.UserGetReply;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
-import org.mapstruct.CollectionMappingStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author: hzb
  * @Date: 2023/4/17
  */
-@Mapper(uses = BaseConvertor.class ,nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED)
+@Mapper(uses = BaseConvertor.class, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+        , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface UserConvertor {
 
     UserConvertor INSTANCT = Mappers.getMapper(UserConvertor.class);
@@ -32,14 +31,36 @@ public interface UserConvertor {
     @Mapping(target = "password", source = "password.password")
     UserDO user2DO(User user);
 
-    /**
-     * AuthUser2Grpc
-     * @param authUser AuthUser
-     * @return Grpc
-     */
-    @Mapping(source = "roleKeys", target = "roleKeysList")
-    @Mapping(source = "permissions", target = "permissionsList")
-    UserGetReply authUser2Grpc(AuthUser authUser);
+//    /**
+//     * AuthUser2Grpc
+//     * @param authUser AuthUser
+//     * @return Grpc
+//     */
+//    @Mapping(source = "roleKeys", target = "roleKeysList")
+//    @Mapping(source = "permissions", target = "permissionsList")
+//    UserGetReply authUser2Grpc(AuthUser authUser);
+
+    UserProto.User user2Grpc(User user);
+
+    default UserGetReply authUser2Grpc(AuthUser authUser){
+        if ( authUser == null ) {
+            return null;
+        }
+
+        UserProto.UserGetReply.Builder userGetReply = UserProto.UserGetReply.newBuilder();
+
+        if ( authUser.getRoleKeys() != null ) {
+            userGetReply.addAllRoleKeys( authUser.getRoleKeys() );
+        }
+        if ( authUser.getPermissions() != null ) {
+            userGetReply.addAllPermissions( authUser.getPermissions() );
+        }
+        if ( authUser.getUser() != null ) {
+            userGetReply.setUser( user2Grpc( authUser.getUser() ) );
+        }
+
+        return userGetReply.build();
+    }
 
     /**
      * Grpc2User

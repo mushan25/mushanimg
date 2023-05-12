@@ -7,6 +7,7 @@ import org.mapstruct.ObjectFactory;
 
 import java.util.Collection;
 
+
 /**
  * @author: hzb
  * @Date: 2023/5/10
