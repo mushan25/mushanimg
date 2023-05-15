@@ -1,8 +1,11 @@
 package com.hzb.auth.grpc;
 
-import com.hzb.base.grpc.utils.ProtobufBeanUtil;
+import com.hzb.auth.convertor.AuthConvertor;
+import com.hzb.auth.form.RegisterBody;
 import com.hzb.base.security.form.LoginUser;
-import com.hzb.lib.user.proto.UserProto.*;
+import com.hzb.lib.user.proto.UserProto.UserAddReply;
+import com.hzb.lib.user.proto.UserProto.UserGetReply;
+import com.hzb.lib.user.proto.UserProto.UserGetRequest;
 import com.hzb.lib.user.proto.UserServiceGrpc;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
@@ -36,14 +39,14 @@ public class UserClient {
         if (null != response){
             return setLoginUser(response);
         }
+
         return null;
     }
 
-    public Tuple2<Boolean, String> addUser(User user){
-        UserAddRequest build = UserAddRequest.newBuilder().setUser(user).build();
+    public Tuple2<Boolean, String> addUser(RegisterBody registerBody){
         UserAddReply response = null;
         try {
-            response = stub.addUser(build);
+            response = stub.addUser(AuthConvertor.INSTANCT.registerBody2Grpc(registerBody));
         }catch (StatusRuntimeException e){
             log.info("-------- RPC failed: {}", e.getStatus());
         }
@@ -55,7 +58,7 @@ public class UserClient {
     }
 
     private LoginUser setLoginUser(UserGetReply response) throws IOException {
-        LoginUser loginUser = ProtobufBeanUtil.toPojoBean(LoginUser.class, response);
+        LoginUser loginUser = AuthConvertor.INSTANCT.grpc2LoginUser(response);
         loginUser.setUserId(loginUser.getUser().getUserId());
         return loginUser;
     }

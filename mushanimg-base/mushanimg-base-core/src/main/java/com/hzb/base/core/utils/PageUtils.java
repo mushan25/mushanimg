@@ -39,8 +39,8 @@ public class PageUtils {
             PageParam pageParam = new PageParam();
             String pageNum = attributes.getRequest().getParameter(PAGE_NUM);
             String pageSize = attributes.getRequest().getParameter(PAGE_SIZE);
-            pageParam.setPageNum(null == pageNum ? null : Integer.parseInt(pageNum))
-                    .setPageSize(null == pageSize ? null : Integer.parseInt(pageSize))
+            pageParam.setPageNum(null == pageNum || Integer.parseInt(pageNum) > 1000 ? null : Integer.parseInt(pageNum))
+                    .setPageSize(null == pageSize || Integer.parseInt(pageSize) > 100 ? null : Integer.parseInt(pageSize))
                     .setOrderByColumn(attributes.getRequest().getParameter(ORDER_BY_COLUMN))
                     .setIsAsc(attributes.getRequest().getParameter(IS_ASC));
             return pageParam;

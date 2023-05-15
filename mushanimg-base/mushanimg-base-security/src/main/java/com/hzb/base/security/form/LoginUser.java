@@ -1,6 +1,7 @@
 package com.hzb.base.security.form;
 
 import com.alibaba.fastjson2.annotation.*;
+import com.hzb.base.core.utils.CheckUtils;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -56,6 +58,9 @@ public class LoginUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (permissions == null){
+            return null;
+        }
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         for (String permission : permissions) {
             authorities.add(new SimpleGrantedAuthority(permission));

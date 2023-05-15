@@ -46,11 +46,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.hzb</groupId>
-            <artifactId>mushanimg-base-grpc</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-server-spring-boot-starter</artifactId>
         </dependency>

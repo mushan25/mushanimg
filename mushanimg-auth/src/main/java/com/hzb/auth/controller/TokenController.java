@@ -46,7 +46,7 @@ public class TokenController {
 
     @PostMapping("/register")
     public ResultBody<?> register(@RequestBody @Validated RegisterBody registerBody){
-        String msg = loginService.register(registerBody.getUsername(), registerBody.getPassword());
+        String msg = loginService.register(registerBody);
         return ResultBody.ok(null, msg);
     }
 

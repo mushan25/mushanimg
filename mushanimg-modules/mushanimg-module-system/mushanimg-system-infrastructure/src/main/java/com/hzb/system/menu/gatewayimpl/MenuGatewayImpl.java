@@ -2,7 +2,7 @@ package com.hzb.system.menu.gatewayimpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hzb.base.core.utils.BeanCopyUtil;
+import com.hzb.system.convertor.MenuConvertor;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.menu.model.entities.Menu;
 import com.hzb.system.menu.gatewayimpl.database.MenuMapper;
@@ -44,7 +44,7 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
         // 4、拷贝菜单信息
 
-        return BeanCopyUtil.copyListProperties(menuDOS, Menu::new);
+        return MenuConvertor.INSTANCT.menuDOList2MenuList(menuDOS);
     }
 
     @Override

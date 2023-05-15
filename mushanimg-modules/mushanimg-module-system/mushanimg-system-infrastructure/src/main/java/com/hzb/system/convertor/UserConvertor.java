@@ -1,6 +1,6 @@
 package com.hzb.system.convertor;
 
-import com.google.protobuf.ProtocolStringList;
+import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.lib.user.proto.UserProto;
 import com.hzb.lib.user.proto.UserProto.UserAddRequest;
 import com.hzb.lib.user.proto.UserProto.UserGetReply;
@@ -9,15 +9,15 @@ import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+import reactor.util.function.Tuple2;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
  * @author: hzb
  * @Date: 2023/4/17
  */
-@Mapper(uses = BaseConvertor.class, collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
+@Mapper(collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED
         , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface UserConvertor {
 
@@ -31,17 +31,53 @@ public interface UserConvertor {
     @Mapping(target = "password", source = "password.password")
     UserDO user2DO(User user);
 
-//    /**
-//     * AuthUser2Grpc
-//     * @param authUser AuthUser
-//     * @return Grpc
-//     */
-//    @Mapping(source = "roleKeys", target = "roleKeysList")
-//    @Mapping(source = "permissions", target = "permissionsList")
-//    UserGetReply authUser2Grpc(AuthUser authUser);
 
+    /**
+     * DO2User
+     * @param user User
+     * @param userDO UserDO
+     */
+    @Mapping(target = "password.password", source = "password")
+    void DO2User(@MappingTarget User user, UserDO userDO);
+
+    /**
+     * userDOList2UserList
+     * @param userDOS List<UserDO>
+     * @return List<User>
+     */
+    List<User> userDOList2UserList(List<UserDO> userDOS);
+
+    /**
+     * user2Grpc
+     * @param user user
+     * @return grpc
+     */
     UserProto.User user2Grpc(User user);
 
+    /**
+     * Grpc2User
+     * @param request Grpc
+     * @return User
+     */
+    @Mapping(target = "userName", source = "user.userName")
+    @Mapping(target = "nickName", source = "user.nickName")
+    @Mapping(target = "password", source = "user.password.password")
+    User grpc2User(UserAddRequest request);
+
+    /**
+     * AddUserResult2Grpc
+     * @param result addResult
+     * @return grpc
+     */
+    @Mapping(target = "addResult", source = "t1")
+    @Mapping(target = "msg", source = "t2")
+    UserProto.UserAddReply addUserResult2Grpc(Tuple2<Boolean, String> result);
+
+    /**
+     * AuthUser2Grpc
+     * @param authUser User
+     * @return Grpc
+     */
     default UserGetReply authUser2Grpc(AuthUser authUser){
         if ( authUser == null ) {
             return null;
@@ -49,61 +85,15 @@ public interface UserConvertor {
 
         UserProto.UserGetReply.Builder userGetReply = UserProto.UserGetReply.newBuilder();
 
-        if ( authUser.getRoleKeys() != null ) {
-            userGetReply.addAllRoleKeys( authUser.getRoleKeys() );
-        }
-        if ( authUser.getPermissions() != null ) {
-            userGetReply.addAllPermissions( authUser.getPermissions() );
-        }
-        if ( authUser.getUser() != null ) {
-            userGetReply.setUser( user2Grpc( authUser.getUser() ) );
-        }
+        CheckUtils.isPresentRunnable(authUser.getRoleKeys())
+                .presentHandler(()-> userGetReply.addAllRoleKeys(authUser.getRoleKeys()));
+
+        CheckUtils.isPresentRunnable(authUser.getPermissions())
+                .presentHandler(() -> userGetReply.addAllPermissions(authUser.getPermissions()));
+
+        CheckUtils.isPresentRunnable(authUser.getUser())
+                .presentHandler(() -> userGetReply.setUser(user2Grpc(authUser.getUser())));
 
         return userGetReply.build();
     }
-
-    /**
-     * Grpc2User
-     * @param request Grpc
-     * @return User
-     */
-    User grpc2User(UserAddRequest request);
-
-//    public static UserDO toDataObject(User user){
-//        UserDO userDO = new UserDO();
-//        BeanUtils.copyProperties(user, userDO);
-//        userDO.setPassword(user.getPassword().getPassword());
-//        return userDO;
-//    }
-//
-//    public static UserDO toDataObjectForCreate(User user){
-//        return toDataObject(user);
-//    }
-//
-//    public static UserDO toDataObjectForUpdate(User user){
-//        return toDataObject(user);
-//    }
-//    public static UserGetReply User2Grpc(AuthUser authUser){
-//        UserGetReply.Builder builder = UserGetReply.newBuilder();
-//        try {
-//            ProtobufBeanUtil.toProtoBean(builder, authUser);
-//        } catch (IOException e) {
-//            throw new SysException("pojo转换异常");
-//        }
-//        return builder.build();
-//    }
-//
-//    public static UserAddReply AddUserResult2Grpc(Tuple2<Boolean, String> result){
-//        UserAddReply.Builder builder = UserAddReply.newBuilder();
-//        builder.setAddResult(result.getT1())
-//                .setMsg(result.getT2());
-//        return builder.build();
-//    }
-//    public static User Grpc2User(UserAddRequest request){
-//        try {
-//            return ProtobufBeanUtil.toPojoBean(User.class, request.getUser());
-//        }catch (IOException e){
-//            throw new SysException("pojo转换异常");
-//        }
-//    }
 }
