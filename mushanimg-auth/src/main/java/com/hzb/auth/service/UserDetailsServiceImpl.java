@@ -3,6 +3,7 @@ package com.hzb.auth.service;
 import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.enums.UserStatus;
 import com.hzb.base.core.exception.ServiceException;
+import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.PasswordService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,18 +40,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new RuntimeException(e);
         }
 
-        if (loginUser == null){
-            log.info("登录用户: {} 不存在", username);
-            throw new ServiceException("登录用户：" + username + "不存在");
-        }
-        if (UserStatus.DELETE.getCode().equals(loginUser.getUser().getDelFlag())){
-            log.info("登录用户：{} 已被删除.", username);
-            throw new ServiceException("对不起，您的账号：" + username + " 已被删除");
-        }
-        if (UserStatus.DISABLE.getCode().equals(loginUser.getUser().getStatus())){
-            log.info("登录用户：{} 已被停用.", username);
-            throw new ServiceException("对不起，您的账号：" + username + " 已停用");
-        }
+        CheckUtils.isTrue(loginUser == null,
+                String.format("登录用户: %s 不存在", username),
+                String.format("登录用户: %s 不存在", username));
+
+        CheckUtils.isTrue(UserStatus.DELETE.getCode().equals(loginUser.getUser().getDelFlag()),
+                String.format("登录用户: %s 已被删除", username),
+                String.format("对不起，您的账号: %s 已被删除", username));
+
+        CheckUtils.isTrue(UserStatus.DISABLE.getCode().equals(loginUser.getUser().getStatus()),
+                String.format("登录用户: %s 已被停用", username),
+                String.format("对不起，您的账号: %s 已停用", username));
 
         passwordService.validate(loginUser);
         return loginUser;

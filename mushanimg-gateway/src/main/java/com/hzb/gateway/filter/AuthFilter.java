@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -99,14 +100,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         }
         String valueStr = value.toString();
         String valueEncode;
-        try
-        {
-            valueEncode = URLEncoder.encode(valueStr, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            valueEncode = StringUtils.EMPTY;
-        }
+        valueEncode = URLEncoder.encode(valueStr, StandardCharsets.UTF_8);
         mutate.header(name, valueEncode);
     }
 

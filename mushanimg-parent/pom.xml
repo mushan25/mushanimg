@@ -201,12 +201,6 @@
 
             <dependency>
                 <groupId>com.hzb</groupId>
-                <artifactId>mushanimg-base-grpc</artifactId>
-                <version>${mushanimg.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.hzb</groupId>
                 <artifactId>mushanimg-lib</artifactId>
                 <version>${mushanimg.version}</version>
             </dependency>

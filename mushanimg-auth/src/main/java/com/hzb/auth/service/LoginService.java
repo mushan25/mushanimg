@@ -1,5 +1,6 @@
 package com.hzb.auth.service;
 
+import com.hzb.auth.form.RegisterBody;
 import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.SecurityUtils;
@@ -51,14 +52,9 @@ public class LoginService {
     /**
      * 注册
      */
-    public String register(String username, String password){
-        User.Builder builder = User.newBuilder();
-        builder.setUserName(username)
-                .setNickName(username)
-                .setPassword(Password.newBuilder().setPassword(SecurityUtils.encryptPassword(password)));
-
-        User user = builder.build();
-        Tuple2<Boolean, String> tuple = userClient.addUser(user);
+    public String register(RegisterBody registerBody){
+        registerBody.setPassword(SecurityUtils.encryptPassword(registerBody.getPassword()));
+        Tuple2<Boolean, String> tuple = userClient.addUser(registerBody);
         if (!tuple.getT1()) {
             throw new ServiceException(tuple.getT2());
         }

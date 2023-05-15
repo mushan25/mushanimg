@@ -1,6 +1,7 @@
 package com.hzb.system.user.gatewayimpl.rpc.grpc;
 
-import com.google.protobuf.ProtocolStringList;
+import com.hzb.lib.user.proto.UserProto.UserAddReply;
+import com.hzb.lib.user.proto.UserProto.UserAddRequest;
 import com.hzb.lib.user.proto.UserProto.UserGetReply;
 import com.hzb.lib.user.proto.UserProto.UserGetRequest;
 import com.hzb.lib.user.proto.UserServiceGrpc;
@@ -9,8 +10,6 @@ import com.hzb.system.domain.ability.DomainService;
 import com.hzb.system.domain.user.gateway.UserGateway;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
-
-import java.util.ArrayList;
 
 /**
  * @author hzb
@@ -27,12 +26,11 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
         this.userGateway = userGateway;
     }
 
-//    @Override
-//    public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {
-//        User user = UserConvertor.INSTANCT.grpc2User(request);
-//        responseObserver.onNext(UserConvertor.AddUserResult2Grpc(userGateway.registerUser(user)));
-//        responseObserver.onCompleted();
-//    }
+    @Override
+    public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {
+        responseObserver.onNext(UserConvertor.INSTANCT.addUserResult2Grpc(userGateway.registerUser(UserConvertor.INSTANCT.grpc2User(request))));
+        responseObserver.onCompleted();
+    }
 
     @Override
     public void getUserInfoPerms(UserGetRequest request, StreamObserver<UserGetReply> responseObserver) {

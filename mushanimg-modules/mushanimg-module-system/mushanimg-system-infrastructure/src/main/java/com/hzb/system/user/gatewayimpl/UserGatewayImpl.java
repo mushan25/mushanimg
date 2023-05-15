@@ -3,7 +3,6 @@ package com.hzb.system.user.gatewayimpl;
 import com.alibaba.cola.exception.BizException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.base.core.utils.JwtUtils;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.base.security.form.LoginUser;
@@ -15,8 +14,9 @@ import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.UserMapper;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
                 .eq(StringUtils.isNotEmpty(userDO.getStatus()), UserDO::getStatus, userDO.getStatus());
         List<UserDO> userDOS = userMapper.selectList(wrapper);
 
-        return BeanCopyUtil.copyListProperties(userDOS, User::new);
+        return UserConvertor.INSTANCT.userDOList2UserList(userDOS);
     }
 
     @Override
@@ -63,27 +63,27 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
         // 3、获取返回User
         User user = DomainFactory.getUser();
         // 4、拷贝用户
-        BeanUtils.copyProperties(userDO, user);
+        UserConvertor.INSTANCT.DO2User(user, userDO);
         user.setPassword(userDO.getPassword());
 
         return user;
     }
 
-//    @Override
-//    public Tuple2<Boolean, String> registerUser(User user) {
-//        // 1、转换成UserDO
-//        UserDO userDO = UserConvertor.INSTANCT.user2DO(user);
-//        // 2、判断用户名是否唯一
-//        if (!checkUserNameUnique(user)){
-//            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
-//        }
-//        // 3、增加用户
-//        if (userMapper.insert(userDO) > 0){
-//            return Tuples.of(true, "注册成功");
-//        }
-//        return Tuples.of(false, "注册失败");
-//
-//    }
+    @Override
+    public Tuple2<Boolean, String> registerUser(User user) {
+        // 1、转换成UserDO
+        UserDO userDO = UserConvertor.INSTANCT.user2DO(user);
+        // 2、判断用户名是否唯一
+        if (!checkUserNameUnique(user)){
+            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
+        }
+        // 3、增加用户
+        if (userMapper.insert(userDO) > 0){
+            return Tuples.of(true, "注册成功");
+        }
+        return Tuples.of(false, "注册失败");
+
+    }
 
     @Override
     public boolean checkUserNameUnique(User user) {
