@@ -37,7 +37,6 @@ public interface UserConvertor {
      * @param user User
      * @param userDO UserDO
      */
-    @Mapping(target = "password.password", source = "password")
     void DO2User(@MappingTarget User user, UserDO userDO);
 
     /**

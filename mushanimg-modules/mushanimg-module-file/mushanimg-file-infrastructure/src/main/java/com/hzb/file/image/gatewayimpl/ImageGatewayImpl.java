@@ -3,25 +3,21 @@ package com.hzb.file.image.gatewayimpl;
 import com.alibaba.cola.exception.SysException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hzb.base.core.utils.BeanCopyUtil;
 import com.hzb.file.convertor.ImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
+import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.image.gatewayimpl.database.ImageMapper;
 import com.hzb.file.image.gatewayimpl.database.dataobject.ImageDO;
-import com.hzb.file.domain.image.model.entities.Image;
-import io.minio.*;
-import io.minio.errors.*;
-import io.minio.http.Method;
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
+import io.minio.MinioClient;
+import io.minio.UploadObjectArgs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
 * @author Administrator
@@ -72,8 +68,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public boolean addImg2Db(Image image) {
         image.setImgurl2(bucket_img);
-        ImageDO imageDO = ImageConvertor.toDataObjectCreate(image);
-        return imageMapper.insert(imageDO) > 0;
+        return imageMapper.insert(ImageConvertor.INSTANCT.image2DO(image)) > 0;
     }
 
     @Override
@@ -90,7 +85,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
                 .eq(StringUtils.isNotEmpty(image.getImgName()), ImageDO::getImgName, image.getImgName());
-        return BeanCopyUtil.copyListProperties(imageMapper.selectList(wrapper), Image::new);
+        return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
     }
 }
 

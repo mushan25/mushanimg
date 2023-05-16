@@ -2,15 +2,12 @@ package com.hzb.file.executor.command.query;
 
 import com.alibaba.cola.dto.PageResponse;
 import com.hzb.base.core.domain.CustomPageInfo;
-import com.hzb.base.core.exception.ServiceException;
-import com.hzb.base.core.utils.BeanCopyUtil;
+import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.base.core.utils.PageUtils;
-import com.hzb.file.domain.DomainFactory;
+import com.hzb.file.convertor.AppImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
-import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.dto.ImgListQry;
 import com.hzb.file.dto.clientobject.ImageCO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,13 +25,8 @@ public class ImgListQryExe {
     }
 
     public PageResponse<ImageCO> execute(ImgListQry imgListQry){
-        if (null == imgListQry.getUserId()){
-            throw new ServiceException();
-        }
-        Image image = DomainFactory.getImage();
-        BeanUtils.copyProperties(imgListQry, image);
-        List<Image> imgList = imageGateway.getImgList(image);
-        List<ImageCO> imageCOS = BeanCopyUtil.copyListProperties(imgList, ImageCO::new);
+        CheckUtils.isTrue(null == imgListQry.getUserId(),null, null);
+        List<ImageCO> imageCOS = AppImageConvertor.INSTANCT.imageCOs2ImageCOList(imageGateway.getImgList(AppImageConvertor.INSTANCT.qry2Image(imgListQry)));
         CustomPageInfo pageInfo = PageUtils.getPageInfo(imageCOS);
         return PageResponse.of(imageCOS, pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
     }
