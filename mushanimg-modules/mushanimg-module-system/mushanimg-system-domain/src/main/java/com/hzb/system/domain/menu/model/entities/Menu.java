@@ -22,6 +22,8 @@ public class Menu {
 
     private Long parentId;
 
+    private String path;
+
     private String perms;
 
     private String createBy;

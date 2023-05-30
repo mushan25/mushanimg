@@ -8,6 +8,7 @@
             <id property="menuId" column="menu_id" jdbcType="BIGINT"/>
             <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
             <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
             <result property="perms" column="perms" jdbcType="VARCHAR"/>
             <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -18,7 +19,7 @@
 
     <sql id="Base_Column_List">
         menu_id,menu_name,parent_id,
-        perms,create_by,
+        path,perms,create_by,
         create_time,update_by,update_time,
         remark
     </sql>

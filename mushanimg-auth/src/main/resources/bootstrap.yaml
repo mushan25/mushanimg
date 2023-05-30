@@ -18,5 +18,14 @@ spring:
           - data-id: logging-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: mushanimg-common
             refresh: true
-
+          - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+            group: mushanimg-common
+            refresh: true
+arthas:
+  agent-id: 123456
+  tunnel-server: ws://localhost:7777/ws
+#  http-port: 0  #为0表示随机
+#  telnet-port: 0  #为0表示随机
+#  username: mushan
+#  password: Mushan0205@q
 

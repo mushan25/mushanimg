@@ -8,7 +8,6 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 菜单权限表
@@ -33,6 +32,11 @@ public class MenuDO implements Serializable {
      * 父菜单ID
      */
     private Long parentId;
+
+    /**
+     * 路由
+     */
+    private String path;
 
     /**
      * 权限标识
