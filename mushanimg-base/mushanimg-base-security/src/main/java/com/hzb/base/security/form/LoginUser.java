@@ -1,7 +1,6 @@
 package com.hzb.base.security.form;
 
-import com.alibaba.fastjson2.annotation.*;
-import com.hzb.base.core.utils.CheckUtils;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -48,6 +46,8 @@ public class LoginUser implements UserDetails {
 
     private Set<String> roleKeys;
     private Set<String> permissions;
+
+    private Set<String> routes;
 
     public LoginUser(Long userId, UserInfo user, Set<String> roleKeys, Set<String> permissions) {
         this.userId = userId;

@@ -2,8 +2,8 @@ package com.hzb.system.user.api;
 
 import com.alibaba.cola.dto.PageResponse;
 import com.alibaba.cola.dto.SingleResponse;
-import com.hzb.system.user.dto.UserGetQry;
 import com.hzb.system.user.dto.UserListQry;
+import com.hzb.system.user.dto.clientobject.LoginUserInfoCO;
 import com.hzb.system.user.dto.clientobject.UserCO;
 
 /**
@@ -17,5 +17,11 @@ public interface UserServiceI {
      * @return 用户名称
      */
     PageResponse<UserCO> getUserList(UserListQry userListQry);
+
+    /**
+     * 获取用户信息
+     * @return 用户信息
+     */
+    SingleResponse<LoginUserInfoCO> getUserInfo();
 
 }

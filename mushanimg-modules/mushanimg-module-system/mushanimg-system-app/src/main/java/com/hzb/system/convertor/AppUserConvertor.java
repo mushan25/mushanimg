@@ -1,10 +1,11 @@
 package com.hzb.system.convertor;
 
+import com.hzb.base.security.form.LoginUser;
 import com.hzb.system.domain.user.model.entities.User;
+import com.hzb.system.user.dto.clientobject.LoginUserInfoCO;
 import com.hzb.system.user.dto.clientobject.UserCO;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -24,7 +25,6 @@ public interface AppUserConvertor {
      * @param user User
      * @return UserCO
      */
-    @Mapping(target = "password", source = "password.password")
     UserCO user2CO(User user);
 
     /**
@@ -40,4 +40,11 @@ public interface AppUserConvertor {
      * @return List<UserCO>
      */
     List<UserCO> userList2CO(List<User> userList);
+
+    /**
+     * loginUser2LoginUserInfoCO
+     * @param loginUser LoginUser
+     * @return LoginUserInfoCO
+     */
+    LoginUserInfoCO loginUser2LoginUserInfoCO(LoginUser loginUser);
 }

@@ -35,24 +35,28 @@ public class DomainService {
     public AuthUser getAuthUserInfoByName(String userName) {
         Set<String> roleKeySet = new HashSet<>();
         Set<String> permissions = new HashSet<>();
+        Set<String> routes = new HashSet<>();
         // 1、获取用户信息
         User user = userGateway.getByUserName(userName);
-        if (null != user){
+        if (null != user) {
             // 2、根据用户id获取用户拥有的角色
             List<Role> roleList = roleGateway.getRoleByUserId(user.getUserId());
-            if (null != roleList && !roleList.isEmpty()){
+            if (null != roleList && !roleList.isEmpty()) {
                 roleKeySet = roleList.stream().map(Role::getRoleKey).collect(Collectors.toSet());
                 // 3、根据角色id list查询用户拥有的menu id list
                 Set<Long> menuIds = menuGateway.getMenuIdsByRoleIds(roleList.stream().map(Role::getRoleId).collect(Collectors.toList()));
-                if (null != menuIds && !menuIds.isEmpty()){
+                if (null != menuIds && !menuIds.isEmpty()) {
                     // 4、根据menuIds查询用户拥有的权限
                     List<Menu> menus = menuGateway.getMenuByIds(menuIds);
-                    permissions = menuGateway.getPermissions(menus);
+                    if (null != menus && !menus.isEmpty()) {
+                        permissions = menuGateway.getPermissions(menus);
+                        routes = menuGateway.getRoutes(menus);
+                    }
                 }
             }
         }
         // 5、返回AuthUser
-        return new AuthUser(user, roleKeySet, permissions);
+        return new AuthUser(user, roleKeySet, permissions, routes);
     }
 
 

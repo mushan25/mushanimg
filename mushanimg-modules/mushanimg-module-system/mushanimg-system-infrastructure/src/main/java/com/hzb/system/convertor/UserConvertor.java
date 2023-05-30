@@ -93,6 +93,9 @@ public interface UserConvertor {
         CheckUtils.isPresentRunnable(authUser.getUser())
                 .presentHandler(() -> userGetReply.setUser(user2Grpc(authUser.getUser())));
 
+        CheckUtils.isPresentRunnable(authUser.getRoutes())
+                .presentHandler(() -> userGetReply.addAllRoutes(authUser.getRoutes()));
+
         return userGetReply.build();
     }
 }

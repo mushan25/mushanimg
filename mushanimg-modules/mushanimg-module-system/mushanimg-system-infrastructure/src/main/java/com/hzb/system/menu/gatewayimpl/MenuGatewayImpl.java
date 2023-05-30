@@ -49,23 +49,12 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     @Override
     public Set<String> getPermissions(List<Menu> menus) {
-        // 1、判断传入参数是否合法
-        if (menus == null || menus.isEmpty()){
-            return null;
-        }
         return menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
     }
 
     @Override
     public Set<String> getRoutes(List<Menu> menus) {
-        // 1、判断传入参数是否合法
-        if (menus == null || menus.isEmpty()){
-            return null;
-        }
-        HashSet<String> routes = new HashSet<>();
-
-
-        return routes;
+        return menus.stream().map(Menu::getPath).collect(Collectors.toSet());
     }
 }
 
