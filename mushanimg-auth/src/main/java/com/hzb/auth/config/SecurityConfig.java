@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
     /** 不需要拦截地址 */
-    public static final String[] EXCLUDE_URLS = { "/auth/login", "/auth/logout", "/auth/refresh" };
+    public static final String[] EXCLUDE_URLS = { "/actuator/**", "/auth/login", "/auth/logout", "/auth/refresh" };
 
     private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 

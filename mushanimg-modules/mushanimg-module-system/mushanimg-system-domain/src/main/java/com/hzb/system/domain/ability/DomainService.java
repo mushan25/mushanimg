@@ -1,6 +1,7 @@
 package com.hzb.system.domain.ability;
 
 import com.hzb.system.domain.menu.gateway.MenuGateway;
+import com.hzb.system.domain.menu.model.entities.Menu;
 import com.hzb.system.domain.role.gateway.RoleGateway;
 import com.hzb.system.domain.role.model.entities.Role;
 import com.hzb.system.domain.user.gateway.UserGateway;
@@ -45,7 +46,8 @@ public class DomainService {
                 Set<Long> menuIds = menuGateway.getMenuIdsByRoleIds(roleList.stream().map(Role::getRoleId).collect(Collectors.toList()));
                 if (null != menuIds && !menuIds.isEmpty()){
                     // 4、根据menuIds查询用户拥有的权限
-                    permissions = menuGateway.getPermissions(menuIds);
+                    List<Menu> menus = menuGateway.getMenuByIds(menuIds);
+                    permissions = menuGateway.getPermissions(menus);
                 }
             }
         }

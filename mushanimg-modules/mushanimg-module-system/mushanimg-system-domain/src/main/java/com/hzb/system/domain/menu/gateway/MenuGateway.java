@@ -17,7 +17,7 @@ public interface MenuGateway {
      * @param menuIds 菜单id list
      * @return menuList
      */
-    List<Menu> getMenuByIds(List<Long> menuIds);
+    List<Menu> getMenuByIds(Set<Long> menuIds);
 
     /**
      * 根据角色id list获取menuIds
@@ -27,9 +27,16 @@ public interface MenuGateway {
     Set<Long> getMenuIdsByRoleIds(List<Long> roleIds);
 
     /**
-     * 根据角色id list获取权限字符
-     * @param menuIds 菜单id list
+     * 获取权限
+     * @param menus 菜单信息
      * @return permissions
      */
-    Set<String> getPermissions(Set<Long> menuIds);
+    Set<String> getPermissions(List<Menu> menus);
+
+    /**
+     * 获取路由
+     * @param menus 菜单信息
+     * @return 路由
+     */
+    Set<String> getRoutes(List<Menu> menus);
 }

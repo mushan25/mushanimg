@@ -27,4 +27,6 @@ public class UserController {
     public PageResponse<UserCO> list(UserListQry userListQry){
         return userService.getUserList(userListQry);
     }
+
+
 }

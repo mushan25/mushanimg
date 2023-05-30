@@ -1,6 +1,5 @@
 package com.hzb.system.menu.gatewayimpl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.system.convertor.MenuConvertor;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
@@ -29,15 +28,11 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
     }
 
     @Override
-    public List<Menu> getMenuByIds(List<Long> menuIds) {
-        // 1、判断传入参数是否合法
-        if (menuIds == null || menuIds.isEmpty()) {
-            return null;
-        }
-        // 2、根据menuId list查询menu信息
+    public List<Menu> getMenuByIds(Set<Long> menuIds) {
+        // 1、根据menuId list查询menu信息
         List<MenuDO> menuDOS = menuMapper.selectBatchIds(menuIds);
 
-        // 3、判断是否查询成功
+        // 2、判断是否查询成功
         if ( menuDOS == null){
             return null;
         }
@@ -49,25 +44,28 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     @Override
     public Set<Long> getMenuIdsByRoleIds(List<Long> roleIds) {
-        // 1、判断传入参数是否合法
-        if (roleIds == null || roleIds.isEmpty()) {
-            return null;
-        }
-        // 2、查询menuIds
         return new HashSet<>(menuMapper.selectMenuIdsByRoleIds(roleIds));
     }
 
     @Override
-    public Set<String> getPermissions(Set<Long> menuIds) {
+    public Set<String> getPermissions(List<Menu> menus) {
         // 1、判断传入参数是否合法
-        if (menuIds == null || menuIds.isEmpty()){
+        if (menus == null || menus.isEmpty()){
             return null;
         }
+        return menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
+    }
 
-        // 2、查询拥有的权限
-        LambdaQueryWrapper<MenuDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(MenuDO::getPerms).in(MenuDO::getMenuId, menuIds);
-        return menuMapper.selectList(wrapper).stream().map(MenuDO::getPerms).collect(Collectors.toSet());
+    @Override
+    public Set<String> getRoutes(List<Menu> menus) {
+        // 1、判断传入参数是否合法
+        if (menus == null || menus.isEmpty()){
+            return null;
+        }
+        HashSet<String> routes = new HashSet<>();
+
+
+        return routes;
     }
 }
 
