@@ -19,6 +19,7 @@ message UserGetReply {
   User user = 1;
   repeated string roleKeys = 2;
   repeated string permissions = 3;
+  repeated string routes = 4;
 }
 
 message UserAddRequest{

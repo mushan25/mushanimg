@@ -29,6 +29,8 @@ public class AuthUser implements Serializable {
     private Set<String> roleKeys;
     private Set<String> permissions;
 
+    private Set<String> routes;
+
     public boolean checkRoleKeys(Set<String> roleKeys){
         return Optional.ofNullable(roleKeys).isPresent();
     }

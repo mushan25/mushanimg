@@ -33,6 +33,7 @@ public interface AuthConvertor {
      */
     @Mapping(target = "roleKeys", source = "roleKeysList")
     @Mapping(target = "permissions", source = "permissionsList")
+    @Mapping(target = "routes", source = "routesList")
     LoginUser grpc2LoginUser(UserProto.UserGetReply response);
 
     /**

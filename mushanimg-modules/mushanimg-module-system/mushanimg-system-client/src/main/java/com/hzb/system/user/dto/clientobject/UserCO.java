@@ -3,7 +3,6 @@ package com.hzb.system.user.dto.clientobject;
 import com.alibaba.cola.dto.ClientObject;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -39,11 +38,6 @@ public class UserCO extends ClientObject {
      * 头像地址
      */
     private String avatar;
-
-    /**
-     * 密码
-     */
-    private String password;
 
     /**
      * 帐号状态（0正常 1停用）
