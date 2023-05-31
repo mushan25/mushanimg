@@ -88,7 +88,8 @@ public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public boolean checkUserNameUnique(User user) {
         long userId = null == user.getUserId() ? -1L : user.getUserId();
-        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>().eq(UserDO::getUserName, user.getUserName()));
+        UserDO userDO = userMapper.selectOne(new LambdaQueryWrapper<UserDO>()
+                .eq(UserDO::getUserName, user.getUserName()));
         return null == userDO || userDO.getUserId() == userId;
     }
 

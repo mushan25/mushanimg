@@ -27,6 +27,9 @@ public class RoleGatewayImpl extends ServiceImpl<RoleMapper, RoleDO>
 
     @Override
     public List<Role> getRoleByUserId(Long userId) {
+        if (null == userId) {
+            return null;
+        }
         // 1、根据userId获取RoleList信息
         List<Long> roleIds = getRoleIdsByUserId(userId);
         if (null != roleIds && !roleIds.isEmpty()) {

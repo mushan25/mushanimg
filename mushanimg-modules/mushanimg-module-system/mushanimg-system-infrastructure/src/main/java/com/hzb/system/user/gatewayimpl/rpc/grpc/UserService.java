@@ -28,13 +28,15 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
 
     @Override
     public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {
-        responseObserver.onNext(UserConvertor.INSTANCT.addUserResult2Grpc(userGateway.registerUser(UserConvertor.INSTANCT.grpc2User(request))));
+        responseObserver.onNext(UserConvertor.INSTANCT
+                .addUserResult2Grpc(userGateway.registerUser(UserConvertor.INSTANCT.grpc2User(request))));
         responseObserver.onCompleted();
     }
 
     @Override
     public void getUserInfoPerms(UserGetRequest request, StreamObserver<UserGetReply> responseObserver) {
-        responseObserver.onNext(UserConvertor.INSTANCT.authUser2Grpc(domainService.getAuthUserInfoByName(request.getUserName())));
+        responseObserver.onNext(UserConvertor.INSTANCT
+                .authUser2Grpc(domainService.getAuthUserInfoByName(request.getUserName())));
         responseObserver.onCompleted();
     }
 }
