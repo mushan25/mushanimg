@@ -6,7 +6,10 @@ import com.hzb.auth.service.LoginService;
 import com.hzb.base.core.domain.ResultBody;
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.TokenService;
+import com.hzb.base.security.utils.SecurityUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +35,15 @@ public class TokenController {
     public ResultBody<?> login(@RequestBody @Validated LoginBody loginBody){
         LoginUser userInfo = loginService.login(loginBody.getUsername(), loginBody.getPassword());
         return ResultBody.ok(tokenService.createToken(userInfo));
+    }
+
+    @DeleteMapping("/logout")
+    public ResultBody<?> logout(HttpServletRequest request){
+        String token = SecurityUtils.getToken(request);
+        if (StringUtils.isNotEmpty(token)){
+            tokenService.delLoginUser(token);
+        }
+        return ResultBody.ok();
     }
 
     @PostMapping("/refresh")

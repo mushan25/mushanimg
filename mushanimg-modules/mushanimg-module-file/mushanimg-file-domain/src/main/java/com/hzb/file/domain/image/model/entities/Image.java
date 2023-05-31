@@ -12,6 +12,7 @@ import org.springframework.util.DigestUtils;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -80,12 +81,12 @@ public class Image {
     /**
      * 创建时间
      */
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     public void setMd5Key() {
         try( FileInputStream fileInputStream = new FileInputStream(localFilePath)) {

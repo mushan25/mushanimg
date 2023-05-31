@@ -29,11 +29,14 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     @Override
     public List<Menu> getMenuByIds(Set<Long> menuIds) {
+        if (null == menuIds  || menuIds.isEmpty()) {
+            return null;
+        }
         // 1、根据menuId list查询menu信息
         List<MenuDO> menuDOS = menuMapper.selectBatchIds(menuIds);
 
         // 2、判断是否查询成功
-        if ( menuDOS == null){
+        if ( null == menuDOS){
             return null;
         }
 
@@ -44,16 +47,25 @@ public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements 
 
     @Override
     public Set<Long> getMenuIdsByRoleIds(List<Long> roleIds) {
+        if (null == roleIds || roleIds.isEmpty()) {
+            return null;
+        }
         return new HashSet<>(menuMapper.selectMenuIdsByRoleIds(roleIds));
     }
 
     @Override
     public Set<String> getPermissions(List<Menu> menus) {
+        if (null == menus || menus.isEmpty()) {
+            return null;
+        }
         return menus.stream().map(Menu::getPerms).collect(Collectors.toSet());
     }
 
     @Override
     public Set<String> getRoutes(List<Menu> menus) {
+        if (null == menus || menus.isEmpty()) {
+            return null;
+        }
         return menus.stream().map(Menu::getPath).collect(Collectors.toSet());
     }
 }

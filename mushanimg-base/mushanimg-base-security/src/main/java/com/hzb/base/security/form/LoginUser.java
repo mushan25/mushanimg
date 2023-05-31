@@ -46,14 +46,14 @@ public class LoginUser implements UserDetails {
 
     private Set<String> roleKeys;
     private Set<String> permissions;
-
     private Set<String> routes;
 
-    public LoginUser(Long userId, UserInfo user, Set<String> roleKeys, Set<String> permissions) {
+    public LoginUser(Long userId, UserInfo user, Set<String> roleKeys, Set<String> permissions, Set<String> routes) {
         this.userId = userId;
         this.user = user;
         this.roleKeys = roleKeys;
         this.permissions = permissions;
+        this.routes = routes;
     }
 
     @Override

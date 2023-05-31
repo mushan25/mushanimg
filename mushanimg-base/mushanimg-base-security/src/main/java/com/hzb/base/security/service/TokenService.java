@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -103,5 +102,17 @@ public class TokenService {
     private String getTokenKey(String token)
     {
         return ACCESS_TOKEN + token;
+    }
+
+    /**
+     * 删除用户缓存信息
+     */
+    public void delLoginUser(String token)
+    {
+        if (StringUtils.isNotEmpty(token))
+        {
+            String userkey = JwtUtils.getUserKey(token);
+            redisService.deleteObject(getTokenKey(userkey));
+        }
     }
 }
