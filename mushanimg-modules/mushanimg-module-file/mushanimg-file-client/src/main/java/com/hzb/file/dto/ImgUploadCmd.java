@@ -2,12 +2,14 @@ package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * @author: hzb
  * @Date: 2023/5/5
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Accessors(chain = true)
 public class ImgUploadCmd extends Command {

@@ -49,7 +49,6 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
             }else {
                 log.debug("Bucket :{} already exists.", bucket_img);
             }
-            image.setObjectName();
             UploadObjectArgs bucket = UploadObjectArgs.builder()
                     .bucket(bucket_img)
                     .filename(image.getLocalFilePath())
@@ -79,13 +78,44 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     }
 
     @Override
-    public List<Image> getImgList(Image image) {
+    public List<Image> getImgList(Image image, List<Long> imgIds) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(ImageDO::getId, ImageDO::getImgName, ImageDO::getImgurl, ImageDO::getSize, ImageDO::getImgType, ImageDO::getRemark, ImageDO::getCreateTime, ImageDO::getUpdateTime)
+        wrapper.select(ImageDO::getId, ImageDO::getImgurl)
+                .in(null != imgIds && imgIds.size() > 0, ImageDO::getId, imgIds)
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
                 .eq(StringUtils.isNotEmpty(image.getImgName()), ImageDO::getImgName, image.getImgName());
         return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
+    }
+
+    @Override
+    public Image getImgInfo(Image image) {
+        return null;
+    }
+
+    @Override
+    public boolean updateImgInfo(Image image) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteImgDb(List<Long> imgIds, Long userId) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteImgMinio(List<String> objectNameList) {
+        return false;
+    }
+
+    @Override
+    public List<String> selectObjetNameByIds(List<Long> imgIds, Long userId) {
+        return null;
+    }
+
+    @Override
+    public boolean moveImg2OtherClass(Long imageclassId) {
+        return false;
     }
 }
 

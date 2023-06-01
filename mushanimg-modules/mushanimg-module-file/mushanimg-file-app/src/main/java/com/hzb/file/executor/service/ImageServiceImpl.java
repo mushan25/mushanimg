@@ -1,11 +1,12 @@
 package com.hzb.file.executor.service;
 
 import com.alibaba.cola.dto.PageResponse;
+import com.alibaba.cola.dto.SingleResponse;
 import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.file.api.ImageService;
-import com.hzb.file.dto.ImgListQry;
-import com.hzb.file.dto.ImgUploadCmd;
+import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
+import com.hzb.file.dto.clientobject.ImageListCO;
 import com.hzb.file.executor.command.ImgUploadCmdExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,27 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public PageResponse<ImageCO> getImageList(ImgListQry imgListQry) {
+    public PageResponse<ImageListCO> getImageList(ImgListQry imgListQry) {
         return imgListQryExe.execute(imgListQry);
+    }
+
+    @Override
+    public SingleResponse<ImageCO> getImageInfo(ImgInfoQry imgInfoQry) {
+        return null;
+    }
+
+    @Override
+    public AjaxResult editImageInfo(ImgInfoEditCmd imgInfoEditCmd) {
+        return null;
+    }
+
+    @Override
+    public AjaxResult removeImage(ImgRemoveCmd imgRemoveCmd) {
+        return null;
+    }
+
+    @Override
+    public AjaxResult moveImage2OtherClass(ImgMoveClassCmd imgMoveClassCmd) {
+        return null;
     }
 }

@@ -34,8 +34,52 @@ public interface ImageGateway {
     /**
      * 获取指定用户的图片
      * @param image image
+     * @param imgIds imgIds
      * @return img list
      */
-    List<Image> getImgList(Image image);
+    List<Image> getImgList(Image image, List<Long> imgIds);
 
+    /**
+     * 获取图片信息
+     * @param image image
+     * @return image
+     */
+    Image getImgInfo(Image image);
+
+    /**
+     * 更新图片信息
+     * @param image image
+     * @return update result
+     */
+    boolean updateImgInfo(Image image);
+
+    /**
+     * 删除图片
+     * @param imgIds imgIds
+     * @param userId userId
+     * @return delete result
+     */
+    boolean deleteImgDb(List<Long> imgIds, Long userId);
+
+    /**
+     * 删除图片
+     * @param objectNameList objectNameList
+     * @return delete result
+     */
+    boolean deleteImgMinio(List<String> objectNameList);
+
+    /**
+     * 根据图片id获取图片名称
+     * @param imgIds imgIds
+     * @param userId userId
+     * @return imgNameList
+     */
+    List<String> selectObjetNameByIds(List<Long> imgIds, Long userId);
+
+    /**
+     * 移动图片到其他分类
+     * @param imageclassId imageclassId
+     * @return move result
+     */
+    boolean moveImg2OtherClass(Long imageclassId);
 }
