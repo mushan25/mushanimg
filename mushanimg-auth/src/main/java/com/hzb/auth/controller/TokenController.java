@@ -3,6 +3,7 @@ package com.hzb.auth.controller;
 import com.hzb.auth.form.LoginBody;
 import com.hzb.auth.form.RegisterBody;
 import com.hzb.auth.service.LoginService;
+import com.hzb.base.core.annotation.Log;
 import com.hzb.base.core.domain.ResultBody;
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.TokenService;
@@ -32,12 +33,14 @@ public class TokenController {
     }
 
     @PostMapping("/login")
+    @Log("登录")
     public ResultBody<?> login(@RequestBody @Validated LoginBody loginBody){
         LoginUser userInfo = loginService.login(loginBody.getUsername(), loginBody.getPassword());
         return ResultBody.ok(tokenService.createToken(userInfo));
     }
 
     @DeleteMapping("/logout")
+    @Log("登出")
     public ResultBody<?> logout(HttpServletRequest request){
         String token = SecurityUtils.getToken(request);
         if (StringUtils.isNotEmpty(token)){
@@ -47,6 +50,7 @@ public class TokenController {
     }
 
     @PostMapping("/refresh")
+    @Log("刷新token")
     public ResultBody<?> refresh(HttpServletRequest request){
         LoginUser loginUser = tokenService.getLoginUser(request);
         if (loginUser != null){
@@ -57,6 +61,7 @@ public class TokenController {
     }
 
     @PostMapping("/register")
+    @Log("注册")
     public ResultBody<?> register(@RequestBody @Validated RegisterBody registerBody){
         String msg = loginService.register(registerBody);
         return ResultBody.ok(null, msg);

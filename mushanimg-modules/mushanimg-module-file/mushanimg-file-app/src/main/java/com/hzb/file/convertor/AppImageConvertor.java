@@ -4,8 +4,10 @@ import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.dto.ImgListQry;
 import com.hzb.file.dto.ImgUploadCmd;
 import com.hzb.file.dto.clientobject.ImageCO;
+import com.hzb.file.dto.clientobject.ImageListCO;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -35,11 +37,27 @@ public interface AppImageConvertor {
     Image CO2Image(ImageCO imageCO);
 
     /**
-     * imageCOs2ImageCOList
+     * imageList2ImageCOList
      * @param images List<Image>
      * @return List<Image>
      */
-    List<ImageCO> imageCOs2ImageCOList(List<Image> images);
+    List<ImageCO> imageList2ImageCOList(List<Image> images);
+
+    /**
+     * image2ImageListCO
+     * @param image Image
+     * @return ImageListCO
+     */
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "imgurl", source = "imgurl")
+    ImageListCO image2ImageListCO(Image image);
+
+    /**
+     * imageList2ImageListCOList
+     * @param images List<Image>
+     * @return List<ImageListCO>
+     */
+    List<ImageListCO> imageList2ImageListCOList(List<Image> images);
 
     /**
      * qry2Image

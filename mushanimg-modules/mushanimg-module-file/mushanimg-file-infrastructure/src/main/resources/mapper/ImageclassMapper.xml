@@ -16,4 +16,12 @@
         id,imgclass_name,user_id,
         create_time,update_time
     </sql>
+    <select id="selectImgIdsByImageclassId" resultType="java.lang.Long">
+        select imgdata_id
+        from ms_imgclass_imgdata
+        where imgclass_id in
+        <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
+            #{imageclassId}
+        </foreach>
+    </select>
 </mapper>
