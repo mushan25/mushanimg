@@ -12,6 +12,7 @@
             <result property="size" column="size" jdbcType="VARCHAR"/>
             <result property="imgType" column="img_type" jdbcType="INTEGER"/>
             <result property="md5Key" column="md5_key" jdbcType="VARCHAR"/>
+            <result property="objectName" column="object_name" jdbcType="VARCHAR"/>
             <result property="remark" column="remark" jdbcType="VARCHAR"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
@@ -20,7 +21,7 @@
     <sql id="Base_Column_List">
         id,img_name,imgurl,
         user_id,size,img_type,
-        md5_key,remark,create_time,
+        md5_key,object_name,remark,create_time,
         update_time
     </sql>
 </mapper>

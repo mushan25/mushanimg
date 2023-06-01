@@ -26,6 +26,7 @@ public class ImgUploadCmdExe {
         image.setImgType();
         image.setMimeType();
         image.setMd5Key();
+        image.setObjectName();
         if (imageGateway.selectImgByMd5(image.getMd5Key())){
             return AjaxResult.success();
         }

@@ -2,6 +2,7 @@ package com.hzb.file.dto.clientobject;
 
 import com.alibaba.cola.dto.ClientObject;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
  * @author: hzb
  * @Date: 2023/5/8
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class ImageCO extends ClientObject {
     /**
