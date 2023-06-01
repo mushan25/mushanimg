@@ -27,7 +27,12 @@ public class DomainService {
     }
 
     public List<Image> getImgList(Image image, List<Long> imageclassIds) {
-        return null;
+        if(null != imageclassIds && imageclassIds.size() > 0){
+            List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
+            return imageGateway.getImgList(image, imgIds);
+        }
+
+        return imageGateway.getImgList(image, null);
     }
 
     public boolean deleteImacgeclass(List<Long> imageclassIds, Long userId) {

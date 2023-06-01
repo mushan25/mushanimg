@@ -85,7 +85,8 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
                 .eq(StringUtils.isNotEmpty(image.getImgName()), ImageDO::getImgName, image.getImgName());
-        return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
+        List<ImageDO> imageDOS = imageMapper.selectList(wrapper);
+        return ImageConvertor.INSTANCT.imageDOs2imageList(imageDOS);
     }
 
     @Override

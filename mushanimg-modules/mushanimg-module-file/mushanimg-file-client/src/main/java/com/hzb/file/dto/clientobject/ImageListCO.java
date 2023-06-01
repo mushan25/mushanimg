@@ -12,5 +12,5 @@ import lombok.EqualsAndHashCode;
 @Data
 public class ImageListCO extends ClientObject {
     private Long id;
-    private String imgUrl;
+    private String imgurl;
 }

@@ -18,6 +18,12 @@ import java.util.List;
 public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, ImageclassDO>
     implements ImageclassGateway {
 
+    private final ImageclassMapper imageclassMapper;
+
+    public ImageclassGatewayImpl(ImageclassMapper imageclassMapper) {
+        this.imageclassMapper = imageclassMapper;
+    }
+
     @Override
     public List<Imageclass> getImageclassList(Long userId) {
         return null;
@@ -50,7 +56,8 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
 
     @Override
     public List<Long> getImgIdsByImageclassId(List<Long> imageclassIds) {
-        return null;
+
+        return  imageclassMapper.selectImgIdsByImageclassId(imageclassIds);
     }
 
     @Override
