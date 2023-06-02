@@ -8,6 +8,7 @@ import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
 import com.hzb.file.executor.command.ImgUploadCmdExe;
+import com.hzb.file.executor.command.query.ImgInfoQryExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,12 @@ public class ImageServiceImpl implements ImageService {
 
     private final ImgUploadCmdExe imgUploadCmdExe;
     private final ImgListQryExe imgListQryExe;
+    private final ImgInfoQryExe imgInfoQryExe;
 
-    public ImageServiceImpl(ImgUploadCmdExe imgUploadCmdExe, ImgListQryExe imgListQryExe) {
+    public ImageServiceImpl(ImgUploadCmdExe imgUploadCmdExe, ImgListQryExe imgListQryExe, ImgInfoQryExe imgInfoQryExe) {
         this.imgUploadCmdExe = imgUploadCmdExe;
         this.imgListQryExe = imgListQryExe;
+        this.imgInfoQryExe = imgInfoQryExe;
     }
 
     @Override
@@ -38,7 +41,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public SingleResponse<ImageCO> getImageInfo(ImgInfoQry imgInfoQry) {
-        return null;
+        return imgInfoQryExe.execute(imgInfoQry);
     }
 
     @Override

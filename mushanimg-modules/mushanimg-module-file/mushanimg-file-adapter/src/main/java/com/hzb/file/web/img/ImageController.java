@@ -1,13 +1,16 @@
 package com.hzb.file.web.img;
 
 import com.alibaba.cola.dto.PageResponse;
+import com.alibaba.cola.dto.SingleResponse;
 import com.hzb.base.core.annotation.Log;
 import com.hzb.base.core.annotation.StartPage;
 import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.base.security.utils.SecurityUtils;
 import com.hzb.file.api.ImageService;
+import com.hzb.file.dto.ImgInfoQry;
 import com.hzb.file.dto.ImgListQry;
 import com.hzb.file.dto.ImgUploadCmd;
+import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +55,12 @@ public class ImageController {
         Long userId = SecurityUtils.getUserId();
         imgListQry.setUserId(userId);
         return imageService.getImageList(imgListQry);
+    }
+
+    @GetMapping("/info/{id}")
+    @Log("图片信息")
+    public SingleResponse<ImageCO> getImgInfo(@PathVariable("id") Long id){
+        ImgInfoQry imgInfoQry = new ImgInfoQry(id, SecurityUtils.getUserId());
+        return imageService.getImageInfo(imgInfoQry);
     }
 }

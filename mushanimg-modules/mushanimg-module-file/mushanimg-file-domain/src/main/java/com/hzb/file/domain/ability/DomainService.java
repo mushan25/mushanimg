@@ -27,12 +27,15 @@ public class DomainService {
     }
 
     public List<Image> getImgList(Image image, List<Long> imageclassIds) {
-        if(null != imageclassIds && imageclassIds.size() > 0){
-            List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
-            return imageGateway.getImgList(image, imgIds);
+        if(null == imageclassIds || imageclassIds.size() == 0){
+            return imageGateway.getImgList(image, null);
         }
 
-        return imageGateway.getImgList(image, null);
+        List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
+        if (null != imgIds && imgIds.size() > 0) {
+            return imageGateway.getImgList(image, imgIds);
+        }
+        return null;
     }
 
     public boolean deleteImacgeclass(List<Long> imageclassIds, Long userId) {

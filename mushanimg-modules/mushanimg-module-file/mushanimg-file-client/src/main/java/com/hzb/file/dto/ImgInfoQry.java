@@ -1,6 +1,7 @@
 package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,6 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
 public class ImgInfoQry extends Command {
     /**
      * id

@@ -17,7 +17,7 @@
         create_time,update_time
     </sql>
     <select id="selectImgIdsByImageclassId" resultType="java.lang.Long">
-        select imgdata_id
+        select imgdata_id as imgdataId
         from ms_imgclass_imgdata
         where imgclass_id in
         <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
