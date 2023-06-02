@@ -20,7 +20,7 @@
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
         <jakarta.annotation-api.version>1.3.5</jakarta.annotation-api.version>
         <fastjson2.version>2.0.30</fastjson2.version>
-        <druid-spring-boot-starter.version>1.2.15</druid-spring-boot-starter.version>
+        <druid-spring-boot-starter.version>1.2.8</druid-spring-boot-starter.version>
         <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.5.3</mybatis-plus-boot-starter.version>
         <minio.version>8.4.3</minio.version>
@@ -28,9 +28,7 @@
         <simplemagic.version>1.17</simplemagic.version>
         <commons-lang3.version>3.10</commons-lang3.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
         <commons.io.version>2.11.0</commons.io.version>
-        <commons.fileupload.version>1.4</commons.fileupload.version>
         <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <cola.components.version>4.3.1</cola.components.version>
@@ -154,13 +152,6 @@
                 <version>${jjwt.version}</version>
             </dependency>
 
-            <!-- 线程传递值 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>transmittable-thread-local</artifactId>
-                <version>${transmittable-thread-local.version}</version>
-            </dependency>
-
             <!-- pagehelper 分页插件 -->
             <dependency>
                 <groupId>com.github.pagehelper</groupId>
@@ -182,12 +173,6 @@
                 <version>${commons.io.version}</version>
             </dependency>
 
-            <!-- 文件上传工具类 -->
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons.fileupload.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.hzb</groupId>
                 <artifactId>mushanimg-base-core</artifactId>

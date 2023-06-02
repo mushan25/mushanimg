@@ -1,7 +1,6 @@
 package com.hzb.system.user.executor.command.query;
 
 import com.alibaba.cola.dto.PageResponse;
-import com.hzb.base.core.domain.CustomPageInfo;
 import com.hzb.base.core.utils.PageUtils;
 import com.hzb.system.convertor.AppUserConvertor;
 import com.hzb.system.domain.DomainFactory;
@@ -34,7 +33,6 @@ public class UserListQryExe {
         List<User> userList = userGateway.getUserList(user);
 
         List<UserCO> userCOS = AppUserConvertor.INSTANCT.userList2CO(userList);
-        CustomPageInfo pageInfo = PageUtils.getPageInfo(userCOS);
-        return PageResponse.of(userCOS, pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
+        return PageUtils.getPageResponse(userCOS);
     }
 }

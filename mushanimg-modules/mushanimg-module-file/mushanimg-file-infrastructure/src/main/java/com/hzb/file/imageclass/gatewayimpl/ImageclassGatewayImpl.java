@@ -56,8 +56,7 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
 
     @Override
     public List<Long> getImgIdsByImageclassId(List<Long> imageclassIds) {
-
-        return  imageclassMapper.selectImgIdsByImageclassId(imageclassIds);
+        return imageclassMapper.selectImgIdsByImageclassId(imageclassIds);
     }
 
     @Override

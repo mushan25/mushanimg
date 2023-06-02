@@ -85,13 +85,17 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
                 .eq(StringUtils.isNotEmpty(image.getImgName()), ImageDO::getImgName, image.getImgName());
-        List<ImageDO> imageDOS = imageMapper.selectList(wrapper);
-        return ImageConvertor.INSTANCT.imageDOs2imageList(imageDOS);
+        return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
     }
 
     @Override
     public Image getImgInfo(Image image) {
-        return null;
+        LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.select(ImageDO::getId, ImageDO::getImgName, ImageDO::getImgurl, ImageDO::getSize, ImageDO::getImgType,
+                ImageDO::getRemark, ImageDO::getCreateTime)
+                .eq(null != image.getId(), ImageDO::getId, image.getId())
+                .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId());
+        return ImageConvertor.INSTANCT.DO2Image(imageMapper.selectOne(wrapper));
     }
 
     @Override

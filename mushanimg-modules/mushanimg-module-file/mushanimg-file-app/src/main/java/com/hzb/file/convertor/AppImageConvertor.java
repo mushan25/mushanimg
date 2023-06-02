@@ -1,6 +1,7 @@
 package com.hzb.file.convertor;
 
 import com.hzb.file.domain.image.model.entities.Image;
+import com.hzb.file.dto.ImgInfoQry;
 import com.hzb.file.dto.ImgListQry;
 import com.hzb.file.dto.ImgUploadCmd;
 import com.hzb.file.dto.clientobject.ImageCO;
@@ -72,4 +73,11 @@ public interface AppImageConvertor {
      * @return Image
      */
     Image cmd2Image(ImgUploadCmd imgUploadCmd);
+
+    /**
+     * qry2Image
+     * @param imgInfoQry ImgInfoQry
+     * @return Image
+     */
+    Image qry2Image(ImgInfoQry imgInfoQry);
 }

@@ -1,7 +1,7 @@
 package com.hzb.base.core.utils;
 
+import com.alibaba.cola.dto.PageResponse;
 import com.github.pagehelper.PageInfo;
-import com.hzb.base.core.domain.CustomPageInfo;
 import com.hzb.base.core.web.page.PageParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -55,8 +55,11 @@ public class PageUtils {
         return str.replaceAll("([A-Z]+)", "_$1").toLowerCase();
     }
 
-    public static CustomPageInfo getPageInfo(List<?> list){
+    public static <E> PageResponse<E> getPageResponse(List<E> list){
+        if (list == null) {
+            return PageResponse.of(null, 0, 0, 0);
+        }
         PageInfo<?> pageInfo = new PageInfo<>(list);
-        return new CustomPageInfo((int) pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
+        return PageResponse.of(list, (int) pageInfo.getTotal(), pageInfo.getPageSize(), pageInfo.getPageNum());
     }
 }

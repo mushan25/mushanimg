@@ -18,11 +18,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.hzb</groupId>
             <artifactId>mushanimg-base-core</artifactId>
         </dependency>
