@@ -66,7 +66,7 @@ public interface ImageGateway {
      * @param objectNameList objectNameList
      * @return delete result
      */
-    boolean deleteImgMinio(List<String> objectNameList);
+    List<String> deleteImgMinio(List<String> objectNameList);
 
     /**
      * 根据图片id获取图片名称
@@ -74,12 +74,13 @@ public interface ImageGateway {
      * @param userId userId
      * @return imgNameList
      */
-    List<String> selectObjetNameByIds(List<Long> imgIds, Long userId);
+    List<Image> selectObjetNameByIds(List<Long> imgIds, Long userId);
 
     /**
      * 移动图片到其他分类
      * @param imageclassId imageclassId
+     * @param imgDataId imgdataId
      * @return move result
      */
-    boolean moveImg2OtherClass(Long imageclassId);
+    boolean moveImg2OtherClass(Long imgDataId, Long imageclassId);
 }

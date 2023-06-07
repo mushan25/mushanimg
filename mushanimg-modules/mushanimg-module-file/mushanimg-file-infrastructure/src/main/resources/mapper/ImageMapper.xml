@@ -24,4 +24,9 @@
         md5_key,object_name,remark,create_time,
         update_time
     </sql>
+    <insert id="updateImgClass">
+        insert into ms_imgclass_imgdata (imgdata_id,imgclass_id) values(#{imgDataId},#{imageclassId})
+        on duplicate key
+        update imgclass_id = #{imageclassId}
+    </insert>
 </mapper>

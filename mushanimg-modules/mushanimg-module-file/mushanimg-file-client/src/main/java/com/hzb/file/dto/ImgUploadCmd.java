@@ -1,6 +1,7 @@
 package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -21,6 +22,7 @@ public class ImgUploadCmd extends Command {
     /**
      * 用户id
      */
+    @JsonIgnore
     private Long userId;
 
     /**

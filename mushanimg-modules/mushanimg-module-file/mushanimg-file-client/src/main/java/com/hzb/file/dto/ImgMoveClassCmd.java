@@ -1,8 +1,11 @@
 package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author: hzb
@@ -11,6 +14,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ImgMoveClassCmd extends Command {
+    @NotNull(message = "图片不能为空")
+    private Long imgId;
+    @NotNull(message = "图片分类不能为空")
     private Long imgclassId;
+    @JsonIgnore
     private Long userId;
 }

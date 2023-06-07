@@ -1,6 +1,7 @@
 package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,5 +12,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ImageclassListQry extends Command {
+    @JsonIgnore
     private Long userId;
 }

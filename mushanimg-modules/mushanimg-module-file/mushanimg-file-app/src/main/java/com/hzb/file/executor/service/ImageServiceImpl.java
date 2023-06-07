@@ -7,6 +7,9 @@ import com.hzb.file.api.ImageService;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import com.hzb.file.executor.command.ImgInfoEditCmdExe;
+import com.hzb.file.executor.command.ImgMoveClassCmdExe;
+import com.hzb.file.executor.command.ImgRemoveCmdExe;
 import com.hzb.file.executor.command.ImgUploadCmdExe;
 import com.hzb.file.executor.command.query.ImgInfoQryExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
@@ -22,11 +25,17 @@ public class ImageServiceImpl implements ImageService {
     private final ImgUploadCmdExe imgUploadCmdExe;
     private final ImgListQryExe imgListQryExe;
     private final ImgInfoQryExe imgInfoQryExe;
+    private final ImgInfoEditCmdExe imgInfoEditCmdExe;
+    private final ImgRemoveCmdExe imgRemoveCmdExe;
+    private final ImgMoveClassCmdExe imgMoveClassCmdExe;
 
-    public ImageServiceImpl(ImgUploadCmdExe imgUploadCmdExe, ImgListQryExe imgListQryExe, ImgInfoQryExe imgInfoQryExe) {
+    public ImageServiceImpl(ImgUploadCmdExe imgUploadCmdExe, ImgListQryExe imgListQryExe, ImgInfoQryExe imgInfoQryExe, ImgInfoEditCmdExe imgInfoEditCmdExe, ImgRemoveCmdExe imgRemoveCmdExe, ImgMoveClassCmdExe imgMoveClassCmdExe) {
         this.imgUploadCmdExe = imgUploadCmdExe;
         this.imgListQryExe = imgListQryExe;
         this.imgInfoQryExe = imgInfoQryExe;
+        this.imgInfoEditCmdExe = imgInfoEditCmdExe;
+        this.imgRemoveCmdExe = imgRemoveCmdExe;
+        this.imgMoveClassCmdExe = imgMoveClassCmdExe;
     }
 
     @Override
@@ -46,16 +55,16 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public AjaxResult editImageInfo(ImgInfoEditCmd imgInfoEditCmd) {
-        return null;
+        return imgInfoEditCmdExe.execute(imgInfoEditCmd);
     }
 
     @Override
     public AjaxResult removeImage(ImgRemoveCmd imgRemoveCmd) {
-        return null;
+        return imgRemoveCmdExe.execute(imgRemoveCmd);
     }
 
     @Override
     public AjaxResult moveImage2OtherClass(ImgMoveClassCmd imgMoveClassCmd) {
-        return null;
+        return imgMoveClassCmdExe.execute(imgMoveClassCmd);
     }
 }
