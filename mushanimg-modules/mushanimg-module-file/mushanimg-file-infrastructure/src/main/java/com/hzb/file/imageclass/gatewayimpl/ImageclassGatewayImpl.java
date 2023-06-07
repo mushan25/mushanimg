@@ -1,5 +1,6 @@
 package com.hzb.file.imageclass.gatewayimpl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
 import com.hzb.file.imageclass.gatewayimpl.database.dataobject.ImageclassDO;
@@ -51,7 +52,10 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
 
     @Override
     public boolean checkImageclassExist(Imageclass imageclass) {
-        return false;
+        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
+                .eq(ImageclassDO::getId, imageclass.getId());
+        return imageclassMapper.selectCount(wrapper) > 0;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.hzb.file.convertor;
 
 import com.hzb.file.domain.image.model.entities.Image;
-import com.hzb.file.dto.ImgInfoQry;
-import com.hzb.file.dto.ImgListQry;
-import com.hzb.file.dto.ImgUploadCmd;
+import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
 import org.mapstruct.CollectionMappingStrategy;
@@ -80,4 +78,19 @@ public interface AppImageConvertor {
      * @return Image
      */
     Image qry2Image(ImgInfoQry imgInfoQry);
+
+    /**
+     * cmd2Image
+     * @param imgInfoEditCmd ImgInfoEditCmd
+     * @return Image
+     */
+    Image cmd2Image(ImgInfoEditCmd imgInfoEditCmd);
+
+    /**
+     * cmd2Image
+     * @param imgMoveClassCmd ImgMoveClassCmd
+     * @return Image
+     */
+    @Mapping(target = "id", source = "imgId")
+    Image cmd2Image(ImgMoveClassCmd imgMoveClassCmd);
 }

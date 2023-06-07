@@ -1,6 +1,7 @@
 package com.hzb.file.dto;
 
 import com.alibaba.cola.dto.Command;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,5 +22,6 @@ public class ImgInfoQry extends Command {
     /**
      *
      */
+    @JsonIgnore
     private Long userId;
 }
