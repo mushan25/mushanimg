@@ -7,6 +7,7 @@ import com.hzb.system.domain.role.model.entities.Role;
 import com.hzb.system.domain.user.gateway.UserGateway;
 import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  * @author: hzb
  * @Date: 2023/4/19
  */
+@AllArgsConstructor
 @Service
 public class DomainService {
     private final UserGateway userGateway;
@@ -25,12 +27,6 @@ public class DomainService {
     private final RoleGateway roleGateway;
 
     private final MenuGateway menuGateway;
-
-    public DomainService(UserGateway userGateway, RoleGateway roleGateway, MenuGateway menuGateway) {
-        this.userGateway = userGateway;
-        this.roleGateway = roleGateway;
-        this.menuGateway = menuGateway;
-    }
 
     public AuthUser getAuthUserInfoByName(String userName) {
         Set<String> roleKeySet = new HashSet<>();

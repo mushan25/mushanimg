@@ -9,22 +9,19 @@ import com.hzb.system.convertor.UserConvertor;
 import com.hzb.system.domain.ability.DomainService;
 import com.hzb.system.domain.user.gateway.UserGateway;
 import io.grpc.stub.StreamObserver;
+import lombok.AllArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 /**
  * @author hzb
  * @date 2023/4/19 21:27
  */
+@AllArgsConstructor
 @GrpcService
 public class UserService extends UserServiceGrpc.UserServiceImplBase {
     private final DomainService domainService;
 
     private final UserGateway userGateway;
-
-    public UserService(DomainService domainService, UserGateway userGateway) {
-        this.domainService = domainService;
-        this.userGateway = userGateway;
-    }
 
     @Override
     public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {

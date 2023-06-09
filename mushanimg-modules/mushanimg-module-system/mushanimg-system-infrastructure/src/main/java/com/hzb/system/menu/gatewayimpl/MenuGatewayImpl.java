@@ -6,6 +6,7 @@ import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.menu.model.entities.Menu;
 import com.hzb.system.menu.gatewayimpl.database.MenuMapper;
 import com.hzb.system.menu.gatewayimpl.database.dataobject.MenuDO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -18,14 +19,11 @@ import java.util.stream.Collectors;
 * @description 针对表【ms_menu(菜单权限表)】的数据库操作Service实现
 * @createDate 2023-04-19 14:09:31
 */
+@AllArgsConstructor
 @Service
 public class MenuGatewayImpl extends ServiceImpl<MenuMapper, MenuDO> implements MenuGateway {
 
     private final MenuMapper menuMapper;
-
-    public MenuGatewayImpl(MenuMapper menuMapper) {
-        this.menuMapper = menuMapper;
-    }
 
     @Override
     public List<Menu> getMenuByIds(Set<Long> menuIds) {

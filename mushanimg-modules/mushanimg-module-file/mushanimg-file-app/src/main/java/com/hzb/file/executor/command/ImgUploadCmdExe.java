@@ -6,19 +6,17 @@ import com.hzb.file.domain.DomainFactory;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.dto.ImgUploadCmd;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
  * @author: hzb
  * @Date: 2023/5/5
  */
+@AllArgsConstructor
 @Component
 public class ImgUploadCmdExe {
     private final ImageGateway imageGateway;
-
-    public ImgUploadCmdExe(ImageGateway imageGateway) {
-        this.imageGateway = imageGateway;
-    }
 
     public AjaxResult execute(ImgUploadCmd imgUploadCmd){
         Image image = DomainFactory.getImage();

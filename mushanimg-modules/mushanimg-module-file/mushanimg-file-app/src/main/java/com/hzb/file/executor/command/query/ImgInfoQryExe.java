@@ -5,19 +5,17 @@ import com.hzb.file.convertor.AppImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.dto.ImgInfoQry;
 import com.hzb.file.dto.clientobject.ImageCO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
  * @author: hzb
  * @Date: 2023/6/2
  */
+@AllArgsConstructor
 @Component
 public class ImgInfoQryExe {
     private final ImageGateway imageGateway;
-
-    public ImgInfoQryExe(ImageGateway imageGateway) {
-        this.imageGateway = imageGateway;
-    }
 
     public SingleResponse<ImageCO> execute(ImgInfoQry imgInfoQry){
         return SingleResponse.of(

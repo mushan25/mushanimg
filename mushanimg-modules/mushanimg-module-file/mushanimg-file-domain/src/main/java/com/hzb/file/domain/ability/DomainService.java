@@ -4,6 +4,7 @@ import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,16 +14,11 @@ import java.util.stream.Collectors;
  * @author: hzb
  * @Date: 2023/4/19
  */
+@AllArgsConstructor
 @Service
 public class DomainService {
     private final ImageGateway imageGateway;
     private final ImageclassGateway imageclassGateway;
-
-
-    public DomainService(ImageGateway imageGateway, ImageclassGateway imageclassGateway) {
-        this.imageGateway = imageGateway;
-        this.imageclassGateway = imageclassGateway;
-    }
 
     public boolean deleteImg(List<Long> imgIds, Long userId) {
         List<Image> images = imageGateway.selectObjetNameByIds(imgIds, userId);
