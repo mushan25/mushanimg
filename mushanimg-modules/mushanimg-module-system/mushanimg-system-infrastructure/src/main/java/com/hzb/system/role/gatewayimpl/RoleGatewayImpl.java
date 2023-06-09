@@ -6,6 +6,7 @@ import com.hzb.system.domain.role.gateway.RoleGateway;
 import com.hzb.system.domain.role.model.entities.Role;
 import com.hzb.system.role.gatewayimpl.database.RoleMapper;
 import com.hzb.system.role.gatewayimpl.database.dataobject.RoleDO;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +16,12 @@ import java.util.List;
  * @description 针对表【ms_role(角色信息表)】的数据库操作Service实现
  * @createDate 2023-04-19 14:20:22
  */
+@AllArgsConstructor
 @Service
 public class RoleGatewayImpl extends ServiceImpl<RoleMapper, RoleDO>
         implements RoleGateway {
 
     private final RoleMapper roleMapper;
-
-    public RoleGatewayImpl(RoleMapper roleMapper) {
-        this.roleMapper = roleMapper;
-    }
 
     @Override
     public List<Role> getRoleByUserId(Long userId) {

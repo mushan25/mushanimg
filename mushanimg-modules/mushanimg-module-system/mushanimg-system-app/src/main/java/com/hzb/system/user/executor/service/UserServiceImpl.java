@@ -8,23 +8,19 @@ import com.hzb.system.user.dto.clientobject.LoginUserInfoCO;
 import com.hzb.system.user.dto.clientobject.UserCO;
 import com.hzb.system.user.executor.command.query.LoginUserInfoQryExe;
 import com.hzb.system.user.executor.command.query.UserListQryExe;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author: hzb
  * @Date: 2023/4/17
  */
+@AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserServiceI {
 
     private final UserListQryExe userListQryExe;
     private final LoginUserInfoQryExe loginUserInfoQryExe;
-
-    public UserServiceImpl(UserListQryExe userListQryExe, LoginUserInfoQryExe loginUserInfoQryExe) {
-        this.userListQryExe = userListQryExe;
-        this.loginUserInfoQryExe = loginUserInfoQryExe;
-    }
-
 
     @Override
     public PageResponse<UserCO> getUserList(UserListQry userListQry) {

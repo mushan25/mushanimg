@@ -13,12 +13,14 @@ import com.hzb.file.executor.command.ImgRemoveCmdExe;
 import com.hzb.file.executor.command.ImgUploadCmdExe;
 import com.hzb.file.executor.command.query.ImgInfoQryExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
  * @author: hzb
  * @Date: 2023/5/5
  */
+@AllArgsConstructor
 @Service
 public class ImageServiceImpl implements ImageService {
 
@@ -28,15 +30,6 @@ public class ImageServiceImpl implements ImageService {
     private final ImgInfoEditCmdExe imgInfoEditCmdExe;
     private final ImgRemoveCmdExe imgRemoveCmdExe;
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
-
-    public ImageServiceImpl(ImgUploadCmdExe imgUploadCmdExe, ImgListQryExe imgListQryExe, ImgInfoQryExe imgInfoQryExe, ImgInfoEditCmdExe imgInfoEditCmdExe, ImgRemoveCmdExe imgRemoveCmdExe, ImgMoveClassCmdExe imgMoveClassCmdExe) {
-        this.imgUploadCmdExe = imgUploadCmdExe;
-        this.imgListQryExe = imgListQryExe;
-        this.imgInfoQryExe = imgInfoQryExe;
-        this.imgInfoEditCmdExe = imgInfoEditCmdExe;
-        this.imgRemoveCmdExe = imgRemoveCmdExe;
-        this.imgMoveClassCmdExe = imgMoveClassCmdExe;
-    }
 
     @Override
     public AjaxResult uploadImg(ImgUploadCmd imgUploadCmd) {

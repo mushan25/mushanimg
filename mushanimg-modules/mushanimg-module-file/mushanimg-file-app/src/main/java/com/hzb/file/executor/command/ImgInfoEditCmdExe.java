@@ -6,19 +6,17 @@ import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.file.convertor.AppImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.dto.ImgInfoEditCmd;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
  * @author: hzb
  * @Date: 2023/6/5
  */
+@AllArgsConstructor
 @Component
 public class ImgInfoEditCmdExe {
     private final ImageGateway imageGateway;
-
-    public ImgInfoEditCmdExe(ImageGateway imageGateway) {
-        this.imageGateway = imageGateway;
-    }
 
     public AjaxResult execute(ImgInfoEditCmd imgInfoEditCmd){
         if (imageGateway.updateImgInfo(AppImageConvertor.INSTANCT.cmd2Image(imgInfoEditCmd))){

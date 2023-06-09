@@ -8,6 +8,7 @@ import com.hzb.system.user.api.UserServiceI;
 import com.hzb.system.user.dto.UserListQry;
 import com.hzb.system.user.dto.clientobject.LoginUserInfoCO;
 import com.hzb.system.user.dto.clientobject.UserCO;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: hzb
  * @Date: 2023/4/17
  */
+@AllArgsConstructor
 @RestController
 public class UserController {
     private final UserServiceI userService;
-
-    public UserController(UserServiceI userService) {
-        this.userService = userService;
-    }
 
     @GetMapping(value = "/user/list")
     @PreAuthorize("hasAnyAuthority('sys:dashboard:list')")

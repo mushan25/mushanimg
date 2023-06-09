@@ -13,6 +13,7 @@ import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import com.hzb.system.user.gatewayimpl.database.UserMapper;
 import com.hzb.system.user.gatewayimpl.database.dataobject.UserDO;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import reactor.util.function.Tuple2;
@@ -25,16 +26,12 @@ import java.util.List;
 * @description 针对表【ms_user(用户信息表)】的数据库操作Service实现
 * @createDate 2023-04-17 16:03:52
 */
+@AllArgsConstructor
 @Service
 public class UserGatewayImpl extends ServiceImpl<UserMapper, UserDO> implements UserGateway {
 
     private final UserMapper userMapper;
     private final RedisService redisService;
-
-    public UserGatewayImpl(UserMapper userMapper, RedisService redisService) {
-        this.userMapper = userMapper;
-        this.redisService = redisService;
-    }
 
 
     @Override
