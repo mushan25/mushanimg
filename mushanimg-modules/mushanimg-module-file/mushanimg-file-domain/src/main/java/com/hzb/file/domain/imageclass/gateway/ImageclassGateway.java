@@ -66,4 +66,11 @@ public interface ImageclassGateway {
      * @return 删除结果
      */
     boolean deleteImageclassByImgIds(List<Long> imgIds);
+
+    /**
+     * 删除图片分类下的图片
+     * @param imageclassIds 图片分类id列表
+     * @return 删除结果
+     */
+    boolean deleteImgByImageclassId(List<Long> imageclassIds);
 }

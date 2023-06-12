@@ -7,6 +7,7 @@ import com.hzb.base.security.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -32,5 +33,15 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         Integer code = e.getCode();
         return code != null ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
+    }
+
+    /**
+     * 校验异常
+     */
+    @ExceptionHandler(BindException.class)
+    public AjaxResult handlerBindException(BindException e){
+        log.error(e.getMessage(), e);
+        String message = e.getAllErrors().get(0).getDefaultMessage();
+        return AjaxResult.error(message);
     }
 }

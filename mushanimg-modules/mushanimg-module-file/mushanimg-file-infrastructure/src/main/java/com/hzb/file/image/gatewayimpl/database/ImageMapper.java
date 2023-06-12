@@ -4,6 +4,8 @@ import com.hzb.file.image.gatewayimpl.database.dataobject.ImageDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
 * @author Administrator
 * @description 针对表【ms_imgdata】的数据库操作Mapper
@@ -19,6 +21,13 @@ public interface ImageMapper extends BaseMapper<ImageDO> {
      * @return update result
      */
     int updateImgClass(@Param("imgDataId") Long imgDataId, @Param("imageclassId") Long imageclassId);
+
+    /**
+     * 根据图片id获取图片分类id
+     * @param imgIds 图片id列表
+     * @return 图片分类id列表
+     */
+    int deleteImgByimgIds(List<Long> imgIds);
 }
 
 

@@ -2,7 +2,6 @@ package com.hzb.file.image.gatewayimpl;
 
 import com.alibaba.cola.exception.SysException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.file.convertor.ImageConvertor;
@@ -13,21 +12,18 @@ import com.hzb.file.image.gatewayimpl.database.dataobject.ImageDO;
 import io.minio.*;
 import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
 * @author Administrator
 * @description 针对表【ms_imgdata】的数据库操作Service实现
 * @createDate 2023-05-05 14:34:45
 */
-@AllArgsConstructor
 @Service
 @Slf4j
 public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
@@ -37,6 +33,11 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     private final ImageMapper imageMapper;
     @Value("${minio.bucket.files}")
     private String bucket_img;
+
+    public ImageGatewayImpl(MinioClient minioClient, ImageMapper imageMapper) {
+        this.minioClient = minioClient;
+        this.imageMapper = imageMapper;
+    }
 
     @Override
     public boolean upload2Minio(Image image) {
@@ -150,6 +151,11 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public boolean moveImg2OtherClass(Long imgDataId, Long imageclassId) {
         return imageMapper.updateImgClass(imgDataId, imageclassId) > 0;
+    }
+
+    @Override
+    public boolean deleteImgByImgIds(List<Long> imgIds) {
+        return imageMapper.deleteImgByimgIds(imgIds) > 0;
     }
 }
 

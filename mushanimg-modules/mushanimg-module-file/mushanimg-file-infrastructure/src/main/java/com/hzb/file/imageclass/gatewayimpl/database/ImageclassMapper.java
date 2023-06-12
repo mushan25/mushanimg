@@ -19,6 +19,20 @@ public interface ImageclassMapper extends BaseMapper<ImageclassDO> {
      * @return 图片id列表
      */
     List<Long> selectImgIdsByImageclassId(List<Long> imageclassIds);
+
+    /**
+     * 根据图片id删除图片分类
+     * @param imgIds 图片id列表
+     * @return 删除结果
+     */
+    int deleteImageclassByImgIds(List<Long> imgIds);
+
+    /**
+     * 根据图片分类id删除图片
+     * @param imageclassIds 图片分类id列表
+     * @return 删除结果
+     */
+    int deleteImgByImageclassId(List<Long> imageclassIds);
 }
 
 

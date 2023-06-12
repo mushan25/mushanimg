@@ -16,6 +16,7 @@
         id,imgclass_name,user_id,
         create_time,update_time
     </sql>
+
     <select id="selectImgIdsByImageclassId" resultType="java.lang.Long">
         select imgdata_id as imgdataId
         from ms_imgclass_imgdata
@@ -24,4 +25,18 @@
             #{imageclassId}
         </foreach>
     </select>
+    <delete id="deleteImageclassByImgIds">
+        delete from ms_imgclass_imgdata
+        where imgdata_id in
+        <foreach collection="list" item="imgId" open="(" separator="," close=")">
+            #{imgId}
+        </foreach>
+    </delete>
+    <delete id="deleteImgByImageclassId">
+        delete from ms_imgclass_imgdata
+        where imgclass_id in
+        <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
+            #{imageclassId}
+        </foreach>
+    </delete>
 </mapper>

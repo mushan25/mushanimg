@@ -8,6 +8,7 @@ import com.hzb.file.imageclass.gatewayimpl.database.dataobject.ImageclassDO;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
 import com.hzb.file.imageclass.gatewayimpl.database.ImageclassMapper;
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
     }
 
     @Override
-    public Imageclass getImageclssInfo(Imageclass imageclass) {
+    public Imageclass getImageclssInfo(@NotNull Imageclass imageclass) {
         LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
                 .eq(ImageclassDO::getId, imageclass.getId());
@@ -41,21 +42,27 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
 
     @Override
     public boolean addImageclass(Imageclass imageclass) {
-        return false;
+        return imageclassMapper.insert(ImageclassConvertor.INSTANCT.Imageclass2DO(imageclass)) > 0;
     }
 
     @Override
-    public boolean updateImageclass(Imageclass imageclass) {
-        return false;
+    public boolean updateImageclass(@NotNull Imageclass imageclass) {
+        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
+                .eq(ImageclassDO::getId, imageclass.getId());
+        return imageclassMapper.update(ImageclassConvertor.INSTANCT.Imageclass2DO(imageclass), wrapper) > 0;
     }
 
     @Override
     public boolean deleteImageclass(List<Long> imageclassIds, Long userId) {
-        return false;
+        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ImageclassDO::getUserId, userId)
+                .in(ImageclassDO::getId, imageclassIds);
+        return imageclassMapper.delete(wrapper) > 0;
     }
 
     @Override
-    public boolean checkImageclassExist(Imageclass imageclass) {
+    public boolean checkImageclassExist(@NotNull Imageclass imageclass) {
         LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
                 .eq(ImageclassDO::getId, imageclass.getId());
@@ -69,7 +76,12 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
 
     @Override
     public boolean deleteImageclassByImgIds(List<Long> imgIds) {
-        return false;
+        return imageclassMapper.deleteImageclassByImgIds(imgIds) > 0;
+    }
+
+    @Override
+    public boolean deleteImgByImageclassId(List<Long> imageclassIds) {
+        return imageclassMapper.deleteImgByImageclassId(imageclassIds) > 0;
     }
 }
 

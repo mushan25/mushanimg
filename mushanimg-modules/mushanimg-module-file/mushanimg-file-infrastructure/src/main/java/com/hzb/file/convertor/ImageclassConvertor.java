@@ -31,4 +31,11 @@ public interface ImageclassConvertor {
      * @return List<Imageclass>
      */
     List<Imageclass> DOs2Imageclasses(List<ImageclassDO> imageclassDOs);
+
+    /**
+     * Imageclass2DO
+     * @param imageclass Imageclass
+     * @return ImageclassDO
+     */
+    ImageclassDO Imageclass2DO(Imageclass imageclass);
 }

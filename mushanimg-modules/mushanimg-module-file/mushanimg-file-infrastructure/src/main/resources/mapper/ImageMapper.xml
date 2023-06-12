@@ -29,4 +29,11 @@
         on duplicate key
         update imgclass_id = #{imageclassId}
     </insert>
+    <delete id="deleteImgByimgIds">
+        delete from ms_imgclass_imgdata
+        where imgdata_id in
+        <foreach collection="list" item="imgId" open="(" separator="," close=")">
+            #{imgId}
+        </foreach>
+    </delete>
 </mapper>
