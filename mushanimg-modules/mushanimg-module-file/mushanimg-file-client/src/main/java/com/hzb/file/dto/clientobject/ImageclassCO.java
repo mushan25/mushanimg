@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class ImageclassCO extends ClientObject {
     private Long id;
+    @NotBlank(message = "图片分类名称不能为空")
     private String imgclassName;
     @JsonIgnore
     private Long userId;

@@ -11,7 +11,7 @@ import com.hzb.file.dto.clientobject.ImageclassListCO;
  * @author: hzb
  * @Date: 2023/6/1
  */
-public interface ImageclssService {
+public interface ImageclassService {
     /**
      * 添加图片分类
      * @param imageclassAddCmd 图片分类信息

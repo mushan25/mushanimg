@@ -4,23 +4,32 @@ import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
-import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author: hzb
  * @Date: 2023/4/19
  */
-@AllArgsConstructor
 @Service
 public class DomainService {
     private final ImageGateway imageGateway;
     private final ImageclassGateway imageclassGateway;
+    private final DomainService domainServiceProxy;
 
+    public DomainService(ImageGateway imageGateway, ImageclassGateway imageclassGateway, @Lazy DomainService domainServiceProxy) {
+        this.imageGateway = imageGateway;
+        this.imageclassGateway = imageclassGateway;
+        this.domainServiceProxy = domainServiceProxy;
+    }
+
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRED)
     public boolean deleteImg(List<Long> imgIds, Long userId) {
+        imageGateway.deleteImgByImgIds(imgIds);
         List<Image> images = imageGateway.selectObjetNameByIds(imgIds, userId);
         if (null == images || images.size() == 0) {
             return false;
@@ -51,8 +60,14 @@ public class DomainService {
         return null;
     }
 
+    @Transactional(rollbackFor = RuntimeException.class)
     public boolean deleteImacgeclass(List<Long> imageclassIds, Long userId) {
-        return false;
+        imageclassGateway.deleteImageclass(imageclassIds, userId);
+        List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
+        if (null == imgIds || imgIds.size() == 0) {
+            return true;
+        }
+        return domainServiceProxy.deleteImg(imgIds, userId);
     }
 
     public boolean moveImageclass(Image image, Imageclass imageclass) {

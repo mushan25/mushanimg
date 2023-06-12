@@ -83,4 +83,11 @@ public interface ImageGateway {
      * @return move result
      */
     boolean moveImg2OtherClass(Long imgDataId, Long imageclassId);
+
+    /**
+     * 根据图片id列表删除图片
+     * @param imgIds imgIds
+     * @return delete result
+     */
+    boolean deleteImgByImgIds(List<Long> imgIds);
 }

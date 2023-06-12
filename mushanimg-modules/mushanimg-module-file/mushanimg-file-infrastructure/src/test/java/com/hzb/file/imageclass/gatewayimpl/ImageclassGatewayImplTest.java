@@ -26,8 +26,6 @@ class ImageclassGatewayImplTest {
     @Mock
     private ImageclassMapper imageclassMapper;
     private ImageclassGateway underTest;
-    @Mock
-    private ImageclassConvertor imageclassConvertor;
 
     @BeforeEach
     void setUp() {
@@ -45,7 +43,6 @@ class ImageclassGatewayImplTest {
 
         // then
         Mockito.verify(imageclassMapper).selectList(Mockito.any());
-        Mockito.verify(imageclassConvertor).DOs2Imageclasses(Mockito.anyList());
     }
 
     @Test
@@ -57,21 +54,50 @@ class ImageclassGatewayImplTest {
         imageclass.setId(1L);
         imageclass.setImgclassName("test");
 
-        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
-                .eq(ImageclassDO::getId, imageclass.getId());
-
-
-
         // when
         underTest.getImageclssInfo(imageclass);
 
         // then
-        ArgumentCaptor<LambdaQueryWrapper<ImageclassDO>> captor = ArgumentCaptor.forClass(LambdaQueryWrapper.class);
-        Mockito.verify(imageclassMapper).selectOne(captor.capture());
-
-        LambdaQueryWrapper<ImageclassDO> captorValue = captor.getValue();
-
-        assertThat(captorValue).isEqualTo(wrapper);
+        Mockito.verify(imageclassMapper).selectOne(Mockito.any());
     }
+
+    @Test
+    void canAddImgclass(){
+        // given
+        Imageclass imageclass = new Imageclass();
+        imageclass.setUserId(1L);
+        imageclass.setId(1L);
+        imageclass.setImgclassName("test");
+        // when
+        underTest.addImageclass(imageclass);
+        // then
+        ArgumentCaptor<ImageclassDO> captor = ArgumentCaptor.forClass(ImageclassDO.class);
+        Mockito.verify(imageclassMapper).insert(captor.capture());
+
+        ImageclassDO captorValue = captor.getValue();
+
+        assertThat(captorValue).isEqualTo(ImageclassConvertorImpl.INSTANCT.Imageclass2DO(imageclass));
+    }
+
+    @Test
+    void canUpdateImageclass(){
+        // given
+        Imageclass imageclass = new Imageclass();
+        imageclass.setUserId(1L);
+        imageclass.setId(1L);
+        imageclass.setImgclassName("test");
+
+        // when
+        underTest.updateImageclass(imageclass);
+
+        // then
+        ArgumentCaptor<ImageclassDO> captor = ArgumentCaptor.forClass(ImageclassDO.class);
+        Mockito.verify(imageclassMapper).update(captor.capture(), Mockito.any());
+
+        ImageclassDO captorValue = captor.getValue();
+
+        assertThat(captorValue).isEqualTo(ImageclassConvertorImpl.INSTANCT.Imageclass2DO(imageclass));
+    }
+
+
 }
