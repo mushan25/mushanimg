@@ -15,6 +15,7 @@
             <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="uploadSize" column="upload_size" jdbcType="BIGINT"/>
             <result property="delFlag" column="del_flag" jdbcType="CHAR"/>
             <result property="loginIp" column="login_ip" jdbcType="VARCHAR"/>
             <result property="loginDate" column="login_date" jdbcType="TIMESTAMP"/>
@@ -28,8 +29,8 @@
     <sql id="Base_Column_List">
         user_id,user_name,nick_name,
         user_type,email,phonenumber,
-        sex,avatar,password,
-        status,del_flag,login_ip,
+        sex,avatar,password,status,
+        upload_size,del_flag,login_ip,
         login_date,create_by,create_time,
         update_by,update_time,remark
     </sql>

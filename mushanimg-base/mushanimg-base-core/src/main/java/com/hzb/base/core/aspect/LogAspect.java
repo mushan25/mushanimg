@@ -2,6 +2,7 @@ package com.hzb.base.core.aspect;
 
 import com.alibaba.fastjson2.JSON;
 import com.hzb.base.core.annotation.Log;
+import com.hzb.base.core.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -45,6 +46,7 @@ public class LogAspect {
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
 
         // 获取 @WebLog 注解的描述信息
@@ -61,7 +63,7 @@ public class LogAspect {
         // 打印调用 controller 的全路径以及执行方法
         log.info("Class Method   : {}.{}", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
         // 打印请求的 IP
-        log.info("IP             : {}", request.getRemoteAddr());
+        log.info("IP             : {}", IpUtils.getIpAddr(request));
         // 打印请求入参
         log.info("Request Args   : {}", joinPoint.getArgs());
     }

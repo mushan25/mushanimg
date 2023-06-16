@@ -68,6 +68,11 @@ public class UserDO implements Serializable {
     private String status;
 
     /**
+     * 上传大小
+     */
+    private Integer uploadSize;
+
+    /**
      * 删除标志（0代表存在 2代表删除）
      */
     private String delFlag;

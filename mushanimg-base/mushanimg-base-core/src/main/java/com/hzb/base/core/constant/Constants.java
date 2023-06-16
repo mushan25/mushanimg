@@ -80,5 +80,15 @@ public class Constants {
      */
     public static final long CAPTCHA_EXPIRATION = 2;
 
+    public static final long USER_ROLE_ID = 2;
+
     public static final String MINIO_URL = "http://123.249.39.173:9000/";
+
+    public static final int TOURIST_UPLOAD_SIZE = 1024 * 1024 * 5;
+
+    public static final int USER_UPLOAD_SIZE = 1024 * 1024 * 10;
+
+    public static final String TOURIST_OBJECT_NAME = "tourist";
+
+    public static final Long MB_SIZE = 1024 * 1024L;
 }

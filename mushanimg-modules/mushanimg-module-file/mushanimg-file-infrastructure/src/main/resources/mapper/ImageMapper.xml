@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="imgName" column="img_name" jdbcType="VARCHAR"/>
             <result property="imgurl" column="imgurl" jdbcType="VARCHAR"/>
+            <result property="versionId" column="version_id" jdbcType="VARCHAR"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="size" column="size" jdbcType="VARCHAR"/>
             <result property="imgType" column="img_type" jdbcType="INTEGER"/>
@@ -19,7 +20,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,img_name,imgurl,
+        id,img_name,imgurl, version_id
         user_id,size,img_type,
         md5_key,object_name,remark,create_time,
         update_time

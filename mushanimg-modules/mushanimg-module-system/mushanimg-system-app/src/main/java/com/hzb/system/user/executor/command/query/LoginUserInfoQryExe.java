@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginUserInfoQryExe {
     public SingleResponse<LoginUserInfoCO> execute() {
-        return SingleResponse.of(AppUserConvertor.INSTANCT.loginUser2LoginUserInfoCO((LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+        return SingleResponse.of(AppUserConvertor
+                .INSTANCT.loginUser2LoginUserInfoCO((LoginUser) SecurityContextHolder
+                        .getContext().getAuthentication().getPrincipal()));
     }
 }

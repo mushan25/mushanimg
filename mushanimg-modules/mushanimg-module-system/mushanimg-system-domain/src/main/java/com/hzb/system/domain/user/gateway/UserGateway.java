@@ -31,7 +31,7 @@ public interface UserGateway {
      * @param user 用户信息
      * @return 注册结果
      */
-    Tuple2<Boolean, String> registerUser(User user);
+    Long registerUser(User user);
 
     /**
      * 校验用户名称是否唯一
@@ -42,9 +42,9 @@ public interface UserGateway {
     boolean checkUserNameUnique(User user);
 
     /**
-     * 从缓存获取登录用户信息
-     * @param token 登录用户token
+     * 获取用户信息
+     * @param userId 登录用户id
      * @return 登录用户信息
      */
-    AuthUser getUserInfoInCache(String token);
+    User getUploadUserInfoById(Long userId);
 }

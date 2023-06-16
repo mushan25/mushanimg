@@ -15,7 +15,7 @@ public interface ImageGateway {
      * @param image 图片信息
      * @return 上传结果
      */
-    boolean upload2Minio(Image image);
+    Image upload2Minio(Image image);
 
     /**
      * 将图片信息存入数据库
@@ -26,10 +26,10 @@ public interface ImageGateway {
 
     /**
      * 查询该图片是否已经入库
-     * @param imgMd5Key 图片md5值
+     * @param image image
      * @return 查询结果
      */
-    boolean selectImgByMd5(String imgMd5Key);
+    Image selectImgByMd5(Image image);
 
     /**
      * 获取指定用户的图片
@@ -90,4 +90,18 @@ public interface ImageGateway {
      * @return delete result
      */
     boolean deleteImgByImgIds(List<Long> imgIds);
+
+    /**
+     * 获取用户已使用的空间大小
+     * @param userId userId
+     * @return delete result
+     */
+    Long getUserUsedSize(Long userId);
+
+    /**
+     * 根据版本id获取图片信息
+     * @param versionIds versionIds
+     * @return image list
+     */
+    void restoreImageByVersionId(List<Image> versionIds);
 }

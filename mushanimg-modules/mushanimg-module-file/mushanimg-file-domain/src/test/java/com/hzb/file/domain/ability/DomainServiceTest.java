@@ -31,7 +31,7 @@ class DomainServiceTest {
 
     @BeforeEach
     void setUp() {
-        underTest = new DomainService(imageGateway, imageclassGateway, underTest);
+        underTest = new DomainService(imageGateway, imageclassGateway);
     }
 
     @Test

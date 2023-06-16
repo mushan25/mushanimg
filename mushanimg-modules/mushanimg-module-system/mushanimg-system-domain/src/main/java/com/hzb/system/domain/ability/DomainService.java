@@ -1,5 +1,6 @@
 package com.hzb.system.domain.ability;
 
+import com.hzb.base.core.constant.Constants;
 import com.hzb.system.domain.menu.gateway.MenuGateway;
 import com.hzb.system.domain.menu.model.entities.Menu;
 import com.hzb.system.domain.role.gateway.RoleGateway;
@@ -9,6 +10,9 @@ import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 
 import java.util.HashSet;
 import java.util.List;
@@ -50,5 +54,14 @@ public class DomainService {
         return new AuthUser(user, roleKeySet, permissions, routes);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
+    public Tuple2<Boolean, String> registerUser(User user) {
+        if (userGateway.checkUserNameUnique(user)) {
+            return Tuples.of(false, "保存用户'" + user.getUserName() + "'失败，注册账号已存在");
+        }
+        if (roleGateway.userAddRole(userGateway.registerUser(user), Constants.USER_ROLE_ID)) {
+            return Tuples.of(true, "注册成功");
+        }
+        return Tuples.of(false, "注册失败");
+    }
 }

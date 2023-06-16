@@ -9,6 +9,7 @@ package user;
 service UserService {
   rpc getUserInfoPerms (UserGetRequest) returns (UserGetReply) {}
   rpc addUser (UserAddRequest) returns (UserAddReply) {}
+  rpc uploadUserInfo (UploadUserInfoRequest) returns (UploadUserInfoReply) {}
 }
 
 message UserGetRequest{
@@ -29,6 +30,15 @@ message UserAddRequest{
 message UserAddReply{
   bool addResult = 1;
   string msg = 2;
+}
+
+message UploadUserInfoRequest{
+  sint64 userId = 1;
+}
+
+message UploadUserInfoReply{
+  string userName = 1;
+  int64 uploadSize = 2;
 }
 
 message User {

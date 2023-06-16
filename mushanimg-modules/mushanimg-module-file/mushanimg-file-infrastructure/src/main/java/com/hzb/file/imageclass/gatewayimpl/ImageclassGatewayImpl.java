@@ -66,7 +66,7 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
         LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
                 .eq(ImageclassDO::getId, imageclass.getId());
-        return imageclassMapper.selectCount(wrapper) > 0;
+        return imageclassMapper.exists(wrapper);
     }
 
     @Override
@@ -82,6 +82,11 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
     @Override
     public boolean deleteImgByImageclassId(List<Long> imageclassIds) {
         return imageclassMapper.deleteImgByImageclassId(imageclassIds) > 0;
+    }
+
+    @Override
+    public boolean checkImageExist(List<Long> imageclassIds) {
+        return imageclassMapper.checkImageExist(imageclassIds) > 0;
     }
 }
 

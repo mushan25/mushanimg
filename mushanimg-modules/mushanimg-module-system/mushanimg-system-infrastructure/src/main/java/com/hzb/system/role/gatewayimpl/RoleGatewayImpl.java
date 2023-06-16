@@ -41,6 +41,14 @@ public class RoleGatewayImpl extends ServiceImpl<RoleMapper, RoleDO>
     public List<Long> getRoleIdsByUserId(Long userId) {
         return roleMapper.selectRoleIdsByUserId(userId);
     }
+
+    @Override
+    public boolean userAddRole(Long userId, Long roleId) {
+        if (null == userId || null == roleId) {
+            return false;
+        }
+        return roleMapper.insertUserAndRole(userId, roleId) > 0;
+    }
 }
 
 

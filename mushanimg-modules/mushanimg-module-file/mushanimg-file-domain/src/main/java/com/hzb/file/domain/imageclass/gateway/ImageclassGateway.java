@@ -1,6 +1,7 @@
 package com.hzb.file.domain.imageclass.gateway;
 
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -73,4 +74,11 @@ public interface ImageclassGateway {
      * @return 删除结果
      */
     boolean deleteImgByImageclassId(List<Long> imageclassIds);
+
+    /**
+     * 检查图片分类下是否有图片
+     * @param imageclassIds 图片分类id列表
+     * @return 检查结果
+     */
+    boolean checkImageExist(List<Long> imageclassIds);
 }

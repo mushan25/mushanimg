@@ -14,10 +14,13 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class ImageclassRemoveCmdExe {
-    private final DomainService domainService;
+    private final ImageclassGateway imageclassGateway;
 
     public AjaxResult execute(ImageclassRemoveCmd imageclassRemoveCmd){
-        if (domainService.deleteImacgeclass(imageclassRemoveCmd.getImageclassIds(), imageclassRemoveCmd.getUserId())){
+        if (imageclassGateway.checkImageExist(imageclassRemoveCmd.getImageclassIds())){
+            return AjaxResult.error("图片分类下存在图片，不能删除");
+        }
+        if (imageclassGateway.deleteImageclass(imageclassRemoveCmd.getImageclassIds(), imageclassRemoveCmd.getUserId())){
             return AjaxResult.success();
         }
         return AjaxResult.error("删除图片分类不存在");

@@ -6,6 +6,9 @@ import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: hzb
@@ -14,10 +17,10 @@ import com.hzb.file.dto.clientobject.ImageListCO;
 public interface ImageService {
     /**
      * 上传图片
-     * @param imgUploadCmd 图片信息
+     * @param imgs 图片
      * @return 返回结果
      */
-    AjaxResult uploadImg(ImgUploadCmd imgUploadCmd);
+    AjaxResult uploadImg(MultipartFile[] imgs);
 
     /**
      * 获取图片list

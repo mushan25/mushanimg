@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 /**
@@ -30,18 +31,8 @@ public class ImageController {
     @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 //    @PreAuthorize("hasAnyAuthority('admin')")
     @Log("图片上传")
-    public AjaxResult upload(@RequestPart("img")MultipartFile img) throws Exception{
-        ImgUploadCmd imgUploadCmd = new ImgUploadCmd();
-        Long userId = SecurityUtils.getUserId();
-
-        File tempFile = File.createTempFile("minio", "temp");
-        img.transferTo(tempFile);
-        String localFilePath = tempFile.getAbsolutePath();
-        imgUploadCmd.setImgName(img.getOriginalFilename())
-                .setSize(img.getSize())
-                .setLocalFilePath(localFilePath)
-                .setUserId(userId);
-        return imageService.uploadImg(imgUploadCmd);
+    public AjaxResult upload(@RequestPart("imgs")MultipartFile[] imgs) {
+        return imageService.uploadImg(imgs);
     }
 
     @PostMapping("/list")
@@ -71,7 +62,6 @@ public class ImageController {
     @DeleteMapping("/remove")
     @Log("删除图片")
     public AjaxResult removeImage(@RequestBody @Validated ImgRemoveCmd imgRemoveCmd){
-        imgRemoveCmd.setUserId(SecurityUtils.getUserId());
         return imageService.removeImage(imgRemoveCmd);
     }
 

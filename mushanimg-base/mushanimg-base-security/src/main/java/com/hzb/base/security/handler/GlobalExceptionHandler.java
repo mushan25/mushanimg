@@ -1,5 +1,7 @@
 package com.hzb.base.security.handler;
 
+import com.alibaba.cola.exception.BizException;
+import com.alibaba.cola.exception.SysException;
 import com.hzb.base.core.constant.HttpStatus;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.web.domain.AjaxResult;
@@ -43,5 +45,35 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
         return AjaxResult.error(message);
+    }
+
+    /**
+     * 未知异常
+     */
+    @ExceptionHandler(Exception.class)
+    public AjaxResult handlerException(Exception e){
+        log.error(e.getMessage(), e);
+        return AjaxResult.error(e.getMessage());
+    }
+
+    /**
+     * 运行时异常
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public AjaxResult handlerRuntimeException(RuntimeException e){
+        log.error(e.getMessage(), e);
+        return AjaxResult.error(e.getMessage());
+    }
+
+    @ExceptionHandler(SysException.class)
+    public AjaxResult handlerSysException(SysException e){
+        log.error(e.getMessage(), e);
+        return AjaxResult.error(e.getMessage());
+    }
+
+    @ExceptionHandler(BizException.class)
+    public AjaxResult handlerBizException(BizException e){
+        log.error(e.getMessage(), e);
+        return AjaxResult.error(e.getMessage());
     }
 }

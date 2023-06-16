@@ -1,8 +1,11 @@
 package com.hzb.base.security.utils;
 
 import com.hzb.base.core.constant.TokenConstants;
+import com.hzb.base.core.enums.AccessMode;
 import com.hzb.base.security.form.LoginUser;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author: hzb
  * @Date: 2023/5/8
  */
+@Slf4j
 public class SecurityUtils {
     /**
      * 获取用户ID
@@ -42,5 +46,14 @@ public class SecurityUtils {
             token = token.replaceFirst(TokenConstants.PREFIX, "");
         }
         return token;
+    }
+
+    public static AccessMode checkAccessMode() {
+        try {
+            getUserId();
+            return AccessMode.NORM_USER;
+        } catch (Exception e) {
+            return AccessMode.TOURIST;
+        }
     }
 }
