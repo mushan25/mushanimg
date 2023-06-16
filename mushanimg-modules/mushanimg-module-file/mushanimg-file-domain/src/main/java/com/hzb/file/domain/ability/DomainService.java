@@ -1,9 +1,11 @@
 package com.hzb.file.domain.ability;
 
+import com.alibaba.cola.exception.SysException;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,17 +17,11 @@ import java.util.List;
  * @author: hzb
  * @Date: 2023/4/19
  */
+@AllArgsConstructor
 @Service
 public class DomainService {
     private final ImageGateway imageGateway;
     private final ImageclassGateway imageclassGateway;
-    private final DomainService domainServiceProxy;
-
-    public DomainService(ImageGateway imageGateway, ImageclassGateway imageclassGateway, @Lazy DomainService domainServiceProxy) {
-        this.imageGateway = imageGateway;
-        this.imageclassGateway = imageclassGateway;
-        this.domainServiceProxy = domainServiceProxy;
-    }
 
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRED)
     public boolean deleteImg(List<Long> imgIds, Long userId) {
@@ -44,8 +40,18 @@ public class DomainService {
             }
             return null;
         }).toList();
-        // TODO 删除失败则重试
-        return imageGateway.deleteImgDb(removeImageIds, userId);
+        try {
+            return imageGateway.deleteImgDb(removeImageIds, userId);
+        }catch (RuntimeException e){
+            List<Image> versionIds = images.stream().map(image -> {
+                if (removeImageIds.contains(image.getId())) {
+                    return image;
+                }
+                return null;
+            }).toList();
+            imageGateway.restoreImageByVersionId(versionIds);
+            throw new SysException("删除图片失败");
+        }
     }
 
     public List<Image> getImgList(Image image, List<Long> imageclassIds) {
@@ -58,16 +64,6 @@ public class DomainService {
             return imageGateway.getImgList(image, imgIds);
         }
         return null;
-    }
-
-    @Transactional(rollbackFor = RuntimeException.class)
-    public boolean deleteImacgeclass(List<Long> imageclassIds, Long userId) {
-        imageclassGateway.deleteImageclass(imageclassIds, userId);
-        List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
-        if (null == imgIds || imgIds.size() == 0) {
-            return true;
-        }
-        return domainServiceProxy.deleteImg(imgIds, userId);
     }
 
     public boolean moveImageclass(Image image, Imageclass imageclass) {

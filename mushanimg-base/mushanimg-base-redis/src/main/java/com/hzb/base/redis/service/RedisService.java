@@ -87,4 +87,8 @@ public class RedisService {
     {
         return redisTemplate.delete(key);
     }
+
+    public boolean incrementObject(final String key, final long delta){
+        return redisTemplate.opsForValue().increment(key, delta) > 0;
+    }
 }

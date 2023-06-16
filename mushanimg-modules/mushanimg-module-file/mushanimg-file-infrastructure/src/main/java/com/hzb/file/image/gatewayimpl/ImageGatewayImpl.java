@@ -2,6 +2,7 @@ package com.hzb.file.image.gatewayimpl;
 
 import com.alibaba.cola.exception.SysException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.file.convertor.ImageConvertor;
@@ -12,6 +13,7 @@ import com.hzb.file.image.gatewayimpl.database.dataobject.ImageDO;
 import io.minio.*;
 import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +26,7 @@ import java.util.List;
 * @description 针对表【ms_imgdata】的数据库操作Service实现
 * @createDate 2023-05-05 14:34:45
 */
+@RequiredArgsConstructor
 @Service
 @Slf4j
 public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
@@ -32,49 +35,48 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     private final MinioClient minioClient;
     private final ImageMapper imageMapper;
     @Value("${minio.bucket.files}")
-    private String bucket_img;
-
-    public ImageGatewayImpl(MinioClient minioClient, ImageMapper imageMapper) {
-        this.minioClient = minioClient;
-        this.imageMapper = imageMapper;
-    }
+    private String bucketImg;
 
     @Override
-    public boolean upload2Minio(Image image) {
+    public Image upload2Minio(Image image) {
         try {
             // 1.判断bucket是否存在
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucket_img).build());
+            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketImg).build());
             if (!found){
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucket_img).build());
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketImg).build());
             }else {
-                log.debug("Bucket :{} already exists.", bucket_img);
+                log.debug("Bucket :{} already exists.", bucketImg);
             }
             UploadObjectArgs bucket = UploadObjectArgs.builder()
-                    .bucket(bucket_img)
+                    .bucket(bucketImg)
                     .filename(image.getLocalFilePath())
                     .object(image.getObjectName())
                     .contentType(image.getMimeType())
                     .build();
-            minioClient.uploadObject(bucket);
-            log.debug("上传文件到minio成功,bucket:{} object:{}", bucket, image.getObjectName());
-            return true;
+            ObjectWriteResponse objectWriteResponse = minioClient.uploadObject(bucket);
+            image.initAccessImgurl(String.format("%s/%s", objectWriteResponse.bucket(), objectWriteResponse.object()));
+            image.setVersionId(objectWriteResponse.versionId());
+            log.debug("上传文件到minio成功,bucket:{}, object:{}, versionId:{}", bucket, image.getObjectName(), objectWriteResponse.versionId());
+            return image;
         } catch (Exception e) {
-            log.error("上传文件出错,bucket:{},objectName:{}", bucket_img, image.getObjectName());
+            log.error("上传文件出错,bucket:{},objectName:{}", bucketImg, image.getObjectName());
             throw new SysException("上传文件出错");
         }
     }
 
     @Override
     public boolean addImg2Db(Image image) {
-        image.setImgurl2(bucket_img);
         return imageMapper.insert(ImageConvertor.INSTANCT.image2DO(image)) > 0;
     }
 
     @Override
-    public boolean selectImgByMd5(String imgMd5Key) {
+    public Image selectImgByMd5(Image image) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StringUtils.isNotEmpty(imgMd5Key), ImageDO::getMd5Key, imgMd5Key);
-        return imageMapper.selectCount(wrapper) > 0;
+        wrapper.select(ImageDO::getImgurl)
+                .eq(ImageDO::getMd5Key, image.getMd5Key())
+                .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
+                .isNull(null == image.getUserId(), ImageDO::getUserId);
+        return ImageConvertor.INSTANCT.DO2Image(imageMapper.selectOne(wrapper));
     }
 
     @Override
@@ -124,12 +126,11 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
         try {
             List<DeleteObject> objects = objectNameList.stream().map(DeleteObject::new).toList();
             Iterable<Result<DeleteError>> results = minioClient.removeObjects(RemoveObjectsArgs
-                    .builder().bucket(bucket_img).objects(objects).build());
+                    .builder().bucket(bucketImg).objects(objects).build());
 
             for (Result<DeleteError> result : results) {
                 DeleteError error = result.get();
                 objectNameList.remove(error.objectName());
-                // TODO 删除失败则重试
                 log.error("删除minio文件出错,objectName:{}, message{}", error.objectName(), error.message());
             }
             return objectNameList;
@@ -142,7 +143,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public List<Image> selectObjetNameByIds(List<Long> imgIds, Long userId) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(ImageDO::getId, ImageDO::getObjectName)
+        wrapper.select(ImageDO::getId, ImageDO::getObjectName, ImageDO::getVersionId)
                 .eq(ImageDO::getUserId, userId)
                 .in(ImageDO::getId, imgIds);
         return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
@@ -156,6 +157,34 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public boolean deleteImgByImgIds(List<Long> imgIds) {
         return imageMapper.deleteImgByimgIds(imgIds) > 0;
+    }
+
+    @Override
+    public Long getUserUsedSize(Long userId) {
+        QueryWrapper<ImageDO> wrapper = new QueryWrapper<>();
+        wrapper.select( "ifnull(sum(size),0) as size")
+                .eq("user_id", userId);
+        return imageMapper.selectOne(wrapper).getSize();
+    }
+
+    @Override
+    public void restoreImageByVersionId(List<Image> images) {
+        images.parallelStream().forEach(image -> {
+            try {
+                minioClient.copyObject(CopyObjectArgs.builder()
+                        .bucket(bucketImg)
+                        .object(image.getObjectName())
+                        .source(CopySource.builder()
+                                .bucket(bucketImg)
+                                .object(image.getObjectName())
+                                .versionId(image.getVersionId())
+                                .build())
+                        .build());
+            } catch (Exception e) {
+                log.error("还原文件出错,image:{}", image);
+                throw new SysException("还原文件出错");
+            }
+        });
     }
 }
 

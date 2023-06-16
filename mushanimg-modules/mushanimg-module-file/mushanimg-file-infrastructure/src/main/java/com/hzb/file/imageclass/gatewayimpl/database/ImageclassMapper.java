@@ -2,6 +2,7 @@ package com.hzb.file.imageclass.gatewayimpl.database;
 
 import com.hzb.file.imageclass.gatewayimpl.database.dataobject.ImageclassDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -33,6 +34,8 @@ public interface ImageclassMapper extends BaseMapper<ImageclassDO> {
      * @return 删除结果
      */
     int deleteImgByImageclassId(List<Long> imageclassIds);
+
+    int checkImageExist(List<Long> imageclassIds);
 }
 
 

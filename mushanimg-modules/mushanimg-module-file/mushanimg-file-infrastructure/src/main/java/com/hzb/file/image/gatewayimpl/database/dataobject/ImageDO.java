@@ -32,6 +32,11 @@ public class ImageDO implements Serializable {
     private String imgurl;
 
     /**
+     * 图片版本
+     */
+    private String versionId;
+
+    /**
      * 用户id
      */
     private Long userId;

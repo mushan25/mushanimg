@@ -39,4 +39,13 @@
             #{imageclassId}
         </foreach>
     </delete>
+
+    <select id="checkImageExist" resultType="java.lang.Integer">
+        select count(1)
+        from ms_imgclass_imgdata
+        where imgclass_id in
+        <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
+            #{imageclassId}
+        </foreach>
+    </select>
 </mapper>

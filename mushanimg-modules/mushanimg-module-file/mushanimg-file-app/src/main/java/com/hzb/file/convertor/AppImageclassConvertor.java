@@ -2,7 +2,6 @@ package com.hzb.file.convertor;
 
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
 import com.hzb.file.dto.ImageclassInfoQry;
-import com.hzb.file.dto.ImageclassListQry;
 import com.hzb.file.dto.ImgMoveClassCmd;
 import com.hzb.file.dto.clientobject.ImageclassCO;
 import com.hzb.file.dto.clientobject.ImageclassListCO;
@@ -20,8 +19,8 @@ import java.util.List;
  */
 @Mapper(collectionMappingStrategy = CollectionMappingStrategy.ADDER_PREFERRED,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-public interface AppImageclassAconvertor {
-    AppImageclassAconvertor INSTANCT = Mappers.getMapper(AppImageclassAconvertor.class);
+public interface AppImageclassConvertor {
+    AppImageclassConvertor INSTANCT = Mappers.getMapper(AppImageclassConvertor.class);
 
     /**
      * cmd2Imageclass
@@ -57,6 +56,7 @@ public interface AppImageclassAconvertor {
      * @param imageclassInfoQry ImageclassInfoQry
      * @return Imageclass
      */
+    @Mapping(target = "id", source = "imageclassId")
     Imageclass qry2Imageclass(ImageclassInfoQry imageclassInfoQry);
 
 }

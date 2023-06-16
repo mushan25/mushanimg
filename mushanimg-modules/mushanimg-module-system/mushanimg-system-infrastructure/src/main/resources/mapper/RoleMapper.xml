@@ -27,4 +27,9 @@
         from ms_user_role
         where user_id = #{userId}
     </select>
+
+    <insert id="insertUserAndRole">
+        insert into ms_user_role (user_id, role_id)
+        values (#{userId}, #{roleId})
+    </insert>
 </mapper>

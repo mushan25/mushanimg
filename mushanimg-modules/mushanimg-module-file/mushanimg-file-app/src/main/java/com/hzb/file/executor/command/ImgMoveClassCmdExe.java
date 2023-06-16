@@ -2,7 +2,7 @@ package com.hzb.file.executor.command;
 
 import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.file.convertor.AppImageConvertor;
-import com.hzb.file.convertor.AppImageclassAconvertor;
+import com.hzb.file.convertor.AppImageclassConvertor;
 import com.hzb.file.domain.ability.DomainService;
 import com.hzb.file.dto.ImgMoveClassCmd;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class ImgMoveClassCmdExe {
 
     public AjaxResult execute(ImgMoveClassCmd imgMoveClassCmd) {
         if (domainService.moveImageclass(AppImageConvertor.INSTANCT.cmd2Image(imgMoveClassCmd)
-                , AppImageclassAconvertor.INSTANCT.cmd2Imageclass(imgMoveClassCmd))) {
+                , AppImageclassConvertor.INSTANCT.cmd2Imageclass(imgMoveClassCmd))) {
             return AjaxResult.success();
         }
         return AjaxResult.error();

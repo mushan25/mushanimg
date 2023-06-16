@@ -5,10 +5,13 @@ import com.hzb.base.core.constant.Constants;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,7 @@ import java.util.Date;
 @Data
 @Entity
 @Slf4j
+@Accessors(chain = true)
 public class Image {
     /**
      * 主键
@@ -37,6 +41,11 @@ public class Image {
      * 图片链接
      */
     private String imgurl;
+
+    /**
+     * 图片版本
+     */
+    private String versionId;
 
     /**
      * 用户id
@@ -88,7 +97,7 @@ public class Image {
      */
     private LocalDateTime updateTime;
 
-    public void setMd5Key() {
+    public void initMd5Key() {
         try( FileInputStream fileInputStream = new FileInputStream(localFilePath)) {
             md5Key =  DigestUtils.md5DigestAsHex(fileInputStream);
         } catch (IOException e) {
@@ -96,7 +105,7 @@ public class Image {
         }
     }
 
-    public void setMimeType() {
+    public void initMimeType() {
         ContentInfo extensionMatch = ContentInfoUtil.findExtensionMatch(getExtension());
         mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
         if (null != extensionMatch){
@@ -104,7 +113,7 @@ public class Image {
         }
     }
 
-    public void setImgType() {
+    public void initImgType() {
         imgType = imgName.substring(imgName.lastIndexOf(".") + 1);
     }
 
@@ -117,11 +126,21 @@ public class Image {
         return sdf.format(new Date()).replace("-", "/") + "/";
     }
 
-    public void setObjectName() {
-        objectName = getDefaultFolderPath() + md5Key + getExtension();
+    public void initObjectName(String nickName) {
+        objectName = nickName + "/" + getDefaultFolderPath() + md5Key + getExtension();
     }
 
-    public void setImgurl2(String bucketName) {
-        imgurl = Constants.MINIO_URL + bucketName + "/" + getObjectName();
+    public void initAccessImgurl(String bucketName) {
+        imgurl = Constants.MINIO_URL + bucketName;
+    }
+
+    public void assembleImage(Long userId, MultipartFile img, File tempFile){
+        setImgName(img.getOriginalFilename());
+        setSize(img.getSize());
+        setLocalFilePath(tempFile.getAbsolutePath());
+        setUserId(userId);
+        initImgType();
+        initMimeType();
+        initMd5Key();
     }
 }

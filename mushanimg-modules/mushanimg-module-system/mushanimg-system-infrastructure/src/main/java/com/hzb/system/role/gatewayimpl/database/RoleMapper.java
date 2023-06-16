@@ -2,6 +2,7 @@ package com.hzb.system.role.gatewayimpl.database;
 
 import com.hzb.system.role.gatewayimpl.database.dataobject.RoleDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public interface RoleMapper extends BaseMapper<RoleDO> {
      */
     List<Long> selectRoleIdsByUserId(Long userId);
 
+    /**
+     * 用户添加角色
+     * @param userId 用户id
+     * @param roleId 角色id
+     * @return 角色信息
+     */
+    int insertUserAndRole(@Param("userId") Long userId,@Param("roleId") Long roleId);
 }
 
 

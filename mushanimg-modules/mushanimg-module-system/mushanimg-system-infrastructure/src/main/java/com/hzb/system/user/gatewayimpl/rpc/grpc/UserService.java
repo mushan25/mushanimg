@@ -1,5 +1,6 @@
 package com.hzb.system.user.gatewayimpl.rpc.grpc;
 
+import com.hzb.lib.user.proto.UserProto;
 import com.hzb.lib.user.proto.UserProto.UserAddReply;
 import com.hzb.lib.user.proto.UserProto.UserAddRequest;
 import com.hzb.lib.user.proto.UserProto.UserGetReply;
@@ -26,7 +27,7 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
     @Override
     public void addUser(UserAddRequest request, StreamObserver<UserAddReply> responseObserver) {
         responseObserver.onNext(UserConvertor.INSTANCT
-                .addUserResult2Grpc(userGateway.registerUser(UserConvertor.INSTANCT.grpc2User(request))));
+                .addUserResult2Grpc(domainService.registerUser(UserConvertor.INSTANCT.grpc2User(request))));
         responseObserver.onCompleted();
     }
 
@@ -34,6 +35,13 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
     public void getUserInfoPerms(UserGetRequest request, StreamObserver<UserGetReply> responseObserver) {
         responseObserver.onNext(UserConvertor.INSTANCT
                 .authUser2Grpc(domainService.getAuthUserInfoByName(request.getUserName())));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void uploadUserInfo(UserProto.UploadUserInfoRequest request, StreamObserver<UserProto.UploadUserInfoReply> responseObserver) {
+        responseObserver.onNext(UserConvertor.INSTANCT
+                .uploadUserInfo2Grpc(userGateway.getUploadUserInfoById(request.getUserId())));
         responseObserver.onCompleted();
     }
 }

@@ -3,18 +3,20 @@ package com.hzb.file.executor.service;
 import com.alibaba.cola.dto.PageResponse;
 import com.alibaba.cola.dto.SingleResponse;
 import com.hzb.base.core.web.domain.AjaxResult;
+import com.hzb.base.security.utils.SecurityUtils;
 import com.hzb.file.api.ImageService;
+import com.hzb.file.api.ImageStrategy;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
 import com.hzb.file.executor.command.ImgInfoEditCmdExe;
 import com.hzb.file.executor.command.ImgMoveClassCmdExe;
-import com.hzb.file.executor.command.ImgRemoveCmdExe;
-import com.hzb.file.executor.command.ImgUploadCmdExe;
 import com.hzb.file.executor.command.query.ImgInfoQryExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
+import com.hzb.file.factory.AnnotationAccessStrategyFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author: hzb
@@ -23,17 +25,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class ImageServiceImpl implements ImageService {
-
-    private final ImgUploadCmdExe imgUploadCmdExe;
     private final ImgListQryExe imgListQryExe;
     private final ImgInfoQryExe imgInfoQryExe;
     private final ImgInfoEditCmdExe imgInfoEditCmdExe;
-    private final ImgRemoveCmdExe imgRemoveCmdExe;
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
 
     @Override
-    public AjaxResult uploadImg(ImgUploadCmd imgUploadCmd) {
-        return imgUploadCmdExe.execute(imgUploadCmd);
+    public AjaxResult uploadImg(MultipartFile[] imgs) {
+        ImageStrategy accessStrategy = AnnotationAccessStrategyFactory.getAccessStrategy(SecurityUtils.checkAccessMode());
+        return accessStrategy.execute(imgs);
     }
 
     @Override
@@ -53,7 +53,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public AjaxResult removeImage(ImgRemoveCmd imgRemoveCmd) {
-        return imgRemoveCmdExe.execute(imgRemoveCmd);
+        ImageStrategy accessStrategy = AnnotationAccessStrategyFactory.getAccessStrategy(SecurityUtils.checkAccessMode());
+        return accessStrategy.execute(imgRemoveCmd);
     }
 
     @Override

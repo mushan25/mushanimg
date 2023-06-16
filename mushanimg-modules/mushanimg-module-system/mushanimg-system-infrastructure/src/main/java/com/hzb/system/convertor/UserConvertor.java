@@ -40,6 +40,13 @@ public interface UserConvertor {
     void DO2User(@MappingTarget User user, UserDO userDO);
 
     /**
+     * userDO2User
+     * @param userDO UserDO
+     * @return User
+     */
+    User DO2User(UserDO userDO);
+
+    /**
      * userDOList2UserList
      * @param userDOS List<UserDO>
      * @return List<User>
@@ -71,6 +78,13 @@ public interface UserConvertor {
     @Mapping(target = "addResult", source = "t1")
     @Mapping(target = "msg", source = "t2")
     UserProto.UserAddReply addUserResult2Grpc(Tuple2<Boolean, String> result);
+
+    /**
+     * UploadUserInfo2Grpc
+     * @param user User
+     * @return Grpc
+     */
+    UserProto.UploadUserInfoReply uploadUserInfo2Grpc(User user);
 
     /**
      * AuthUser2Grpc

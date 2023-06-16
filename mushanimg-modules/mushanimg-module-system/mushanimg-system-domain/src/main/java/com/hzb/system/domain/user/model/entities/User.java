@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * @author: hzb
@@ -35,6 +36,8 @@ public class User {
 
     private String status;
 
+    private Integer uploadSize;
+
     private String delFlag;
 
     private String loginIp;
@@ -62,5 +65,8 @@ public class User {
     }
     public User(){
         this.password = new Password();
+    }
+    public void initNickName(){
+        this.nickName = String.format("用户%s", UUID.randomUUID().toString().replace("-","").substring(0,15));
     }
 }
