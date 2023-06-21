@@ -91,4 +91,8 @@ public class Constants {
     public static final String TOURIST_OBJECT_NAME = "tourist";
 
     public static final Long MB_SIZE = 1024 * 1024L;
+    public static final String BAIDU_API_KEY = "6YFDD4CGqInmK5ac9aW4Yfpl";
+    public static final String BAIDU_SECRET_KEY = "yZgfYOznF0PXTEmLBjp6dzIvrK6nIXGi";
+    public static final String BAIDU_APP_ID = "34755999";
+    public static final String NOT_COMPLIANCE = "不合规";
 }

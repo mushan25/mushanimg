@@ -1,12 +1,12 @@
 package com.hzb.file.domain.ability;
 
 import com.alibaba.cola.exception.SysException;
+import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,9 @@ public class DomainService {
 
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRED)
     public boolean deleteImg(List<Long> imgIds, Long userId) {
-        imageGateway.deleteImgByImgIds(imgIds);
+        CheckUtils.isPresentRunnable(userId).presentHandler(() -> {
+            imageGateway.deleteImgByImgIds(imgIds);
+        });
         List<Image> images = imageGateway.selectObjetNameByIds(imgIds, userId);
         if (null == images || images.size() == 0) {
             return false;

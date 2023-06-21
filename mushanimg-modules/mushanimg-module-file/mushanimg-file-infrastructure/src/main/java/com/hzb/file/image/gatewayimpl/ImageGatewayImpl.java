@@ -59,7 +59,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
             log.debug("上传文件到minio成功,bucket:{}, object:{}, versionId:{}", bucket, image.getObjectName(), objectWriteResponse.versionId());
             return image;
         } catch (Exception e) {
-            log.error("上传文件出错,bucket:{},objectName:{}", bucketImg, image.getObjectName());
+            log.error("上传文件出错,objectName:{}, info:{}", image.getObjectName(), e.getMessage());
             throw new SysException("上传文件出错");
         }
     }
@@ -117,7 +117,8 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
         }
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.in(ImageDO::getId, imgIds)
-                .eq(ImageDO::getUserId, userId);
+                .isNull(null == userId, ImageDO::getUserId)
+                .eq(null != userId,ImageDO::getUserId, userId);
         return imageMapper.delete(wrapper) > 0;
     }
 
@@ -144,7 +145,8 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     public List<Image> selectObjetNameByIds(List<Long> imgIds, Long userId) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.select(ImageDO::getId, ImageDO::getObjectName, ImageDO::getVersionId)
-                .eq(ImageDO::getUserId, userId)
+                .isNull(null == userId, ImageDO::getUserId)
+                .eq(null != userId,ImageDO::getUserId, userId)
                 .in(ImageDO::getId, imgIds);
         return ImageConvertor.INSTANCT.imageDOs2imageList(imageMapper.selectList(wrapper));
     }
