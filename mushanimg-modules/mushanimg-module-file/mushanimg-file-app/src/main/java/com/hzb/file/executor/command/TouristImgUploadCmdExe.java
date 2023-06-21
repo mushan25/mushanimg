@@ -14,6 +14,7 @@ import com.hzb.file.domain.image.model.entities.Image;
 import com.hzb.file.dto.ImgRemoveCmd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,8 +37,11 @@ import java.util.stream.Collectors;
 public class TouristImgUploadCmdExe implements ImageStrategy {
     @Value("${mushanimg.tempfile-path}")
     private String tempFilePath;
+    @Value("${mushanimg.review.topic}")
+    private String reviewTopic;
     private final ImageGateway imageGateway;
     private final DomainService domainService;
+    private final RocketMQTemplate rocketMQTemplate;
 
     @Override
     public AjaxResult execute(MultipartFile[] imgs) {
@@ -55,11 +59,12 @@ public class TouristImgUploadCmdExe implements ImageStrategy {
                         image.assembleImage(null, img, tempFile);
                         image.initObjectName(Constants.TOURIST_OBJECT_NAME);
                         Image existImage = imageGateway.selectImgByMd5(image);
-                        if (null != existImage) {
+                        if (Objects.nonNull(existImage)) {
                             return existImage.getImgurl();
                         }
                         Image uploadResult = imageGateway.upload2Minio(image);
                         if (imageGateway.addImg2Db(uploadResult)) {
+                            asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
                             return image.getImgurl();
                         }
                         return null;

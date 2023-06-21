@@ -18,7 +18,12 @@ import com.hzb.file.dto.ImgRemoveCmd;
 import com.hzb.file.dto.grpc.UploadUserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendCallback;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,9 +46,12 @@ import java.util.stream.Collectors;
 public class UserImgUploadCmdExe implements ImageStrategy {
     @Value("${mushanimg.tempfile-path}")
     private String tempFilePath;
+    @Value("${mushanimg.review.topic}")
+    private String reviewTopic;
     private final ImageGateway imageGateway;
     private final UserClientService userClientService;
     private final DomainService domainService;
+    private final RocketMQTemplate rocketMQTemplate;
 
     @Override
     public AjaxResult execute(MultipartFile[] imgs) {
@@ -70,7 +78,6 @@ public class UserImgUploadCmdExe implements ImageStrategy {
                         }
                         tempFile = File.createTempFile("minio", "temp", FileUtils.get());
                         img.transferTo(tempFile);
-                        image = DomainFactory.getImage();
                         image.assembleImage(useId, img, tempFile);
                         image.initObjectName(userInfo.getUserName());
                         Image existImage = imageGateway.selectImgByMd5(image);
@@ -80,6 +87,7 @@ public class UserImgUploadCmdExe implements ImageStrategy {
                         Image uploadResult = imageGateway.upload2Minio(image);
                         if (imageGateway.addImg2Db(uploadResult)) {
                             count.addAndGet(-img.getSize());
+                            asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
                             return image.getImgurl();
                         }
                         return null;
