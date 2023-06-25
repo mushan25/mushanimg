@@ -21,6 +21,9 @@ spring:
           - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: mushanimg-common
             refresh: true
+    sentinel:
+      transport:
+        dashboard: 123.249.39.173:8858
 
 
 
