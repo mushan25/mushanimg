@@ -2,6 +2,7 @@ package com.hzb.file.web.img;
 
 import com.alibaba.cola.dto.PageResponse;
 import com.alibaba.cola.dto.SingleResponse;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.hzb.base.core.annotation.Log;
 import com.hzb.base.core.annotation.StartPage;
 import com.hzb.base.core.web.domain.AjaxResult;
@@ -29,6 +30,7 @@ public class ImageController {
     private final ImageService imageService;
 
     @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @SentinelResource(value = "upload", fallback = "fallback")
 //    @PreAuthorize("hasAnyAuthority('admin')")
     @Log("图片上传")
     public AjaxResult upload(@RequestPart("imgs")MultipartFile[] imgs) {
@@ -60,6 +62,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/remove")
+    @SentinelResource(value = "remove", fallback = "fallback")
     @Log("删除图片")
     public AjaxResult removeImage(@RequestBody @Validated ImgRemoveCmd imgRemoveCmd){
         return imageService.removeImage(imgRemoveCmd);

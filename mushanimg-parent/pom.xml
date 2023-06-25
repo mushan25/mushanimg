@@ -43,6 +43,7 @@
         <spring-cloud-starter-security.version>2.2.5.RELEASE</spring-cloud-starter-security.version>
         <arthas-spring-boot-starter-version>3.6.9</arthas-spring-boot-starter-version>
         <rocketmq-version>2.2.3</rocketmq-version>
+        <jasypt-version>3.0.5</jasypt-version>
     </properties>
 
     <dependencyManagement>
@@ -268,6 +269,12 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt-version}</version>
             </dependency>
 
         </dependencies>

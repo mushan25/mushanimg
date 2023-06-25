@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.hzb</groupId>
             <artifactId>mushanimg-file-client</artifactId>
         </dependency>

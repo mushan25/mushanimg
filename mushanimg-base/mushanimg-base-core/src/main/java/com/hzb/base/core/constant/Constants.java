@@ -82,7 +82,7 @@ public class Constants {
 
     public static final long USER_ROLE_ID = 2;
 
-    public static final String MINIO_URL = "http://123.249.39.173:9000/";
+    public static final String MINIO_URL = "http://119.3.171.130:9000/";
 
     public static final int TOURIST_UPLOAD_SIZE = 1024 * 1024 * 5;
 
