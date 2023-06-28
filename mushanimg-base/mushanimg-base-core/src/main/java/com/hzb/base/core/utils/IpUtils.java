@@ -1,14 +1,62 @@
 package com.hzb.base.core.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Objects;
 
 /**
  * @author: hzb
  * @Date: 2023/6/13
  */
+@Slf4j
 public class IpUtils {
+    public static String getIpAddr(ServerHttpRequest request){
+        if (request == null)
+        {
+            return "unknown";
+        }
+        String ip = request.getHeaders().getFirst("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        {
+            ip = request.getHeaders().getFirst("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        {
+            ip = request.getHeaders().getFirst("X-Forwarded-For");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        {
+            ip = request.getHeaders().getFirst("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        {
+            ip = request.getHeaders().getFirst("X-Real-IP");
+        }
+
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip))
+        {
+            ip = Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress();
+            if ("0:0:0:0:0:0:0:1".equalsIgnoreCase(ip) || "127.0.0.1".equalsIgnoreCase(ip)){
+                InetAddress iNet = null;
+                try {
+                    iNet = InetAddress.getLocalHost();
+                } catch (UnknownHostException e) {
+                    log.error("获取IP地址, 出现异常={}", e.getMessage(), e);
+                }
+                assert iNet != null;
+                ip = iNet.getHostAddress();
+            }
+        }
+
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : getMultistageReverseProxyIp(ip);
+    }
+
+
     /**
      * 获取客户端IP
      *

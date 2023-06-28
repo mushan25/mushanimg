@@ -10,6 +10,7 @@ import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageclassCO;
 import com.hzb.file.dto.clientobject.ImageclassListCO;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class ImageclassController {
     private final ImageclassService imageclassService;
 
     @PutMapping("/addImageclass")
+    @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("添加图片分类")
     public AjaxResult addImageclass(@RequestBody @Validated ImageclassAddCmd imageclassAddCmd){
         imageclassAddCmd.getImageclassCO().setUserId(SecurityUtils.getUserId());
@@ -30,6 +32,7 @@ public class ImageclassController {
     }
 
     @PutMapping("/editImageclass")
+    @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("修改图片分类")
     public AjaxResult editImageclass(@RequestBody @Validated ImageclassEditCmd imageclassEditCmd){
         imageclassEditCmd.getImageclassCO().setUserId(SecurityUtils.getUserId());
@@ -37,6 +40,7 @@ public class ImageclassController {
     }
 
     @DeleteMapping("/removeImageclass")
+    @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("删除图片分类")
     public AjaxResult removeImageclass(@RequestBody @Validated ImageclassRemoveCmd imageclassRemoveCmd){
         imageclassRemoveCmd.setUserId(SecurityUtils.getUserId());
@@ -44,6 +48,7 @@ public class ImageclassController {
     }
 
     @GetMapping("/getImageclassList")
+    @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("获取图片分类列表")
     public PageResponse<ImageclassListCO> getImageclassList(){
         ImageclassListQry imageclassListQry = new ImageclassListQry();
@@ -52,6 +57,7 @@ public class ImageclassController {
     }
 
     @PostMapping("/getImageclassInfo")
+    @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("获取图片分类信息")
     public SingleResponse<ImageclassCO> getImageclassInfo(@RequestBody @Validated ImageclassInfoQry imageclassInfoQry){
         imageclassInfoQry.setUserId(SecurityUtils.getUserId());

@@ -95,4 +95,8 @@ public class Constants {
     public static final String BAIDU_SECRET_KEY = "yZgfYOznF0PXTEmLBjp6dzIvrK6nIXGi";
     public static final String BAIDU_APP_ID = "34755999";
     public static final String NOT_COMPLIANCE = "不合规";
+    public static final long REDISSON_LOCK_LEASE_TIME = 20;
+    public static final long REDISSON_LOCK_WAIT_TIME = 10;
+    public static final long TOURIST_UPLOAD_COUNT = 5;
+    public static final long USER_UPLOAD_COUNT = 10;
 }

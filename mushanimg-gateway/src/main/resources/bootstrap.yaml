@@ -21,4 +21,3 @@ spring:
           - data-id: application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
             group: mushanimg-common
             refresh: true
-

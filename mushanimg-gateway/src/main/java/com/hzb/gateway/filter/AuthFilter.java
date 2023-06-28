@@ -4,6 +4,7 @@ import com.hzb.base.core.constant.CacheConstants;
 import com.hzb.base.core.constant.Constants;
 import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.constant.TokenConstants;
+import com.hzb.base.core.utils.IpUtils;
 import com.hzb.base.core.utils.JwtUtils;
 import com.hzb.base.core.utils.ServletUtils;
 import com.hzb.base.redis.service.RedisService;
@@ -22,10 +23,13 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 网关鉴权
@@ -51,6 +55,21 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
+
+        String ipAddr = IpUtils.getIpAddr(request);
+        if (redisService.hasKey(CacheConstants.BLACK_IP_KEY + ipAddr)) {
+            return unauthorizedResponse(exchange, "黑名单IP");
+        }
+        Integer requestCount = redisService.getCacheObject(CacheConstants.REQUEST_COUNT_MINUTE + ipAddr);
+        if (null == requestCount){
+            requestCount = 0;
+        }
+        if ( requestCount > CacheConstants.MAX_REQUEST_COUNT){
+            redisService.setCacheObject(CacheConstants.BLACK_IP_KEY + ipAddr, ipAddr, 1L, TimeUnit.DAYS);
+            log.info("========= IP:{}已被加入黑名单 =========", ipAddr);
+            return unauthorizedResponse(exchange, "请求过于频繁");
+        }
+        redisService.setCacheObject(CacheConstants.REQUEST_COUNT_MINUTE + ipAddr, requestCount + 1, 1L, TimeUnit.MINUTES);
 
         String url = request.getURI().getPath();
         AntPathMatcher matcher = new AntPathMatcher();

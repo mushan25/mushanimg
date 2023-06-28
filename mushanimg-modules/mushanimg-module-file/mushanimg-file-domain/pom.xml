@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>mushanimg-file-domain</artifactId>
+    <packaging>jar</packaging>
+    <name>mushanimg-file-domain</name>
 
     <dependencies>
         <dependency>
