@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>mushanimg-file-infrastructure</artifactId>
+    <packaging>jar</packaging>
+    <name>mushanimg-file-infrastructure</name>
 
     <dependencies>
         <dependency>

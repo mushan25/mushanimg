@@ -18,12 +18,8 @@ import com.hzb.file.dto.ImgRemoveCmd;
 import com.hzb.file.dto.grpc.UploadUserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.client.producer.SendCallback;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,7 +61,9 @@ public class UserImgUploadCmdExe implements ImageStrategy {
         UploadUserInfo userInfo = userClientService.getUserInfo(useId);
         long totalSize = userInfo.getUploadSize() * Constants.MB_SIZE;
         AtomicLong count = new AtomicLong(totalSize - imageGateway.getUserUsedSize(useId));
-        List<String> imgUrlList = Arrays.stream(imgs).limit(10).parallel()
+
+        List<String> imgUrlList = Arrays.stream(imgs).collect(Collectors.toSet()).stream()
+                .limit(Constants.USER_UPLOAD_COUNT).parallel()
                 .map(img -> {
                     Image image = DomainFactory.getImage();
                     File tempFile = null;

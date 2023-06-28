@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>mushanimg-file-client</artifactId>
+    <packaging>jar</packaging>
+    <name>mushanimg-file-client</name>
 
     <dependencies>
         <dependency>

@@ -41,4 +41,8 @@ public class CacheConstants {
      * 登录账户密码错误次数 redis key
      */
     public static final String PWD_ERR_CNT_KEY = "pwd_err_cnt:";
+    public static final String REQUEST_COUNT_MINUTE = "request_count_minute:";
+    public static final int MAX_REQUEST_COUNT = 30;
+
+    public static final String BLACK_IP_KEY = "black_ip:";
 }

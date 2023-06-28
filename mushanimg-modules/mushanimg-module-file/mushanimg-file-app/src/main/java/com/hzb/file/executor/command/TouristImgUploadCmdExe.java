@@ -15,6 +15,8 @@ import com.hzb.file.dto.ImgRemoveCmd;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -42,14 +45,17 @@ public class TouristImgUploadCmdExe implements ImageStrategy {
     private final ImageGateway imageGateway;
     private final DomainService domainService;
     private final RocketMQTemplate rocketMQTemplate;
+    private final RedissonClient redissonClient;
 
     @Override
     public AjaxResult execute(MultipartFile[] imgs) {
         FileUtils.set(tempFilePath);
-        List<String> imgUrlList = Arrays.stream(imgs).limit(5).parallel()
+        List<String> imgUrlList = Arrays.stream(imgs).collect(Collectors.toSet()).stream()
+                .limit(Constants.TOURIST_UPLOAD_COUNT)
+                .parallel()
                 .map(img -> {
                     Image image = DomainFactory.getImage();
-                    File tempFile = null;
+                    File tempFile;
                     try {
                         if (img.getSize() > Constants.TOURIST_UPLOAD_SIZE) {
                             return null;
@@ -58,6 +64,13 @@ public class TouristImgUploadCmdExe implements ImageStrategy {
                         img.transferTo(tempFile);
                         image.assembleImage(null, img, tempFile);
                         image.initObjectName(Constants.TOURIST_OBJECT_NAME);
+                    }catch (Exception e) {
+                        log.info("图片初始化失败:{}", e.getMessage());
+                        throw new SysException("图片上传失败");
+                    }
+                    RLock lock = redissonClient.getLock(image.getMd5Key());
+                    try {
+                        lock.tryLock(Constants.REDISSON_LOCK_WAIT_TIME, Constants.REDISSON_LOCK_LEASE_TIME, TimeUnit.SECONDS);
                         Image existImage = imageGateway.selectImgByMd5(image);
                         if (Objects.nonNull(existImage)) {
                             return existImage.getImgurl();
@@ -73,6 +86,9 @@ public class TouristImgUploadCmdExe implements ImageStrategy {
                         imageGateway.deleteImgMinio(Collections.singletonList(image.getObjectName()));
                         throw new SysException("图片上传失败");
                     } finally {
+                        if (lock.isLocked() && lock.isHeldByCurrentThread()){
+                            lock.unlock();
+                        }
                         FileUtils.deleteTempFile(tempFile);
                     }
                 })
