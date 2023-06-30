@@ -19,17 +19,15 @@ import com.hzb.file.dto.grpc.UploadUserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: hzb
@@ -48,62 +46,54 @@ public class UserImgUploadCmdExe implements ImageStrategy {
     private final UserClientService userClientService;
     private final DomainService domainService;
     private final RocketMQTemplate rocketMQTemplate;
+    private final RedissonClient redissonClient;
 
     @Override
-    public AjaxResult execute(MultipartFile[] imgs) {
-        Long useId;
-        try {
-            useId = SecurityUtils.getUserId();
-        } catch (Exception e){
-            throw new ServiceException("用户未登录");
+    public AjaxResult execute(MultipartFile img) {
+        Long useId = SecurityUtils.getUserId();
+        if (img.getSize() > Constants.USER_UPLOAD_SIZE) {
+            return AjaxResult.error("图片大小超过限制");
         }
-        FileUtils.set(tempFilePath);
+
+        File tempFile = FileUtils.transferFile(img, tempFilePath);
+
         UploadUserInfo userInfo = userClientService.getUserInfo(useId);
         long totalSize = userInfo.getUploadSize() * Constants.MB_SIZE;
-        AtomicLong count = new AtomicLong(totalSize - imageGateway.getUserUsedSize(useId));
+        long count = totalSize - imageGateway.getUserUsedSize(useId);
+        if (img.getSize() > count) {
+            throw new ServiceException("存储空间不足");
+        }
 
-        List<String> imgUrlList = Arrays.stream(imgs).collect(Collectors.toSet()).stream()
-                .limit(Constants.USER_UPLOAD_COUNT).parallel()
-                .map(img -> {
-                    Image image = DomainFactory.getImage();
-                    File tempFile = null;
-                    try {
-                        if (img.getSize() > count.get()){
-                            throw new ServiceException("存储空间不足");
-                        }
-                        if (img.getSize() > Constants.USER_UPLOAD_SIZE) {
-                            return null;
-                        }
-                        tempFile = File.createTempFile("minio", "temp", FileUtils.get());
-                        img.transferTo(tempFile);
-                        image.assembleImage(useId, img, tempFile);
-                        image.initObjectName(userInfo.getUserName());
-                        Image existImage = imageGateway.selectImgByMd5(image);
-                        if (null != existImage) {
-                            return existImage.getImgurl();
-                        }
-                        Image uploadResult = imageGateway.upload2Minio(image);
-                        if (imageGateway.addImg2Db(uploadResult)) {
-                            count.addAndGet(-img.getSize());
-                            asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
-                            return image.getImgurl();
-                        }
-                        return null;
-                    } catch (Exception e) {
-                        log.info("图片上传失败:{}", e.getMessage());
-                        imageGateway.deleteImgMinio(Collections.singletonList(image.getObjectName()));
-                        throw new SysException("图片上传失败");
-                    } finally {
-                        FileUtils.deleteTempFile(tempFile);
-                    }
-                }).filter(Objects::nonNull).collect(Collectors.toList());
-        FileUtils.remove();
-        return AjaxResult.success(imgUrlList);
+        Image image = DomainFactory.initImage(img.getOriginalFilename(), img.getSize(), tempFile.getAbsolutePath());
+        RLock lock = redissonClient.getLock(useId + ":" + image.getMd5Key());
+
+        try {
+            lock.tryLock(Constants.REDISSON_LOCK_WAIT_TIME, Constants.REDISSON_LOCK_LEASE_TIME, TimeUnit.SECONDS);
+            Image existImage = imageGateway.selectImgByMd5(image);
+            if (null != existImage) {
+                return AjaxResult.success(existImage.getImgurl());
+            }
+            Image uploadResult = imageGateway.upload2Minio(image);
+            if (imageGateway.addImg2Db(uploadResult)) {
+                asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
+                return AjaxResult.success(image.getImgurl());
+            }
+            throw new SysException("图片上传失败");
+        } catch (Exception e) {
+            log.info("图片上传失败:{}", e.getMessage());
+            imageGateway.deleteImgMinio(Collections.singletonList(image.getObjectName()));
+            throw new SysException("图片上传失败");
+        } finally {
+            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+            FileUtils.deleteTempFile(tempFile);
+        }
     }
 
     @Override
-    public AjaxResult execute(ImgRemoveCmd imgRemoveCmd){
-        if (domainService.deleteImg(imgRemoveCmd.getImgIds(), SecurityUtils.getUserId())){
+    public AjaxResult execute(ImgRemoveCmd imgRemoveCmd) {
+        if (domainService.deleteImg(imgRemoveCmd.getImgIds(), SecurityUtils.getUserId())) {
             return AjaxResult.success();
         }
         return AjaxResult.error();

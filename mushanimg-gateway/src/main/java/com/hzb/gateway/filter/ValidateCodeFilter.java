@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.hzb.base.core.utils.ServletUtils;
 import com.hzb.gateway.config.properties.CaptchaProperties;
 import com.hzb.gateway.service.ValidateCodeService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -25,17 +26,13 @@ import java.util.concurrent.atomic.AtomicReference;
  * @Date: 2023/4/14
  */
 @Component
+@RequiredArgsConstructor
 public class ValidateCodeFilter extends AbstractGatewayFilterFactory<Object> {
 
     private final static String[] VALIDATE_URL = new String[] { "/auth/login", "/auth/register" };
 
     private final ValidateCodeService validateCodeService;
     private final CaptchaProperties captchaProperties;
-
-    public ValidateCodeFilter(ValidateCodeService validateCodeService, CaptchaProperties captchaProperties) {
-        this.validateCodeService = validateCodeService;
-        this.captchaProperties = captchaProperties;
-    }
 
     private static final String CODE = "code";
 

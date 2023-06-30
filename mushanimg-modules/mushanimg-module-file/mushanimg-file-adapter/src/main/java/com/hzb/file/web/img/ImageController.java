@@ -28,8 +28,8 @@ public class ImageController {
 
     @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Log("图片上传")
-    public AjaxResult upload(@RequestPart("imgs")MultipartFile[] imgs) {
-        return imageService.uploadImg(imgs);
+    public AjaxResult upload(@RequestPart("img")MultipartFile img) {
+        return imageService.uploadImg(img);
     }
 
     @PostMapping("/list")

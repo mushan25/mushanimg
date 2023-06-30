@@ -2,17 +2,17 @@ package com.hzb.base.security.filter;
 
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.TokenService;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -20,16 +20,13 @@ import java.io.IOException;
  * @Date: 2023/4/23
  */
 @Component
+@AllArgsConstructor
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
 
-    public JwtAuthenticationTokenFilter(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
-
     @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         LoginUser loginUser = tokenService.getLoginUser(request);
         if (loginUser != null){
             tokenService.refreshToken(loginUser);

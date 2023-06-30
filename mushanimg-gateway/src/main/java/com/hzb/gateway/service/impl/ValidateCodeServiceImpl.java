@@ -8,6 +8,7 @@ import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.gateway.config.properties.CaptchaProperties;
 import com.hzb.gateway.service.ValidateCodeService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2023/4/12
  */
 @Service
+@RequiredArgsConstructor
 public class ValidateCodeServiceImpl implements ValidateCodeService {
     private static final String CAPTCHA_TYPE_MATH = "math";
     private static final String CAPTCHA_TYPE_CHAR = "char";
@@ -33,13 +35,6 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     private final Producer captchaProducerMath;
     private final RedisService redisService;
     private final CaptchaProperties captchaProperties;
-
-    public ValidateCodeServiceImpl(Producer captchaProducer, Producer captchaProducerMath, RedisService redisService, CaptchaProperties captchaProperties) {
-        this.captchaProducer = captchaProducer;
-        this.captchaProducerMath = captchaProducerMath;
-        this.redisService = redisService;
-        this.captchaProperties = captchaProperties;
-    }
 
     @Override
     public AjaxResult createCaptcha() throws CaptchaException {

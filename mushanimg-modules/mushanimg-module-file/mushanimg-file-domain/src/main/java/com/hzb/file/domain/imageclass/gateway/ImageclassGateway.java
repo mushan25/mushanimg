@@ -1,7 +1,6 @@
 package com.hzb.file.domain.imageclass.gateway;
 
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

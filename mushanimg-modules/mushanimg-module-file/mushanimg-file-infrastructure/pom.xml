@@ -41,11 +41,6 @@
 
         <dependency>
             <groupId>com.hzb</groupId>
-            <artifactId>mushanimg-base-redis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.hzb</groupId>
             <artifactId>mushanimg-base-security</artifactId>
         </dependency>
         <dependency>

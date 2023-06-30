@@ -1,8 +1,6 @@
 package com.hzb.system.domain.user.gateway;
 
-import com.hzb.system.domain.user.model.aggregates.AuthUser;
 import com.hzb.system.domain.user.model.entities.User;
-import reactor.util.function.Tuple2;
 
 import java.util.List;
 

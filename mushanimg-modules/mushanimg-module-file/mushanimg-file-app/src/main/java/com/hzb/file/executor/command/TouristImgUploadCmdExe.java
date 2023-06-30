@@ -22,12 +22,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * @author: hzb
@@ -48,59 +45,41 @@ public class TouristImgUploadCmdExe implements ImageStrategy {
     private final RedissonClient redissonClient;
 
     @Override
-    public AjaxResult execute(MultipartFile[] imgs) {
-        FileUtils.set(tempFilePath);
-        List<String> imgUrlList = Arrays.stream(imgs).collect(Collectors.toSet()).stream()
-                .limit(Constants.TOURIST_UPLOAD_COUNT)
-                .parallel()
-                .map(img -> {
-                    Image image = DomainFactory.getImage();
-                    File tempFile;
-                    try {
-                        if (img.getSize() > Constants.TOURIST_UPLOAD_SIZE) {
-                            return null;
-                        }
-                        tempFile = File.createTempFile("minio", "temp", FileUtils.get());
-                        img.transferTo(tempFile);
-                        image.assembleImage(null, img, tempFile);
-                        image.initObjectName(Constants.TOURIST_OBJECT_NAME);
-                    }catch (Exception e) {
-                        log.info("图片初始化失败:{}", e.getMessage());
-                        throw new SysException("图片上传失败");
-                    }
-                    RLock lock = redissonClient.getLock(image.getMd5Key());
-                    try {
-                        lock.tryLock(Constants.REDISSON_LOCK_WAIT_TIME, Constants.REDISSON_LOCK_LEASE_TIME, TimeUnit.SECONDS);
-                        Image existImage = imageGateway.selectImgByMd5(image);
-                        if (Objects.nonNull(existImage)) {
-                            return existImage.getImgurl();
-                        }
-                        Image uploadResult = imageGateway.upload2Minio(image);
-                        if (imageGateway.addImg2Db(uploadResult)) {
-                            asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
-                            return image.getImgurl();
-                        }
-                        return null;
-                    } catch (Exception e) {
-                        log.info("图片上传失败:{}", e.getMessage());
-                        imageGateway.deleteImgMinio(Collections.singletonList(image.getObjectName()));
-                        throw new SysException("图片上传失败");
-                    } finally {
-                        if (lock.isLocked() && lock.isHeldByCurrentThread()){
-                            lock.unlock();
-                        }
-                        FileUtils.deleteTempFile(tempFile);
-                    }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        FileUtils.remove();
-        return AjaxResult.success(imgUrlList);
+    public AjaxResult execute(MultipartFile img) {
+        if (img.getSize() > Constants.TOURIST_UPLOAD_SIZE) {
+            return AjaxResult.error("图片大小超过限制");
+        }
+        File tempFile = FileUtils.transferFile(img, tempFilePath);
+        Image image = DomainFactory.initImage(img.getOriginalFilename(), img.getSize(), tempFile.getAbsolutePath());
+
+        RLock lock = redissonClient.getLock(image.getMd5Key());
+        try {
+            lock.tryLock(Constants.REDISSON_LOCK_WAIT_TIME, Constants.REDISSON_LOCK_LEASE_TIME, TimeUnit.SECONDS);
+            Image existImage = imageGateway.selectImgByMd5(image);
+            if (Objects.nonNull(existImage)) {
+                return AjaxResult.success(existImage.getImgurl());
+            }
+            Image uploadResult = imageGateway.upload2Minio(image);
+            if (imageGateway.addImg2Db(uploadResult)) {
+                asyncSendMessage(image, rocketMQTemplate, reviewTopic, log);
+                return AjaxResult.success(image.getImgurl());
+            }
+            throw new SysException("图片上传失败");
+        } catch (Exception e) {
+            log.info("图片上传失败:{}", e.getMessage());
+            imageGateway.deleteImgMinio(Collections.singletonList(image.getObjectName()));
+            throw new SysException("图片上传失败");
+        } finally {
+            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+            FileUtils.deleteTempFile(tempFile);
+        }
     }
 
     @Override
-    public AjaxResult execute(ImgRemoveCmd imgRemoveCmd){
-        if (domainService.deleteImg(imgRemoveCmd.getImgIds(), null)){
+    public AjaxResult execute(ImgRemoveCmd imgRemoveCmd) {
+        if (domainService.deleteImg(imgRemoveCmd.getImgIds(), null)) {
             return AjaxResult.success();
         }
         return AjaxResult.error();

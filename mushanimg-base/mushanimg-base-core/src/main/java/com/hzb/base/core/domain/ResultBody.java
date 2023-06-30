@@ -2,6 +2,7 @@ package com.hzb.base.core.domain;
 
 import com.hzb.base.core.constant.Constants;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @Date: 2023/4/12
  */
 public class ResultBody<T> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 成功 */

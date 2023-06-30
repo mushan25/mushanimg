@@ -1,6 +1,7 @@
 package com.hzb.gateway.config;
 
 import com.hzb.gateway.handler.ValidateCodeHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -16,12 +17,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * @Date: 2023/4/14
  */
 @Configuration
+@AllArgsConstructor
 public class RouterFunctionConfig {
     private final ValidateCodeHandler validateCodeHandler;
-
-    public RouterFunctionConfig(ValidateCodeHandler validateCodeHandler) {
-        this.validateCodeHandler = validateCodeHandler;
-    }
 
     @Bean
     public RouterFunction<ServerResponse> routerFunction(){

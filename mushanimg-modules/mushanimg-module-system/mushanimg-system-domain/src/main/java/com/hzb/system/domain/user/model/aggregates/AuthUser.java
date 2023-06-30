@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -30,12 +29,4 @@ public class AuthUser implements Serializable {
     private Set<String> permissions;
 
     private Set<String> routes;
-
-    public boolean checkRoleKeys(Set<String> roleKeys){
-        return Optional.ofNullable(roleKeys).isPresent();
-    }
-
-    public boolean checkPermissions(Set<String> permissions){
-        return Optional.ofNullable(permissions).isPresent();
-    }
 }

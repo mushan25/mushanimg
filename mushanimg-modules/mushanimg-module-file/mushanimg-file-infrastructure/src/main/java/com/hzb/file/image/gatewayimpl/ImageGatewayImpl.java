@@ -54,8 +54,8 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
                     .contentType(image.getMimeType())
                     .build();
             ObjectWriteResponse objectWriteResponse = minioClient.uploadObject(bucket);
-            image.initAccessImgurl(String.format("%s/%s", objectWriteResponse.bucket(), objectWriteResponse.object()));
-            image.setVersionId(objectWriteResponse.versionId());
+            String accessImgurl = image.initAccessImgurl(String.format("%s/%s", objectWriteResponse.bucket(), objectWriteResponse.object()));
+            image.setImgurl(accessImgurl).setVersionId(objectWriteResponse.versionId());
             log.debug("上传文件到minio成功,bucket:{}, object:{}, versionId:{}", bucket, image.getObjectName(), objectWriteResponse.versionId());
             return image;
         } catch (Exception e) {

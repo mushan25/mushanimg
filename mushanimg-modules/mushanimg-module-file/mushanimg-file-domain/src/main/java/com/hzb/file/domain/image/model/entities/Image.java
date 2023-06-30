@@ -4,7 +4,10 @@ import com.alibaba.cola.domain.Entity;
 import com.hzb.base.core.constant.Constants;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -17,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author: hzb
@@ -26,6 +30,9 @@ import java.util.Date;
 @Entity
 @Slf4j
 @Accessors(chain = true)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Image {
     /**
      * 主键
@@ -97,50 +104,40 @@ public class Image {
      */
     private LocalDateTime updateTime;
 
-    public void initMd5Key() {
-        try( FileInputStream fileInputStream = new FileInputStream(localFilePath)) {
-            md5Key =  DigestUtils.md5DigestAsHex(fileInputStream);
+    public String initMd5Key() {
+        try (FileInputStream fileInputStream = new FileInputStream(localFilePath)) {
+            return DigestUtils.md5DigestAsHex(fileInputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void initMimeType() {
+    public String initMimeType() {
         ContentInfo extensionMatch = ContentInfoUtil.findExtensionMatch(getExtension());
-        mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
-        if (null != extensionMatch){
-            mimeType = extensionMatch.getMimeType();
+        if (Objects.nonNull(extensionMatch)) {
+            return extensionMatch.getMimeType();
         }
+        return MediaType.APPLICATION_OCTET_STREAM_VALUE;
     }
 
-    public void initImgType() {
-        imgType = imgName.substring(imgName.lastIndexOf(".") + 1);
+    public String initImgType() {
+        return imgName.substring(imgName.lastIndexOf(".") + 1);
     }
 
-    public String getExtension(){
+    public String getExtension() {
         return imgName.substring(imgName.lastIndexOf("."));
     }
 
-    public String getDefaultFolderPath(){
+    public String getDefaultFolderPath() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date()).replace("-", "/") + "/";
     }
 
-    public void initObjectName(String nickName) {
-        objectName = nickName + "/" + getDefaultFolderPath() + md5Key + getExtension();
+    public String initObjectName(String nickName) {
+        return nickName + "/" + getDefaultFolderPath() + md5Key + getExtension();
     }
 
-    public void initAccessImgurl(String bucketName) {
-        imgurl = Constants.MINIO_URL + bucketName;
-    }
-
-    public void assembleImage(Long userId, MultipartFile img, File tempFile){
-        setImgName(img.getOriginalFilename());
-        setSize(img.getSize());
-        setLocalFilePath(tempFile.getAbsolutePath());
-        setUserId(userId);
-        initImgType();
-        initMimeType();
-        initMd5Key();
+    public String initAccessImgurl(String bucketName) {
+        return Constants.MINIO_URL + bucketName;
     }
 }

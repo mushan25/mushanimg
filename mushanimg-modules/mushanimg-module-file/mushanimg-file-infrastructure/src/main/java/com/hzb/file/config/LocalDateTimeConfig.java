@@ -15,19 +15,6 @@ import java.time.format.DateTimeFormatter;
  */
 @Configuration
 public class LocalDateTimeConfig {
-//    @Bean
-//    public ObjectMapper initObjectMapper(){
-//        ObjectMapper objectMapper=new ObjectMapper();
-//
-//        JavaTimeModule javaTimeModule=new JavaTimeModule();
-//        javaTimeModule.addDeserializer(LocalDateTime.class,new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        javaTimeModule.addSerializer(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-//        //localDateTime按照 "yyyy-MM-dd HH:mm:ss"的格式进行序列化、反序列化
-//
-//        objectMapper.registerModule(javaTimeModule);
-//
-//        return objectMapper;
-//    }
 
     /**
      * 序列化内容

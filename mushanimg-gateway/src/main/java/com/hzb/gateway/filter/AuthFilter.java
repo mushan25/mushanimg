@@ -1,7 +1,6 @@
 package com.hzb.gateway.filter;
 
 import com.hzb.base.core.constant.CacheConstants;
-import com.hzb.base.core.constant.Constants;
 import com.hzb.base.core.constant.SecurityConstants;
 import com.hzb.base.core.constant.TokenConstants;
 import com.hzb.base.core.utils.IpUtils;
@@ -10,6 +9,7 @@ import com.hzb.base.core.utils.ServletUtils;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.gateway.config.properties.IgnoreWhiteProperties;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +23,9 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,17 +35,13 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2023/4/12
  */
 @Component
+@RequiredArgsConstructor
 public class AuthFilter implements GlobalFilter, Ordered {
     private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
 
     private final IgnoreWhiteProperties ignoreWhite;
 
     private final RedisService redisService;
-
-    public AuthFilter(IgnoreWhiteProperties ignoreWhite, RedisService redisService) {
-        this.ignoreWhite = ignoreWhite;
-        this.redisService = redisService;
-    }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

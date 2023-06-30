@@ -1,15 +1,17 @@
 package com.hzb.system.user.dto.clientobject;
 
 import com.alibaba.cola.dto.ClientObject;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
  * @author: hzb
  * @Date: 2023/4/17
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class UserCO extends ClientObject {
     @NotNull

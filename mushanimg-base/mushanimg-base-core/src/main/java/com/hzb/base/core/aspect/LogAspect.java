@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
@@ -33,16 +33,14 @@ public class LogAspect {
      * 以自定义 @WebLog 注解为切点
      */
     @Pointcut("@annotation(com.hzb.base.core.annotation.Log)")
-    public void Log() {
+    public void log() {
     }
 
     /**
      * 在切点之前织入
      *
-     * @param joinPoint
-     * @throws Throwable
      */
-    @Before("Log()")
+    @Before("log()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -71,9 +69,8 @@ public class LogAspect {
     /**
      * 在切点之后织入
      *
-     * @throws Throwable
      */
-    @After("Log()")
+    @After("log()")
     public void doAfter() throws Throwable {
         // 接口结束后换行，方便分割查看
         log.info("=========================================== End ===========================================" + LINE_SEPARATOR);
@@ -82,11 +79,8 @@ public class LogAspect {
     /**
      * 环绕
      *
-     * @param proceedingJoinPoint
-     * @return
-     * @throws Throwable
      */
-    @Around("Log()")
+    @Around("log()")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object result = proceedingJoinPoint.proceed();
@@ -103,7 +97,6 @@ public class LogAspect {
      *
      * @param joinPoint 切点
      * @return 描述信息
-     * @throws Exception
      */
     public String getAspectLogDescription(JoinPoint joinPoint)
             throws Exception {

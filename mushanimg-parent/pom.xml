@@ -14,7 +14,7 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEndcoding>UTF-8</project.reporting.outputEndcoding>
-        <spring-boot.version>2.7.6</spring-boot.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
         <spring-cloud-version>2021.0.4</spring-cloud-version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>

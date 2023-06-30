@@ -3,12 +3,11 @@ package com.hzb.base.security.utils;
 import com.hzb.base.core.constant.TokenConstants;
 import com.hzb.base.core.enums.AccessMode;
 import com.hzb.base.security.form.LoginUser;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author: hzb
@@ -21,7 +20,12 @@ public class SecurityUtils {
      */
     public static Long getUserId()
     {
-        LoginUser loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LoginUser loginUser;
+        try {
+            loginUser = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch (Exception e){
+            throw new RuntimeException("获取用户信息异常");
+        }
         return loginUser.getUserId();
     }
 

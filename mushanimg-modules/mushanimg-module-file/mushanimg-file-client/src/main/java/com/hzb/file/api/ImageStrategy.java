@@ -17,10 +17,10 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ImageStrategy {
     /**
      * 上传图片
-     * @param imgs 图片
+     * @param img 图片
      * @return 上传结果
      */
-    AjaxResult execute(MultipartFile[] imgs);
+    AjaxResult execute(MultipartFile img);
 
     /**
      * 删除图片

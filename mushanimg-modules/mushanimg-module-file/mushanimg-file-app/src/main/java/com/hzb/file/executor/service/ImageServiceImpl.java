@@ -31,9 +31,9 @@ public class ImageServiceImpl implements ImageService {
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
 
     @Override
-    public AjaxResult uploadImg(MultipartFile[] imgs) {
+    public AjaxResult uploadImg(MultipartFile img) {
         ImageStrategy accessStrategy = AnnotationAccessStrategyFactory.getAccessStrategy(SecurityUtils.checkAccessMode());
-        return accessStrategy.execute(imgs);
+        return accessStrategy.execute(img);
     }
 
     @Override
