@@ -1,5 +1,7 @@
 package com.hzb.base.core.exception;
 
+import java.io.Serial;
+
 /**
  * @author: hzb
  * @Date: 2023/4/23
@@ -7,6 +9,7 @@ package com.hzb.base.core.exception;
 public final class ServiceException extends RuntimeException
 {
 
+    @Serial
     private static final long serialVersionUID = -6642644055472065251L;
     /**
      * 错误码

@@ -40,22 +40,23 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public Image upload2Minio(Image image) {
         try {
+            String bucketName = image.getBucketName();
             // 1.判断bucket是否存在
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketImg).build());
+            boolean found = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
             if (!found){
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketImg).build());
+                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
             }else {
-                log.debug("Bucket :{} already exists.", bucketImg);
+                log.debug("Bucket :{} already exists.", bucketName);
             }
             UploadObjectArgs bucket = UploadObjectArgs.builder()
-                    .bucket(bucketImg)
+                    .bucket(bucketName)
                     .filename(image.getLocalFilePath())
                     .object(image.getObjectName())
                     .contentType(image.getMimeType())
                     .build();
             ObjectWriteResponse objectWriteResponse = minioClient.uploadObject(bucket);
-            image.initAccessImgurl(String.format("%s/%s", objectWriteResponse.bucket(), objectWriteResponse.object()));
-            image.setVersionId(objectWriteResponse.versionId());
+            image.setImgurl(image.initAccessImgurl(String.format("%s/%s", objectWriteResponse.bucket(), objectWriteResponse.object())))
+                    .setVersionId(objectWriteResponse.versionId());
             log.debug("上传文件到minio成功,bucket:{}, object:{}, versionId:{}", bucket, image.getObjectName(), objectWriteResponse.versionId());
             return image;
         } catch (Exception e) {
@@ -65,14 +66,20 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     }
 
     @Override
-    public boolean addImg2Db(Image image) {
-        return imageMapper.insert(ImageConvertor.INSTANCT.image2DO(image)) > 0;
+    public Image addImg2Db(Image image) {
+        ImageDO imageDO = ImageConvertor.INSTANCT.image2DO(image);
+        if(imageMapper.insert(imageDO) > 0){
+            return ImageConvertor.INSTANCT.DO2Image(imageDO)
+                    .setBucketName(image.getBucketName())
+                    .setMimeType(image.getMimeType());
+        }
+        return null;
     }
 
     @Override
     public Image selectImgByMd5(Image image) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(ImageDO::getImgurl)
+        wrapper.select(ImageDO::getId, ImageDO::getImgurl)
                 .eq(ImageDO::getMd5Key, image.getMd5Key())
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .isNull(null == image.getUserId(), ImageDO::getUserId);
@@ -173,11 +180,12 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     public void restoreImageByVersionId(List<Image> images) {
         images.parallelStream().forEach(image -> {
             try {
+                String bucketName = image.getBucketName();
                 minioClient.copyObject(CopyObjectArgs.builder()
-                        .bucket(bucketImg)
+                        .bucket(bucketName)
                         .object(image.getObjectName())
                         .source(CopySource.builder()
-                                .bucket(bucketImg)
+                                .bucket(bucketName)
                                 .object(image.getObjectName())
                                 .versionId(image.getVersionId())
                                 .build())

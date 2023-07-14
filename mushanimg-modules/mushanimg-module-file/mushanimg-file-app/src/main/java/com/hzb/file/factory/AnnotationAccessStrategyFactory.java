@@ -3,7 +3,7 @@ package com.hzb.file.factory;
 import com.hzb.base.core.annotation.AccessModeAnnotation;
 import com.hzb.base.core.enums.AccessMode;
 import com.hzb.base.core.utils.SpringUtils;
-import com.hzb.file.api.ImageStrategy;
+import com.hzb.file.executor.service.ImageStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;

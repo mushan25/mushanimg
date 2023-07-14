@@ -6,6 +6,7 @@ import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.PasswordService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,34 +14,31 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author: hzb
  * @Date: 2023/4/23
  */
 @Service
+@AllArgsConstructor
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserClient userClient;
     private final PasswordService passwordService;
 
-    public UserDetailsServiceImpl(UserClient userClient, PasswordService passwordService) {
-        this.userClient = userClient;
-        this.passwordService = passwordService;
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        LoginUser loginUser = null;
+        LoginUser loginUser;
         try {
             loginUser = userClient.getLoginUser(username);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        CheckUtils.isTrue(loginUser == null,
+        CheckUtils.isTrue(Objects.isNull(loginUser),
                 String.format("登录用户: %s 不存在", username),
                 String.format("登录用户: %s 不存在", username));
 

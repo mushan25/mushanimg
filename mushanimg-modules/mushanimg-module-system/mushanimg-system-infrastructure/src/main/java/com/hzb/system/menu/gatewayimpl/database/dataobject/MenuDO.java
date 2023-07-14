@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -68,6 +69,7 @@ public class MenuDO implements Serializable {
      */
     private String remark;
 
+    @Serial
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
