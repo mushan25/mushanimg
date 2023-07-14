@@ -5,8 +5,7 @@ import com.hzb.auth.grpc.UserClient;
 import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.SecurityUtils;
 import com.hzb.base.security.form.LoginUser;
-import com.hzb.lib.user.proto.UserProto.Password;
-import com.hzb.lib.user.proto.UserProto.User;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,16 +19,10 @@ import reactor.util.function.Tuple2;
  * @Date: 2023/4/23
  */
 @Component
+@AllArgsConstructor
 public class LoginService {
-
     private final AuthenticationManager authenticationManager;
-
     private final UserClient userClient;
-
-    public LoginService(AuthenticationManager authenticationManager, UserClient userClient) {
-        this.authenticationManager = authenticationManager;
-        this.userClient = userClient;
-    }
 
     public LoginUser login(String username, String password){
 

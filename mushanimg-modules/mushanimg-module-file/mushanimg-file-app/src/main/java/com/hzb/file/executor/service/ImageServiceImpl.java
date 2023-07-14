@@ -5,7 +5,6 @@ import com.alibaba.cola.dto.SingleResponse;
 import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.base.security.utils.SecurityUtils;
 import com.hzb.file.api.ImageService;
-import com.hzb.file.api.ImageStrategy;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
@@ -31,9 +30,9 @@ public class ImageServiceImpl implements ImageService {
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
 
     @Override
-    public AjaxResult uploadImg(MultipartFile[] imgs) {
+    public AjaxResult uploadImg(MultipartFile img) {
         ImageStrategy accessStrategy = AnnotationAccessStrategyFactory.getAccessStrategy(SecurityUtils.checkAccessMode());
-        return accessStrategy.execute(imgs);
+        return accessStrategy.execute(img);
     }
 
     @Override

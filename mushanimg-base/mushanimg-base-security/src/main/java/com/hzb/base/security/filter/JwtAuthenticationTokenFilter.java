@@ -2,6 +2,7 @@ package com.hzb.base.security.filter;
 
 import com.hzb.base.security.form.LoginUser;
 import com.hzb.base.security.service.TokenService;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +21,10 @@ import java.io.IOException;
  * @Date: 2023/4/23
  */
 @Component
+@AllArgsConstructor
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
-
-    public JwtAuthenticationTokenFilter(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull FilterChain filterChain) throws ServletException, IOException {

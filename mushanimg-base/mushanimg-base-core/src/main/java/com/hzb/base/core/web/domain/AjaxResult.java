@@ -2,6 +2,7 @@ package com.hzb.base.core.web.domain;
 
 import com.hzb.base.core.constant.HttpStatus;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
  * @Date: 2023/4/12
  */
 public class AjaxResult extends HashMap<String, Object> {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 状态码 */

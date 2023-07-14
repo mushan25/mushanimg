@@ -22,7 +22,7 @@ public interface ImageGateway {
      * @param image 图片信息
      * @return 存储结果
      */
-    boolean addImg2Db(Image image);
+    Image addImg2Db(Image image);
 
     /**
      * 查询该图片是否已经入库

@@ -1,5 +1,6 @@
 package com.hzb.base.redis.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,9 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2023/4/12
  */
 @Component
+@AllArgsConstructor
 public class RedisService {
     private final RedisTemplate redisTemplate;
-
-    public RedisService(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等

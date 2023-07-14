@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class TokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
-    private final static Long MILLIS_MINUTE_TEN = CacheConstants.REFRESH_TIME * MILLIS_MINUTE;
     private final static long EXPIRE_TIME = CacheConstants.EXPIRATION;
     private final static String ACCESS_TOKEN = CacheConstants.LOGIN_TOKEN_KEY;
 
@@ -80,17 +79,8 @@ public class TokenService {
         return null;
     }
 
-    public void verifyToken(LoginUser loginUser){
-        long expireTime1 = loginUser.getExpireTime();
-        long currentTime = System.currentTimeMillis();
-        if (expireTime1 - currentTime <= MILLIS_MINUTE_TEN){
-
-        }
-    }
-
     /**
      * 刷新令牌有效期
-     * @param loginUser
      */
     public void refreshToken(LoginUser loginUser){
         loginUser.setLoginTime(System.currentTimeMillis());
@@ -111,8 +101,8 @@ public class TokenService {
     {
         if (StringUtils.isNotEmpty(token))
         {
-            String userkey = JwtUtils.getUserKey(token);
-            redisService.deleteObject(getTokenKey(userkey));
+            String userKey = JwtUtils.getUserKey(token);
+            redisService.deleteObject(getTokenKey(userKey));
         }
     }
 }

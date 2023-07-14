@@ -5,6 +5,7 @@ import com.hzb.base.core.exception.ServiceException;
 import com.hzb.base.core.utils.SecurityUtils;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.base.security.form.LoginUser;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -16,17 +17,9 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2023/4/23
  */
 @Component
+@AllArgsConstructor
 public class PasswordService {
-
-    private int maxRetryCount = CacheConstants.PASSWORD_MAX_RETRY_COUNT;
-
-    private Long lockTime = CacheConstants.PASSWORD_LOCK_TIME;
-
     private final RedisService redisService;
-
-    public PasswordService(RedisService redisService) {
-        this.redisService = redisService;
-    }
 
     public void validate(LoginUser loginUser){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,13 +30,13 @@ public class PasswordService {
             retryCount = 0;
         }
 
-        if (retryCount >= maxRetryCount){
-            String errMsg = String.format("密码输入错误%s次，帐户锁定%s分钟", maxRetryCount, lockTime);
+        if (retryCount >= CacheConstants.PASSWORD_MAX_RETRY_COUNT){
+            String errMsg = String.format("密码输入错误%s次，帐户锁定%s分钟", CacheConstants.PASSWORD_MAX_RETRY_COUNT, CacheConstants.PASSWORD_LOCK_TIME);
             throw new ServiceException(errMsg);
         }
         if (!matches(loginUser, password)){
             retryCount = retryCount + 1;
-            redisService.setCacheObject(getCacheKey(username), retryCount, lockTime, TimeUnit.MINUTES);
+            redisService.setCacheObject(getCacheKey(username), retryCount, CacheConstants.PASSWORD_LOCK_TIME, TimeUnit.MINUTES);
             throw new ServiceException("用户不存在/密码错误");
         }
     }

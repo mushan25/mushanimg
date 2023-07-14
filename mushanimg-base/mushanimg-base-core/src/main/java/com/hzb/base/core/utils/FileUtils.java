@@ -1,21 +1,21 @@
 package com.hzb.base.core.utils;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author: hzb
  * @Date: 2023/6/15
  */
 public class FileUtils {
-    private static final ThreadLocal<File> THREAD_LOCAL = new ThreadLocal<>();
 
-    public static void set(String path) {
+    public static File getFile(String path) {
         File file = new File(path);
         if (!file.exists()) {
             CheckUtils.isTrue(!file.mkdirs(), "创建文件夹失败", "创建文件夹失败");
         }
-        THREAD_LOCAL.set(file);
+        return file;
     }
 
     public static void deleteTempFile(File tempFile){
@@ -24,11 +24,13 @@ public class FileUtils {
         }
     }
 
-    public static File get() {
-        return THREAD_LOCAL.get();
-    }
-
-    public static void remove() {
-        THREAD_LOCAL.remove();
+    public static File transferFile(MultipartFile file, String tempFilePath){
+        try {
+            File tempFile = File.createTempFile("minio", "temp", FileUtils.getFile(tempFilePath));
+            file.transferTo(tempFile);
+            return tempFile;
+        } catch (Exception e) {
+            throw new RuntimeException("图片上传失败");
+        }
     }
 }
