@@ -59,7 +59,8 @@ public class UserImgUploadCmdExe extends ImageStrategy {
 
         File tempFile = FileUtils.transferFile(img, tempFilePath);
         Image image = DomainFactory.initImage(bucketName, img.getOriginalFilename(), img.getSize(), tempFile.getAbsolutePath());
-        image.setUserId(useId);
+        image.setUserId(useId)
+                .setObjectName(image.initObjectName(userInfo.getUserName()));
 
         return uploadImage(image, tempFile);
     }

@@ -137,8 +137,12 @@ public class Image {
         return sdf.format(new Date()).replace("-", "/") + "/";
     }
 
-    public String initObjectName(String nickName) {
-        return nickName + "/" + getDefaultFolderPath() + md5Key + getExtension();
+    public String initObjectName(String userName) {
+        return userName + "/" + getDefaultFolderPath() + md5Key + getExtension();
+    }
+
+    public String intiAvatarObjectName(Long userId, String nickName){
+        return userId + "/" + nickName + "/" + (userId ^ Constants.AVATAR_RULE) + getExtension();
     }
 
     public String initAccessImgurl(String bucketName) {

@@ -44,7 +44,7 @@ public class TouristImgUploadCmdExe extends ImageStrategy {
 
         File tempFile = FileUtils.transferFile(img, tempFilePath);
         Image image = DomainFactory.initImage(bucketName ,img.getOriginalFilename(), img.getSize(), tempFile.getAbsolutePath());
-
+        image.setObjectName(image.initObjectName(Constants.TOURIST_OBJECT_NAME));
         return uploadImage(image, tempFile);
     }
 

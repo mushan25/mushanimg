@@ -20,7 +20,6 @@ public class DomainFactory {
                 .build();
         return image.setImgType(image.initImgType())
                 .setMimeType(image.initMimeType())
-                .setMd5Key(image.initMd5Key())
-                .setObjectName(image.initObjectName(Constants.TOURIST_OBJECT_NAME));
+                .setMd5Key(image.initMd5Key());
     }
 }

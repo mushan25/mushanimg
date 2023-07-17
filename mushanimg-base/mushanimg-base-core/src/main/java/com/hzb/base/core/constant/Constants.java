@@ -25,7 +25,8 @@ public class Constants {
     public static final String MINIO_URL = "http://119.3.171.130:9000/";
 
     public static final int TOURIST_UPLOAD_SIZE = 1024 * 1024 * 5;
-
+    public static final int AVATAR_SIZE = 1024 * 1024 *5;
+    public static final long AVATAR_RULE = 123456789;
     public static final int USER_UPLOAD_SIZE = 1024 * 1024 * 10;
 
     public static final String TOURIST_OBJECT_NAME = "tourist";

@@ -55,4 +55,11 @@ public interface ImageService {
      * @return 移动结果
      */
     AjaxResult moveImage2OtherClass(ImgMoveClassCmd imgMoveClassCmd);
+
+    /**
+     * 上传头像
+     * @param avatar 头像
+     * @return 结果
+     */
+    AjaxResult uploadAvatar(MultipartFile avatar);
 }
