@@ -29,6 +29,11 @@ public class SecurityUtils {
         return loginUser.getUserId();
     }
 
+    public static LoginUser getUser()
+    {
+        return (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     /**
      * 根据request获取请求token
      */

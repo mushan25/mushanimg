@@ -71,4 +71,12 @@ public class ImageController {
         imgMoveClassCmd.setUserId(SecurityUtils.getUserId());
         return imageService.moveImage2OtherClass(imgMoveClassCmd);
     }
+
+
+    @RequestMapping(value = "/edit/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAnyAuthority('sys:dashboard:list')")
+    @Log("头像上传")
+    public AjaxResult uploadAvatar(@RequestPart("avatar") MultipartFile avatar){
+        return imageService.uploadAvatar(avatar);
+    }
 }

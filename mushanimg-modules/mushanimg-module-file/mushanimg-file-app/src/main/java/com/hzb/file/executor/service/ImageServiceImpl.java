@@ -8,6 +8,7 @@ import com.hzb.file.api.ImageService;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import com.hzb.file.executor.command.AvatarUploadCmdExe;
 import com.hzb.file.executor.command.ImgInfoEditCmdExe;
 import com.hzb.file.executor.command.ImgMoveClassCmdExe;
 import com.hzb.file.executor.command.query.ImgInfoQryExe;
@@ -28,6 +29,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImgInfoQryExe imgInfoQryExe;
     private final ImgInfoEditCmdExe imgInfoEditCmdExe;
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
+    private final AvatarUploadCmdExe avatarUploadCmdExe;
 
     @Override
     public AjaxResult uploadImg(MultipartFile img) {
@@ -59,5 +61,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public AjaxResult moveImage2OtherClass(ImgMoveClassCmd imgMoveClassCmd) {
         return imgMoveClassCmdExe.execute(imgMoveClassCmd);
+    }
+
+    @Override
+    public AjaxResult uploadAvatar(MultipartFile avatar) {
+        return avatarUploadCmdExe.execute(avatar);
     }
 }
