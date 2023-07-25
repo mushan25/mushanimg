@@ -27,7 +27,7 @@ public class ImageclassController {
     @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("添加图片分类")
     public AjaxResult addImageclass(@RequestBody @Validated ImageclassAddCmd imageclassAddCmd){
-        imageclassAddCmd.getImageclassCO().setUserId(SecurityUtils.getUserId());
+        imageclassAddCmd.setUserId(SecurityUtils.getUserId());
         return imageclassService.addImageclss(imageclassAddCmd);
     }
 
@@ -35,7 +35,7 @@ public class ImageclassController {
     @PreAuthorize("hasAnyAuthority('sys:gallery:list')")
     @Log("修改图片分类")
     public AjaxResult editImageclass(@RequestBody @Validated ImageclassEditCmd imageclassEditCmd){
-        imageclassEditCmd.getImageclassCO().setUserId(SecurityUtils.getUserId());
+        imageclassEditCmd.setUserId(SecurityUtils.getUserId());
         return imageclassService.editImageclss(imageclassEditCmd);
     }
 

@@ -10,6 +10,7 @@ import com.hzb.file.api.ImageService;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import com.hzb.file.dto.clientobject.SpaceUseCO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -78,5 +79,13 @@ public class ImageController {
     @Log("头像上传")
     public AjaxResult uploadAvatar(@RequestPart("avatar") MultipartFile avatar){
         return imageService.uploadAvatar(avatar);
+    }
+
+    @GetMapping("/space")
+    @PreAuthorize("hasAnyAuthority('sys:dashboard:list')")
+    @Log("获取空间使用情况")
+    public SingleResponse<SpaceUseCO> getSpaceUse(){
+        Long userId = SecurityUtils.getUserId();
+        return imageService.getSpaceUseInfo(userId);
     }
 }

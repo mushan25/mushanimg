@@ -10,9 +10,12 @@ import com.hzb.base.core.utils.ServletUtils;
 import com.hzb.base.redis.service.RedisService;
 import com.hzb.gateway.config.properties.IgnoreWhiteProperties;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -38,17 +41,14 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2023/4/12
  */
 @Component
+@RefreshScope
+@RequiredArgsConstructor
 public class AuthFilter implements GlobalFilter, Ordered {
     private static final Logger log = LoggerFactory.getLogger(AuthFilter.class);
-
     private final IgnoreWhiteProperties ignoreWhite;
-
     private final RedisService redisService;
-
-    public AuthFilter(IgnoreWhiteProperties ignoreWhite, RedisService redisService) {
-        this.ignoreWhite = ignoreWhite;
-        this.redisService = redisService;
-    }
+    @Value("${security.request.count}")
+    private Integer maxRequestCount;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -64,7 +64,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         if (null == requestCount){
             requestCount = 0;
         }
-        if ( requestCount > CacheConstants.MAX_REQUEST_COUNT){
+        if ( requestCount > maxRequestCount){
             redisService.setCacheObject(CacheConstants.BLACK_IP_KEY + ipAddr, ipAddr, 1L, TimeUnit.DAYS);
             log.info("========= IP:{}已被加入黑名单 =========", ipAddr);
             return unauthorizedResponse(exchange, "请求过于频繁");

@@ -1,6 +1,8 @@
 package com.hzb.file.convertor;
 
 import com.hzb.file.domain.imageclass.model.entities.Imageclass;
+import com.hzb.file.dto.ImageclassAddCmd;
+import com.hzb.file.dto.ImageclassEditCmd;
 import com.hzb.file.dto.ImageclassInfoQry;
 import com.hzb.file.dto.ImgMoveClassCmd;
 import com.hzb.file.dto.clientobject.ImageclassCO;
@@ -59,4 +61,17 @@ public interface AppImageclassConvertor {
     @Mapping(target = "id", source = "imageclassId")
     Imageclass qry2Imageclass(ImageclassInfoQry imageclassInfoQry);
 
+    /**
+     * cmd2Imageclass
+     * @param imageclassAddCmd ImageclassAddCmd
+     * @return Imageclass
+     */
+    Imageclass cmd2Imageclass(ImageclassAddCmd imageclassAddCmd);
+
+    /**
+     * cmd2Imageclass
+     * @param imageclassEditCmd ImageclassEditCmd
+     * @return Imageclass
+     */
+    Imageclass cmd2Imageclass(ImageclassEditCmd imageclassEditCmd);
 }

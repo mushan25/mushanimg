@@ -47,8 +47,6 @@ public interface AppImageConvertor {
      * @param image Image
      * @return ImageListCO
      */
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "imgurl", source = "imgurl")
     ImageListCO image2ImageListCO(Image image);
 
     /**
@@ -85,12 +83,4 @@ public interface AppImageConvertor {
      * @return Image
      */
     Image cmd2Image(ImgInfoEditCmd imgInfoEditCmd);
-
-    /**
-     * cmd2Image
-     * @param imgMoveClassCmd ImgMoveClassCmd
-     * @return Image
-     */
-    @Mapping(target = "id", source = "imgId")
-    Image cmd2Image(ImgMoveClassCmd imgMoveClassCmd);
 }

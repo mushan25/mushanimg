@@ -79,10 +79,10 @@ public interface ImageGateway {
     /**
      * 移动图片到其他分类
      * @param imageclassId imageclassId
-     * @param imgDataId imgdataId
+     * @param imgIds imgIds
      * @return move result
      */
-    boolean moveImg2OtherClass(Long imgDataId, Long imageclassId);
+    boolean moveImg2OtherClass(List<Long> imgIds, Long imageclassId);
 
     /**
      * 根据图片id列表删除图片
@@ -104,4 +104,6 @@ public interface ImageGateway {
      * @return image list
      */
     void restoreImageByVersionId(List<Image> versionIds);
+
+
 }

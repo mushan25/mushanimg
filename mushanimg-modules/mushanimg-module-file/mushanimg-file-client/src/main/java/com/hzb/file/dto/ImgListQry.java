@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
-
 /**
  * @author: hzb
  * @Date: 2023/5/8
@@ -33,5 +31,5 @@ public class ImgListQry extends Command {
     /**
      * 图片分类id
      */
-    private List<Long> imgclassIds;
+    private Long imgclassId;
 }

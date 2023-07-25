@@ -69,13 +69,11 @@ public class ImageDO implements Serializable {
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     @Serial

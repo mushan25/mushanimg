@@ -15,10 +15,10 @@ public interface ImageclassMapper extends BaseMapper<ImageclassDO> {
 
     /**
      * 根据图片分类id获取图片id
-     * @param imageclassIds 图片分类id列表
+     * @param imageclassId 图片分类id列表
      * @return 图片id列表
      */
-    List<Long> selectImgIdsByImageclassId(List<Long> imageclassIds);
+    List<Long> selectImgIdsByImageclassId(Long imageclassId);
 
     /**
      * 根据图片id删除图片分类
@@ -35,11 +35,11 @@ public interface ImageclassMapper extends BaseMapper<ImageclassDO> {
     int deleteImgByImageclassId(List<Long> imageclassIds);
     /**
      * 根据图片分类id查询图片分类是否存在
-     * @param imageclassIds 图片分类id列表
+     * @param imageclassId 图片分类id列表
      * @return 查询结果
      */
 
-    int checkImageExist(List<Long> imageclassIds);
+    int checkImageExist(Long imageclassId);
 }
 
 

@@ -8,11 +8,13 @@ import com.hzb.file.api.ImageService;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import com.hzb.file.dto.clientobject.SpaceUseCO;
 import com.hzb.file.executor.command.AvatarUploadCmdExe;
 import com.hzb.file.executor.command.ImgInfoEditCmdExe;
 import com.hzb.file.executor.command.ImgMoveClassCmdExe;
 import com.hzb.file.executor.command.query.ImgInfoQryExe;
 import com.hzb.file.executor.command.query.ImgListQryExe;
+import com.hzb.file.executor.command.query.SpaceUseQryExe;
 import com.hzb.file.factory.AnnotationAccessStrategyFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class ImageServiceImpl implements ImageService {
     private final ImgInfoEditCmdExe imgInfoEditCmdExe;
     private final ImgMoveClassCmdExe imgMoveClassCmdExe;
     private final AvatarUploadCmdExe avatarUploadCmdExe;
+    private final SpaceUseQryExe spaceUseQryExe;
 
     @Override
     public AjaxResult uploadImg(MultipartFile img) {
@@ -66,5 +69,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public AjaxResult uploadAvatar(MultipartFile avatar) {
         return avatarUploadCmdExe.execute(avatar);
+    }
+
+    @Override
+    public SingleResponse<SpaceUseCO> getSpaceUseInfo(Long userId) {
+        return spaceUseQryExe.execute(userId);
     }
 }

@@ -40,11 +40,11 @@ public interface ImageclassGateway {
 
     /**
      * 删除图片分类
-     * @param imageclassIds 图片分类id列表
+     * @param imageclassId 图片分类id列表
      * @param userId 用户id
      * @return 删除结果
      */
-    boolean deleteImageclass(List<Long> imageclassIds, Long userId);
+    boolean deleteImageclass(Long imageclassId, Long userId);
 
     /**
      * 检查图片分类是否存在
@@ -55,10 +55,10 @@ public interface ImageclassGateway {
 
     /**
      * 获取图片分类下的图片id列表
-     * @param imageclassIds 图片分类id列表
+     * @param imageclassId 图片分类id列表
      * @return 图片id列表
      */
-    List<Long> getImgIdsByImageclassId(List<Long> imageclassIds);
+    List<Long> getImgIdsByImageclassId(Long imageclassId);
 
      /**
      * 删除图片分类下的图片
@@ -76,8 +76,22 @@ public interface ImageclassGateway {
 
     /**
      * 检查图片分类下是否有图片
-     * @param imageclassIds 图片分类id列表
+     * @param imageclassId 图片分类id列表
      * @return 检查结果
      */
-    boolean checkImageExist(List<Long> imageclassIds);
+    boolean checkImageExist(Long imageclassId);
+
+    /**
+     * 获取用户的图片分类数量
+     * @param userId 用户id
+     * @return 图片分类数量
+     */
+    Long countImageclass(Long userId);
+
+    /**
+     * 检查图片分类名称是否存在
+     * @param imageclass 图片分类名称
+     * @return 检查结果
+     */
+    boolean checkImageclassExistByName(Imageclass imageclass);
 }

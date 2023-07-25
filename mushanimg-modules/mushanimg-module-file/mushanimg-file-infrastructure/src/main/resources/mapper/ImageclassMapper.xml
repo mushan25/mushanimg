@@ -20,10 +20,7 @@
     <select id="selectImgIdsByImageclassId" resultType="java.lang.Long">
         select imgdata_id as imgdataId
         from ms_imgclass_imgdata
-        where imgclass_id in
-        <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
-            #{imageclassId}
-        </foreach>
+        where imgclass_id = #{imageclassId}
     </select>
     <delete id="deleteImageclassByImgIds">
         delete from ms_imgclass_imgdata
@@ -43,9 +40,6 @@
     <select id="checkImageExist" resultType="java.lang.Integer">
         select count(1)
         from ms_imgclass_imgdata
-        where imgclass_id in
-        <foreach collection="list" item="imageclassId" open="(" separator="," close=")">
-            #{imageclassId}
-        </foreach>
+        where imgclass_id = #{imageclassId}
     </select>
 </mapper>
