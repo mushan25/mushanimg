@@ -1,5 +1,6 @@
 package com.hzb.file.domain.ability;
 
+import com.alibaba.cola.exception.BizException;
 import com.alibaba.cola.exception.SysException;
 import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.file.domain.image.gateway.ImageGateway;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author: hzb
@@ -56,22 +58,22 @@ public class DomainService {
         }
     }
 
-    public List<Image> getImgList(Image image, List<Long> imageclassIds) {
-        if(null == imageclassIds || imageclassIds.size() == 0){
+    public List<Image> getImgList(Image image, Long imageclassId) {
+        if(Objects.isNull(imageclassId)) {
             return imageGateway.getImgList(image, null);
         }
 
-        List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassIds);
+        List<Long> imgIds = imageclassGateway.getImgIdsByImageclassId(imageclassId);
         if (null != imgIds && imgIds.size() > 0) {
             return imageGateway.getImgList(image, imgIds);
         }
         return null;
     }
 
-    public boolean moveImageclass(Image image, Imageclass imageclass) {
-        if(imageclassGateway.checkImageclassExist(imageclass)){
-            return imageGateway.moveImg2OtherClass(image.getId(), imageclass.getId());
+    public boolean moveImageclass(List<Long> imgIds, Imageclass imageclass) {
+        if (Objects.nonNull(imageclass.getId()) && !imageclassGateway.checkImageclassExist(imageclass)) {
+            throw new BizException("图片分类不存在");
         }
-        return false;
+        return imageGateway.moveImg2OtherClass(imgIds, imageclass.getId());
     }
 }

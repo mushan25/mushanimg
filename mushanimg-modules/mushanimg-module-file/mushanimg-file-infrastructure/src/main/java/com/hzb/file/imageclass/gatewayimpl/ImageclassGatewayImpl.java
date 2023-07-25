@@ -3,10 +3,10 @@ package com.hzb.file.imageclass.gatewayimpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hzb.file.convertor.ImageclassConvertor;
-import com.hzb.file.domain.imageclass.model.entities.Imageclass;
-import com.hzb.file.imageclass.gatewayimpl.database.dataobject.ImageclassDO;
 import com.hzb.file.domain.imageclass.gateway.ImageclassGateway;
+import com.hzb.file.domain.imageclass.model.entities.Imageclass;
 import com.hzb.file.imageclass.gatewayimpl.database.ImageclassMapper;
+import com.hzb.file.imageclass.gatewayimpl.database.dataobject.ImageclassDO;
 import lombok.AllArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -54,10 +54,10 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
     }
 
     @Override
-    public boolean deleteImageclass(List<Long> imageclassIds, Long userId) {
+    public boolean deleteImageclass(Long imageclassId, Long userId) {
         LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(ImageclassDO::getUserId, userId)
-                .in(ImageclassDO::getId, imageclassIds);
+                .eq(ImageclassDO::getId, imageclassId);
         return imageclassMapper.delete(wrapper) > 0;
     }
 
@@ -70,8 +70,8 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
     }
 
     @Override
-    public List<Long> getImgIdsByImageclassId(List<Long> imageclassIds) {
-        return imageclassMapper.selectImgIdsByImageclassId(imageclassIds);
+    public List<Long> getImgIdsByImageclassId(Long imageclassId) {
+        return imageclassMapper.selectImgIdsByImageclassId(imageclassId);
     }
 
     @Override
@@ -85,8 +85,23 @@ public class ImageclassGatewayImpl extends ServiceImpl<ImageclassMapper, Imagecl
     }
 
     @Override
-    public boolean checkImageExist(List<Long> imageclassIds) {
-        return imageclassMapper.checkImageExist(imageclassIds) > 0;
+    public boolean checkImageExist(Long imageclassId) {
+        return imageclassMapper.checkImageExist(imageclassId) > 0;
+    }
+
+    @Override
+    public Long countImageclass(Long userId) {
+        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ImageclassDO::getUserId, userId);
+        return imageclassMapper.selectCount(wrapper);
+    }
+
+    @Override
+    public boolean checkImageclassExistByName(Imageclass imageclass) {
+        LambdaQueryWrapper<ImageclassDO> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ImageclassDO::getUserId, imageclass.getUserId())
+                .eq(ImageclassDO::getImgclassName, imageclass.getImgclassName());
+        return imageclassMapper.exists(wrapper);
     }
 }
 

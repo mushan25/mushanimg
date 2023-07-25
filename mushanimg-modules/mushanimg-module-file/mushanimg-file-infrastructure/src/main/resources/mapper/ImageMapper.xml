@@ -25,11 +25,20 @@
         md5_key,object_name,remark,create_time,
         update_time
     </sql>
-    <insert id="updateImgClass">
-        insert into ms_imgclass_imgdata (imgdata_id,imgclass_id) values(#{imgDataId},#{imageclassId})
-        on duplicate key
-        update imgclass_id = #{imageclassId}
+    <insert id="insertImgClass">
+        insert into ms_imgclass_imgdata (imgdata_id,imgclass_id) values
+        <foreach collection="imgDataIds" item="imgId" separator="," >
+            (#{imgId},#{imageclassId})
+        </foreach>
     </insert>
+    <update id="updateImgClass">
+        update ms_imgclass_imgdata
+        set imgclass_id = #{imageclassId}
+        where imgdata_id in
+        <foreach collection="existImgIds" item="imgId" open="(" separator="," close=")">
+            #{imgId}
+        </foreach>
+    </update>
     <delete id="deleteImgByimgIds">
         delete from ms_imgclass_imgdata
         where imgdata_id in
@@ -37,4 +46,12 @@
             #{imgId}
         </foreach>
     </delete>
+    <select id="checkImageHasClass" resultType="java.lang.Long">
+        select imgdata_id
+        from ms_imgclass_imgdata
+        where imgdata_id in
+        <foreach collection="list" item="imgId" open="(" separator="," close=")">
+            #{imgId}
+        </foreach>
+    </select>
 </mapper>

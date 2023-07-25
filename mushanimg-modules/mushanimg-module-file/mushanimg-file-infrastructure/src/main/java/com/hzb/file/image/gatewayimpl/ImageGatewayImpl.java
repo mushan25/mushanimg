@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hzb.base.core.utils.CheckUtils;
 import com.hzb.file.convertor.ImageConvertor;
 import com.hzb.file.domain.image.gateway.ImageGateway;
 import com.hzb.file.domain.image.model.entities.Image;
@@ -18,8 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
 * @author Administrator
@@ -70,6 +73,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
         ImageDO imageDO = ImageConvertor.INSTANCT.image2DO(image);
         if(imageMapper.insert(imageDO) > 0){
             return ImageConvertor.INSTANCT.DO2Image(imageDO)
+                    .setImgName(image.getImgName())
                     .setBucketName(image.getBucketName())
                     .setMimeType(image.getMimeType());
         }
@@ -79,7 +83,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public Image selectImgByMd5(Image image) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(ImageDO::getId, ImageDO::getImgurl)
+        wrapper.select(ImageDO::getId, ImageDO::getImgName, ImageDO::getImgurl)
                 .eq(ImageDO::getMd5Key, image.getMd5Key())
                 .eq(null != image.getUserId(), ImageDO::getUserId, image.getUserId())
                 .isNull(null == image.getUserId(), ImageDO::getUserId);
@@ -89,7 +93,7 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     @Override
     public List<Image> getImgList(Image image, List<Long> imgIds) {
         LambdaQueryWrapper<ImageDO> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(ImageDO::getId, ImageDO::getImgurl)
+        wrapper.select(ImageDO::getId, ImageDO::getImgName, ImageDO::getImgurl)
                 .in(null != imgIds && imgIds.size() > 0, ImageDO::getId, imgIds)
                 .eq(ImageDO::getUserId, image.getUserId())
                 .eq(StringUtils.isNotEmpty(image.getImgType()), ImageDO::getImgType, image.getImgType())
@@ -159,8 +163,23 @@ public class ImageGatewayImpl extends ServiceImpl<ImageMapper, ImageDO>
     }
 
     @Override
-    public boolean moveImg2OtherClass(Long imgDataId, Long imageclassId) {
-        return imageMapper.updateImgClass(imgDataId, imageclassId) > 0;
+    @Transactional(rollbackFor = RuntimeException.class)
+    public boolean moveImg2OtherClass(List<Long> imgIds, Long imageclassId) {
+        // 1、判断图片是否有分类
+        List<Long> existImgIds = imageMapper.checkImageHasClass(imgIds);
+        // 2、存在图片有分类且ImageClassid为null,则移除图片
+        if (existImgIds.size() > 0 && Objects.isNull(imageclassId)) {
+            deleteImgByImgIds(existImgIds);
+        }
+        // 2.1、如果图片都没有分类且imageclassId为null,则不做处理
+        if (Objects.isNull(imageclassId)){
+            return true;
+        }
+        // 3、获取不存在分类的图片id
+        List<Long> notExistImgIds = imgIds.stream().filter(imgId -> !existImgIds.contains(imgId)).toList();
+
+        return ((existImgIds.size() > 0 ? imageMapper.updateImgClass(existImgIds, imageclassId) : 0) |
+                (notExistImgIds.size() > 0 ? imageMapper.insertImgClass(notExistImgIds, imageclassId) : 0)) > 0;
     }
 
     @Override

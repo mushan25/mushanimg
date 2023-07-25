@@ -25,7 +25,7 @@ public class ImgListQryExe {
 
     public PageResponse<ImageListCO> execute(ImgListQry imgListQry){
         Image image = AppImageConvertor.INSTANCT.qry2Image(imgListQry);
-        List<Image> imgList = domainService.getImgList(image, imgListQry.getImgclassIds());
+        List<Image> imgList = domainService.getImgList(image, imgListQry.getImgclassId());
         List<ImageListCO> imageListCOS = AppImageConvertor.INSTANCT.imageList2ImageListCOList(imgList);
         return PageUtils.getPageResponse(imageListCOS);
     }

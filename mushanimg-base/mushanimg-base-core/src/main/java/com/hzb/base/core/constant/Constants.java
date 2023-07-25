@@ -38,4 +38,5 @@ public class Constants {
     public static final String NOT_COMPLIANCE = "不合规";
     public static final long REDISSON_LOCK_LEASE_TIME = 20;
     public static final long REDISSON_LOCK_WAIT_TIME = 10;
+    public static final long IMAGE_CLASS_MAX_COUNT = 10;
 }

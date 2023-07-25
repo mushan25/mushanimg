@@ -16,11 +16,11 @@ public interface ImageMapper extends BaseMapper<ImageDO> {
 
     /**
      * 更新图片分类
-     * @param imgDataId 图片id
+     * @param imgDataIds 图片ids
      * @param imageclassId 图片分类id
      * @return update result
      */
-    int updateImgClass(@Param("imgDataId") Long imgDataId, @Param("imageclassId") Long imageclassId);
+    int insertImgClass(@Param("imgDataIds") List<Long> imgDataIds, @Param("imageclassId") Long imageclassId);
 
     /**
      * 根据图片id获取图片分类id
@@ -28,6 +28,21 @@ public interface ImageMapper extends BaseMapper<ImageDO> {
      * @return 图片分类id列表
      */
     int deleteImgByimgIds(List<Long> imgIds);
+
+    /**
+     * 判断图片是否已经分类
+     * @param imgIds 图片id列表
+     * @return 图片id列表
+     */
+    List<Long> checkImageHasClass(List<Long> imgIds);
+
+    /**
+     * 更新图片分类
+     * @param existImgIds 图片ids
+     * @param imageclassId 图片分类id
+     * @return update result
+     */
+    int updateImgClass(@Param("existImgIds") List<Long> existImgIds,@Param("imageclassId") Long imageclassId);
 }
 
 

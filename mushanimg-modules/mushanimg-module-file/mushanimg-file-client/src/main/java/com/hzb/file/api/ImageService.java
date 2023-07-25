@@ -6,6 +6,7 @@ import com.hzb.base.core.web.domain.AjaxResult;
 import com.hzb.file.dto.*;
 import com.hzb.file.dto.clientobject.ImageCO;
 import com.hzb.file.dto.clientobject.ImageListCO;
+import com.hzb.file.dto.clientobject.SpaceUseCO;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -62,4 +63,11 @@ public interface ImageService {
      * @return 结果
      */
     AjaxResult uploadAvatar(MultipartFile avatar);
+
+    /**
+     * 获取空间使用情况
+     * @param userId 用户id
+     * @return 空间使用情况
+     */
+    SingleResponse<SpaceUseCO> getSpaceUseInfo(Long userId);
 }
