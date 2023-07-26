@@ -15,4 +15,5 @@ import lombok.EqualsAndHashCode;
 public class SpaceUseCO extends ClientObject {
     private String totalSize;
     private String usedSize;
+    private Double usedPercent;
 }
