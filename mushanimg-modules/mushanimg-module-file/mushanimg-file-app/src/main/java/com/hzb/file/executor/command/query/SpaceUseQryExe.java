@@ -43,6 +43,7 @@ public class SpaceUseQryExe {
         SpaceUseCO spaceUseCO = SpaceUseCO.builder()
                 .totalSize(totalSize)
                 .usedSize(usedSize)
+                .usedPercent(userUsedSize.divide(uploadSize.multiply(MB), 4, RoundingMode.HALF_UP).doubleValue())
                 .build();
 
         return SingleResponse.of(spaceUseCO);

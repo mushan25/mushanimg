@@ -10,7 +10,7 @@ public class CacheConstants {
     /**
      * 缓存有效期，默认720（分钟）
      */
-    public final static long EXPIRATION = 720;
+    public final static long EXPIRATION = 15;
 
     /**
      * 密码最大错误次数
