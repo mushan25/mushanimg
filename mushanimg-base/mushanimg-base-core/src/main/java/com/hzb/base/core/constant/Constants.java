@@ -22,7 +22,7 @@ public class Constants {
 
     public static final long USER_ROLE_ID = 2;
 
-    public static final String MINIO_URL = "http://119.3.171.130:9000/";
+    public static final String MINIO_URL = "http://localhost:9000/";
 
     public static final int TOURIST_UPLOAD_SIZE = 1024 * 1024 * 5;
     public static final int AVATAR_SIZE = 1024 * 1024 *5;

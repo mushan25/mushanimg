@@ -5,7 +5,7 @@ spring:
     active: dev
   cloud:
     nacos:
-      server-addr: 119.3.171.130:8848
+      server-addr: localhost:8848
       discovery:
         group: mushanimg-project
         namespace: ${spring.profiles.active}
